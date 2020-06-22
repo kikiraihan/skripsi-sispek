@@ -1,0 +1,204 @@
+:root{
+    /*font-size: 14px;*/
+    /*font-family: 'Open Sans';*/
+    --bg-primary:#EFF1F5;
+    --icon-color:#000000;
+    --icon-size:1.8rem;
+    --height-navbar:3.5rem;
+    --color-navbar:#000000;
+    --bg-color-nav-logo:#FFFFFF;
+    --bg-color-item-hover:#C4C4C4;
+}
+
+/**{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}*/
+
+body::-webkit-scrollbar{
+    width: .5rem;
+}
+
+body::-webkit-scrollbar-track{
+    background-color: #f0f0f0;
+}
+
+body::-webkit-scrollbar-thumb{
+    background-color: #3d3d3d;
+}
+
+
+
+
+
+
+
+.quick-navbar{
+    /*kiki tambah*/
+    /*border-top: 1px solid rgba(0, 0, 0, 0.05);*/
+    box-shadow:rgba(0, 0, 0, 0.15) 0px 0px 0px 1px;
+    overflow-y: hidden;
+
+    position: fixed;
+    background-color: var(--bg-primary);
+    transition: width 100ms ease;
+    z-index : 1;
+}
+
+.quick-navbar-nav{
+    list-style: none;
+    padding: 0;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.quick-navbar .quick-nav-item {
+    width: 100%;
+    padding: 0 calc((5rem - var(--icon-size)) / 2);
+    transition: background-color 300ms ease;
+}
+
+.quick-navbar .quick-nav-item:hover{
+    background-color: var(--bg-color-item-hover);
+}
+
+.quick-navbar .quick-nav-item:hover .quick-nav-link,
+.quick-navbar:hover .quick-nav-logo .quick-nav-link{
+    filter: grayscale(0) opacity(1);
+}
+
+.quick-navbar .quick-nav-link{
+    display: flex;
+    align-items: center;
+    height: var(--height-navbar);
+    text-decoration: none;
+    text-align: center;
+    color: var(--color-navbar);
+    filter: grayscale(100%) opacity(.5);
+    transition: 600ms;
+}
+
+.nav-icon,.nav-text{
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none;
+}
+
+.quick-navbar .quick-link-icon{
+    color: var(--icon-color);
+}
+
+.quick-navbar .quick-link-text{
+    display: none;
+    margin-left: 2rem;
+    white-space: nowrap;
+}
+
+
+
+
+
+
+@media only screen and (min-width:768px){
+    /*main{
+        margin-left: 5rem;
+        padding: 1rem 4rem;
+    }*/
+
+    .quick-navbar{
+        display:none;
+        /*width: 5rem;
+        height: 100vh;*/
+    }
+
+    /*.quick-navbar .quick-nav-item.nav-bottom {
+        margin-top: auto;
+    }
+
+    .quick-navbar .quick-link-icon{
+        max-width: var(--icon-size);
+        font-size: var(--icon-size);
+        transition: font-size 300ms ease, max-width 300ms ease, transform 600ms ease;
+    }
+
+    .quick-navbar:hover{
+        width: 16rem;
+        box-shadow: 0px 0 50px rgba(0,0,0,.8);
+    }
+
+    .quick-nav-item:hover .quick-link-icon{
+        max-width: calc(var(--icon-size)/1.2);
+        transform: rotate(360deg);
+    }
+
+    .quick-navbar:hover .quick-link-text{
+        display: block;
+    }
+
+    .quick-navbar .quick-nav-logo{
+        width: 100%;
+        padding: 0 calc((5rem - var(--icon-size)) / 2);
+        margin-bottom: 1rem;
+        background-color: var(--bg-color-nav-logo);
+    }
+
+    .quick-navbar .quick-nav-logo .quick-link-text{
+        text-transform: uppercase;
+        font-weight: 800;
+        margin-left: 0;
+        font-size: 2rem;
+        letter-spacing: .1rem;
+    }
+
+    .quick-navbar .quick-nav-logo .quick-link-icon{
+        transition: transform 600ms ease;
+        color: var(--icon-color);
+    }
+
+    .quick-navbar:hover .quick-nav-logo .quick-link-icon{
+        transform: rotate(-540deg);
+    }*/
+}
+
+@media only screen and (max-width:768px){
+    /*main{
+        margin:0;
+        padding: .5rem 1rem 5rem 1rem;
+    }*/
+
+    .quick-navbar{
+
+        bottom: 0;
+        width: 100vw;/* 100% untuk view portnya */
+        height: var(--height-navbar);
+        transition: unset;
+        overflow-x: hidden;/* klo mo tambah border atur dulu ini */
+    }
+
+    .quick-navbar .quick-link-icon{
+        max-width: calc(var(--icon-size)/1.3);
+        font-size: calc(var(--icon-size)/1.3);
+    }
+
+    .quick-nav-logo{
+        display: none;
+    }
+
+    .quick-navbar-nav{
+        flex-direction: row;
+    }
+
+    .quick-nav-link{
+        justify-content: center;
+    }
+}
