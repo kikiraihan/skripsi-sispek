@@ -25,6 +25,7 @@ class KikiSeeder extends Seeder
         $mahasiswa->nim                 ="531416066";
         $mahasiswa->angkatan            ="2016";
         $mahasiswa->prodi               ='S1 - Sistem Informasi';
+        $mahasiswa->tempat_lahir           ='Gorontalo';
         $mahasiswa->tgl_lahir           ='1997-02-20 00:00:51';
         $mahasiswa->jenis_kelamin       ='Laki-Laki';
         $mahasiswa->golongan_darah      ='O';

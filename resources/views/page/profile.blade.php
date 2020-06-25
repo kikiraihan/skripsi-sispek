@@ -11,7 +11,7 @@
         <div class="row">
 
 
-            <div class="col-lg-4">
+            <div class="col-lg-4 order-1">
 
                 <div class="row no-gutters my-3 align-items-center justify-content-center">
                     <div class="col-5 col-md-7 px-1 ">
@@ -22,10 +22,10 @@
                     <div class="col-7 col-md-12 px-1 mt-md-3">
                         <div class="card border-light shadow-sm">
                             <ul class="list-group list-group-flush small ">
-                                <li class="list-group-item text-right align-items-center small"><span class="float-left">Nama : </span>{{$user->mahasiswa->nama}}</li>
-                                <li class="list-group-item text-right align-items-center small"><span class="float-left">NIM : </span> {{$user->mahasiswa->nim}}</li>
-                                <li class="list-group-item text-right align-items-center small"><span class="float-left">Prodi : </span> {{$user->mahasiswa->prodi}}/{{$user->mahasiswa->angkatan}}</li>
-                                <li class="list-group-item text-right align-items-center small"><span class="float-left">Usia : </span> {{ $user->mahasiswa->usia }} Tahun</li>
+                                <li class="list-group-item text-right align-items-center "><span class="float-left small">Nama : </span>{{$user->mahasiswa->nama}}</li>
+                                <li class="list-group-item text-right align-items-center "><span class="float-left small">NIM : </span> {{$user->mahasiswa->nim}}</li>
+                                <li class="list-group-item text-right align-items-center "><span class="float-left small">Prodi : </span> {{$user->mahasiswa->prodi}}/{{$user->mahasiswa->angkatan}}</li>
+                                <li class="list-group-item text-right align-items-center "><span class="float-left small">Usia : </span> {{ $user->mahasiswa->usia }} Tahun</li>
                             </ul>
 
                         </div>
@@ -35,7 +35,7 @@
             </div>
 
 
-            <div class="col-lg-8">
+            <div class="col-lg-8 order-md-2 order-4">
                 <div class="card shadow mb-4 overflow-auto" style="max-height: 27em">
                     {{--  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                       <h6 class="m-0 font-weight-bold text-primary">Ekstrakulikuler</h6>
@@ -56,8 +56,13 @@
                     @if ($user->mahasiswa->organisasi->isEmpty())
                         <div class="text-center  mt-5 ">
                             <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/startup_.svg')}}" alt="logout">
+                            <h5>Organisasi</h5>
                             <span class="text-secondary">belum ada data ormawa yang di ikuti</span>
                             <br><br>
+
+                            <li class="list-group-item text-right align-items-center bg-info ">
+                                <a href="#" class="btn btn-block btn-info text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                            </li>
                         </div>
                     @else
                     <!-- Card Body -->
@@ -95,17 +100,25 @@
                             </li>
                             @endforeach
 
+                            <li class="list-group-item text-right align-items-center bg-info pb-0">
+                                <a href="#" class="btn btn-block btn-info text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                            </li>
+
 
                         </ul>
                     </div>
                     @endif
 
                     @if ($user->mahasiswa->prestasi->isEmpty())
-                    <hr>
                         <div class="text-center  mt-5">
                             <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/achievement_.svg')}}" alt="logout">
+                            <h5>Prestasi</h5>
                             <span class="text-secondary">belum ada data prestasi</span>
                             <br><br>
+
+                            <li class="list-group-item text-right align-items-center bg-success">
+                                <a href="#" class="btn btn-block btn-success btn-success text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                            </li>
                         </div>
                     @else
 
@@ -139,6 +152,9 @@
                                 </div>
                             </li>
                             @endforeach
+                            <li class="list-group-item text-right align-items-center bg-success">
+                                <a href="#" class="btn btn-block btn-success text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                            </li>
 
 
 
@@ -154,7 +170,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-4 order-2 order-md-3">
                 <div class="card shadow mb-4">
                     <div class="card-header py-3">
                       <h6 class="m-0 font-weight-bold text-primary">Akademik</h6>
@@ -210,7 +226,7 @@
                         <div class="progress-bar bg-success" role="progressbar" style="width: {{ round(($user->mahasiswa->skslulus/144)*100,2) }}%" aria-valuenow="{{ round(($user->mahasiswa->skslulus/144)*100,2) }}" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
 
-                      <a href="#" class="btn btn-primary  btn-block"> <span class="small">Selengkapnya <i class="fas fa-arrow-right "></i> </span></a>
+                      <a href="#" class="btn btn-primary btn-lg btn-block"> <span class="small">Selengkapnya <i class="fas fa-arrow-right "></i> </span></a>
 
                     </div>
                   </div>
@@ -218,8 +234,8 @@
 
 
 
-            <div class="col-lg-8">
-                <div class="card shadow mb-4">
+            <div class="col-lg-8 order-3 order-md-4">
+                <div class="card shadow mb-4 overflow-hidden">
                     <div class="card-header border-bottom-0 font-weight-bold text-primary ">Non Akademik</div>
 
                     <div class="card-body px-0 py-0">
@@ -250,16 +266,21 @@
                                         <td>{{ $keg->lokasi }}</td>
                                         <td>{{ $keg->penyelenggara }}</td>
                                         <td>{{ $keg->sertifikat }}</td>
-                                        <td><a href="#"><i class="icon-plus text-muted"></i>add</a></td>
+                                        <td><a href="#"><i class="fas fa-plus "></i>add</a></td>
                                     </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
+
                             </div>
                         @endif
 
 
                     </div>
+
+
+                    <a href="#" class="btn btn-block btn-light rounded-0">Kegiatan baru <i class="fas fa-plus "></i></a>
+
                 </div>
             </div>
 
@@ -274,9 +295,8 @@
 
 
 
-            <div class="col-12">
-                <div class="card shadow mb-4">
-
+            <div class="col-lg-4  order-5">
+                <div class="card shadow mb-2 overflow-hidden">
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Biodata</h6>
@@ -286,14 +306,13 @@
                           </a>
                           <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Opsi :</div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-edit text-primary"></i> Edit</a>
+                            <a class="dropdown-item" href="#"><i class="fas fa-edit text-primary"></i> Edit Bio</a>
                             {{--  <div class="dropdown-divider"></div>  --}}
                           </div>
                         </div>
                       </div>
 
-                    <div class="row no-gutters overflow-auto" style="max-height:33.5em">
-                        <div class="col-lg-4 border-left-primary">
+                        <div class=" overflow-auto">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-right align-items-center"><span class="float-left small">Nama : </span> {{ $user->mahasiswa->nama }}</li>
                                 <li class="list-group-item text-right align-items-center"><span class="float-left small">NIM : </span> {{ $user->mahasiswa->nim }}</li>
@@ -336,57 +355,105 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="col-lg-4 border-left-primary">
-                            @if ($user->mahasiswa->orangtua->isEmpty() )
-                            <div class="text-center  mt-5">
-                                <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/family_.svg')}}" alt="logout">
-                                <span class="text-secondary">data orangtua belum di isi</span>
-                            </div>
-                            @else
-                            <ul class="list-group list-group-flush">
-                                @foreach ($user->mahasiswa->orangtua as $ortu)
-                                    <div class="d-block p-3 text-center text-primary small">{{ $ortu->hubungan }} </div>
-                                    <li class="list-group-item text-right align-items-center"><span class="float-left small">Nama : </span> {{ $ortu->nama }}</li>
-                                    <li class="list-group-item text-right align-items-center"><span class="float-left small">No HP : </span> {{ $ortu->no_hp }}</li>
-                                    <li class="list-group-item text-right align-items-center"><span class="float-left small">Pendidikan terakhir : </span> {{ $ortu->pendidikan_terakhir }}</li>
-                                    <li class="list-group-item text-right align-items-center"><span class="float-left small">Pekerjaan/kategori : </span> {{ $ortu->pekerjaan }} / {{ $ortu->kategori_pekerjaan }}</li>
-                                    <li class="list-group-item text-right align-items-center">
-                                        <span class="float-left small">Penghasilan : </span> Rp. {{ number_format($ortu->nominal_penghasilan) }}
-                                        {{-- /Kategori{{ $ortu->kategori_penghasilan }} --}}
-                                    </li>
-                                @endforeach
-                                {{--  <div class="dropdown-divider"></div>  --}}
-                            </ul>
-                            @endif
-
-                        </div>
-
-                        <div class="col-lg-4 border-left-primary">
-                            @if ($user->mahasiswa->saudara->isEmpty() )
-                            <div class="text-center  mt-5 mb-sm-5">
-                                <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/gaming_.svg')}}" alt="logout">
-                                <span class="text-secondary">data saudara belum di isi</span>
-                            </div>
-                            @else
-                            <ul class="list-group list-group-flush">
-                                @foreach ($user->mahasiswa->saudara as $saudara)
-                                <div class="d-block p-3 text-center text-primary small">Saudara </div>
-                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Nama : </span> {{ $saudara->nama }}</li>
-                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Pendidikan terakhir : </span> {{ $saudara->pendidikan_terakhir }}</li>
-                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Bekerja/Tidak : </span> {{ $saudara->bekerjakah }}</li>
-                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Hubungan (kakak/adik) : </span> {{ $saudara->hubungan }}</li>
-                                @endforeach
-                                {{--  <div class="dropdown-divider"></div>  --}}
-                            </ul>
-                            @endif
-
-                        </div>
-
-                    </div>
-
 
                 </div>
             </div>
+
+
+
+
+            <div class="col-lg-4  order-6">
+                <div class="card shadow mb-2 overflow-hidden">
+
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Orangtua</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Opsi :</div>
+                            <a class="dropdown-item" href="#"><i class="fas fa-edit text-primary"></i> Edit Orangtua</a>
+                            {{--  <div class="dropdown-divider"></div>  --}}
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class=" overflow-auto" >
+                        @if ($user->mahasiswa->orangtua->isEmpty() )
+                        <div class="text-center  my-5">
+                            <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/family_.svg')}}" alt="logout">
+                            <span class="text-secondary">data orangtua belum di isi</span>
+                        </div>
+                        @else
+                        <ul class="list-group list-group-flush">
+                            @foreach ($user->mahasiswa->orangtua as $ortu)
+                                <div class="d-block p-3 text-center text-primary small text-capitalize font-weight-bold">{{ $ortu->hubungan }} </div>
+                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Nama : </span> {{ $ortu->nama }}</li>
+                                <li class="list-group-item text-right align-items-center"><span class="float-left small">No HP : </span> {{ $ortu->no_hp }}</li>
+                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Pendidikan terakhir : </span> {{ $ortu->pendidikan_terakhir }}</li>
+                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Pekerjaan/kategori : </span> {{ $ortu->pekerjaan }} / {{ $ortu->kategori_pekerjaan }}</li>
+                                <li class="list-group-item text-right align-items-center">
+                                    <span class="float-left small">Penghasilan : </span> Rp. {{ number_format($ortu->nominal_penghasilan) }}
+                                    {{-- /Kategori{{ $ortu->kategori_penghasilan }} --}}
+                                </li>
+                            @endforeach
+                            {{--  <div class="dropdown-divider"></div>  --}}
+                        </ul>
+                        @endif
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4  order-7">
+                <div class="card shadow mb-2 overflow-hidden">
+
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Saudara</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Opsi :</div>
+                            <a class="dropdown-item" href="#"><i class="fas fa-edit text-primary"></i> Edit Saudara</a>
+                            {{--  <div class="dropdown-divider"></div>  --}}
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class=" overflow-auto" >
+                        @if ($user->mahasiswa->saudara->isEmpty() )
+                        <div class="text-center  my-5">
+                            <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/gaming_.svg')}}" alt="logout">
+                            <span class="text-secondary">data saudara belum di isi</span>
+                        </div>
+                        @else
+                        <ul class="list-group list-group-flush">
+                            @foreach ($user->mahasiswa->saudara as $saudara)
+                            <div class="d-block p-3 text-center text-primary small">Saudara </div>
+                            <li class="list-group-item text-right align-items-center"><span class="float-left small">Nama : </span> {{ $saudara->nama }}</li>
+                            <li class="list-group-item text-right align-items-center"><span class="float-left small">Pendidikan terakhir : </span> {{ $saudara->pendidikan_terakhir }}</li>
+                            <li class="list-group-item text-right align-items-center"><span class="float-left small">Bekerja/Tidak : </span> {{ $saudara->bekerjakah }}</li>
+                            <li class="list-group-item text-right align-items-center"><span class="float-left small">Hubungan (kakak/adik) : </span> {{ $saudara->hubungan }}</li>
+                            @endforeach
+                            {{--  <div class="dropdown-divider"></div>  --}}
+                        </ul>
+                        @endif
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -417,6 +484,16 @@
 
 
 @section('script-halaman')
+
+<!-- Page level plugins -->
+<script src="{{asset('assets_template/vendor/chart.js/Chart.min.js')}}"></script>
+
+<!-- Page level custom scripts -->
+<script src="{{asset('assets_template/js/demo/chart-area-demo.js')}}"></script>
+<script src="{{asset('assets_template/js/demo/chart-pie-demo.js')}}"></script>
+
+
+
 <script>
     // Set new default font family and font color to mimic Bootstrap's default styling
     Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';

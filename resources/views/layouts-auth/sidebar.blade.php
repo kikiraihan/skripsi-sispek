@@ -3,12 +3,12 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-          {{-- <i class="fas fa-brain"></i> --}}
+         <div class="sidebar-brand-icon ">
+          {{-- <i class="fas fa-brain rotate-n-15"></i> --}}
+          <i class="fas fa-user-circle"></i>
         </div>
         <div class="sidebar-brand-text mx-3">
-        {{ config('app.name', 'Laravel') }} <sup>dss</sup>
+        {{ config('app.name', 'Laravel') }} <sup>#1</sup>
         </div>
       </a>
 
@@ -19,8 +19,43 @@
       <li class="nav-item active">
         <a class="nav-link" href="{{route('home')}}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Home</span></a>
+          <span>Beranda</span></a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Data</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Activity:</h6>
+            <a class="collapse-item" href="{{route('kegiatan.my')}}">Non Akademik</a>
+            <a class="collapse-item" href="{{route('ormawa.my')}}">Organisasi</a>
+            <a class="collapse-item" href="{{route('prestasi.my')}}">Prestasi</a>
+            <div class="collapse-divider"></div>
+            <h6 class="collapse-header">Tentang saya:</h6>
+            <a class="collapse-item" href="{{route('biodata.my')}}">Biodata</a>
+            <a class="collapse-item" href="{{route('orangtua.my')}}">Orang Tua</a>
+            <a class="collapse-item" href="{{route('saudara.my')}}">Saudara</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item ">
+        <a class="nav-link" href="#">
+          <i class="fas fa-fw fa-tasks"></i>
+          <span>Akademik</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Pimpinan
+      </div>
+
       <li class="nav-item ">
         <a class="nav-link" href="{{url('contoh')}}">
           <i class="fas fa-fw fa-tasks"></i>
@@ -32,14 +67,6 @@
           <i class="fas fa-fw fa-brain"></i>
           <span>Import</span></a>
       </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Interface
-      </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">

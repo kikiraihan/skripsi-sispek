@@ -96,7 +96,7 @@ class ImportController extends Controller
         $pesan=array_merge(
             $this->importmahasiswa($import),
             $this->importmatakuliah($import),
-            $this->importkontrakmk($import),
+            $this->importkontrakmk($import)
         );
 
         return redirect()->back()->with('pesan', $pesan);
@@ -104,7 +104,7 @@ class ImportController extends Controller
 
     }
 
-    public function importmahasiswa($import)
+    private function importmahasiswa($import)
     {
         $counter=0;
 
@@ -169,7 +169,7 @@ class ImportController extends Controller
         return $return;
     }
 
-    public function importmatakuliah($import)
+    private function importmatakuliah($import)
     {
         $counter=0;
         $counterupdate=0;
@@ -231,7 +231,7 @@ class ImportController extends Controller
         return $return;
     }
 
-    public function importkontrakmk($import)
+    private function importkontrakmk($import)
     {
 
         $counter=0;

@@ -29,7 +29,12 @@ class HomeController extends Controller
     public function index()
     {
         // alert()->warning('sukses','berhasil teleh memperloginkannya bela, login!');
-        $user=auth::user();
-        return view('page.profile', compact(['user']));
+
+        if(auth::user()->hasRole('Mahasiswa'))
+        {
+            $user=auth::user();
+            return view('page.profile', compact(['user']));
+        }
+
     }
 }
