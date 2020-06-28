@@ -10,7 +10,9 @@ class PrestasiController extends Controller
 {
     public function my()
     {
-        $user=auth::user();
-        return view('page.Datamahasiswa.myprestasi', compact(['user']));
+        $komponen="myprestasi";
+        return view('page.Datamahasiswa.main', compact(['komponen']));
     }
+
+
 }

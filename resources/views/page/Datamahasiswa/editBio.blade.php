@@ -7,6 +7,7 @@
 <div class="row mb-4">
     <div class="col-md-3 order-md-2 text-right mb-5">
 
+
         <div class="text-center ">
             <img src="{{ $user->gravatar }}" class="shadow-sm rounded-circle">
             <br><br>
@@ -16,47 +17,57 @@
             </a>
         </div>
         <hr>
-        <form action="" >
-            <input type="text" class="form-control mb-2 " placeholder="password baru">
-            <button type="submit" class="btn btn-block btn-lg btn-warning mb-2">Update password</button>
-        </form>
+
+        @include('page.Datamahasiswa.updatePassword')
 
     </div>
 
     <div class="col-md-9 order-md-1">
         <div class="card shadow mb-4 overflow-hidden">
+            <div class="card-header text-left bg-white border-0">
+                <b>Biodata</b>
+                <small class="float-right text-info">*tap untuk mengedit</small>
+            </div>
 
-                <form action="">
+                <form action="{{ route('biodata.my.update') }}" method="POST">
+                    @csrf
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Nama : </span>
-                            <input type="text" placeholder="nama" name="nama" value="{{ $user->mahasiswa->nama }}" class="text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            <input type="text" placeholder="nama" name="nama" value="{{ $user->mahasiswa->nama }}" class="@error('nama') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            @error('nama')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">NIM : </span>
-                            <input type="text" placeholder="nim" name="nim" value="{{ $user->mahasiswa->nim }}" class="text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            <input type="text" placeholder="nim" name="nim" value="{{ $user->mahasiswa->nim }}" class="@error('nim') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            @error('nim')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Tempat Lahir : </span>
-                            <input type="text" placeholder="tempat_lahir" name="tempat_lahir" value="{{ $user->mahasiswa->tempat_lahir }}" class="text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            <input type="text" placeholder="tempat_lahir" name="tempat_lahir" value="{{ $user->mahasiswa->tempat_lahir }}" class="@error('tempat_lahir') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            @error('tempat_lahir')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
-                            <span class="float-left small">Tempat Lahir : </span>
-                            <input type="date" placeholder="tgl_lahir" name="tgl_lahir" value="{{ $user->mahasiswa->tgl_lahir->formatLocalized("%Y-%m-%d") }}" class="text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            <span class="float-left small">Tanggal Lahir : </span>
+                            <input type="date" placeholder="tgl_lahir" name="tgl_lahir" value="{{ $user->mahasiswa->tgl_lahir->formatLocalized("%Y-%m-%d") }}" class="@error('tgl_lahir') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            @error('tgl_lahir')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Jenis Kelamin : </span>
                             <select name="jenis_kelamin" class="
+                            @error('jenis_kelamin') is-invalid @enderror
                             text-right form-control form-control-sm form-control-plaintext d-inline w-50 text-capitalize {{ $errors->has('jenis_kelamin') ? ' is-invalid' : '' }}
                             " >
                                 <option  value="" selected="selected" disabled="disabled" hidden="hidden">-</option>
                                 <option  {{old('jenis_kelamin',$user->mahasiswa->jenis_kelamin )=="Laki-Laki"?"selected":"" }} value="Laki-Laki">Laki-Laki</option>
                                 <option  {{old('jenis_kelamin',$user->mahasiswa->jenis_kelamin )=="Perempuan"?"selected":"" }} value="Perempuan">Perempuan</option>
                             </select>
+                            @error('jenis_kelamin')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Golongan Darah : </span>
                             <select name="golongan_darah" class="
+                            @error('golongan_darah') is-invalid @enderror
                             text-right form-control form-control-sm form-control-plaintext d-inline w-50 text-capitalize {{ $errors->has('golongan_darah') ? ' is-invalid' : '' }}
                             " >
                                 <option  value="" selected="selected" disabled="disabled" hidden="hidden">-</option>
@@ -67,10 +78,12 @@
                                 <option  {{old('golongan_darah',$user->mahasiswa->golongan_darah )=="B+"?"selected":"" }} value="B+">B+</option>
                                 <option  {{old('golongan_darah',$user->mahasiswa->golongan_darah )=="AB"?"selected":"" }} value="AB">AB</option>
                             </select>
+                            @error('golongan_darah')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Agama : </span>
                             <select name="agama" class="
+                            @error('agama') is-invalid @enderror
                             text-right form-control form-control-sm form-control-plaintext d-inline w-50 text-capitalize {{ $errors->has('agama') ? ' is-invalid' : '' }}
                             " >
                                 <option  value="" selected="selected" disabled="disabled" hidden="hidden">-</option>
@@ -82,34 +95,41 @@
                                 <option  {{old('agama',$user->mahasiswa->agama )=="Budha"?"selected":"" }} value="Budha">Budha</option>
                                 <option  {{old('agama',$user->mahasiswa->agama )=="Lainnya"?"selected":"" }} value="Lainnya">Lainnya</option>
                             </select>
+                            @error('agama')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Status Kawin : </span>
                             <select name="status_menikah" class="
+                            @error('status_menikah') is-invalid @enderror
                             text-right form-control form-control-sm form-control-plaintext d-inline w-50 text-capitalize {{ $errors->has('status_menikah') ? ' is-invalid' : '' }}
                             " >
                                 <option  value="" selected="selected" disabled="disabled" hidden="hidden">-</option>
                                 <option  {{old('status_menikah',$user->mahasiswa->status_menikah )=="1"?"selected":"" }} value="1">Sudah Menikah</option>
                                 <option  {{old('status_menikah',$user->mahasiswa->status_menikah )=="0"?"selected":"" }} value="0">Belum Menikah</option>
                             </select>
+                            @error('status_menikah')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
 
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Email : </span>
-                            <input type="email" placeholder="email" name="email" value="{{ $user->email }}" class="text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            <input type="email" placeholder="email" name="email" value="{{ $user->email }}" class="@error('email') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            @error('email')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">No KTP : </span>
-                            <input type="text" placeholder="no_ktp" name="no_ktp" value="{{ $user->mahasiswa->no_ktp }}" class="text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            <input type="text" placeholder="no_ktp" name="no_ktp" value="{{ $user->mahasiswa->no_ktp }}" class="@error('no_ktp') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            @error('no_ktp')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">No HP : </span>
-                            <input type="text" placeholder="no_hp" name="no_hp" value="{{ $user->mahasiswa->no_hp }}" class="text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            <input type="text" placeholder="no_hp" name="no_hp" value="{{ $user->mahasiswa->no_hp }}" class="@error('no_hp') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            @error('no_hp')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
 
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Asuransi : </span>
                             <select name="asuransi" class="
+                            @error('asuransi') is-invalid @enderror
                             text-right form-control form-control-sm form-control-plaintext d-inline w-50 text-capitalize {{ $errors->has('asuransi') ? ' is-invalid' : '' }}
                             " >
                                 <option  {{old('asuransi',$user->mahasiswa->asuransi )=="-"?"selected":"" }} value="-">-</option>
@@ -121,6 +141,7 @@
                                 <option  {{old('asuransi',$user->mahasiswa->asuransi )=="Kelurga Sejahtera (KKS)"?"selected":"" }} value="Kelurga Sejahtera (KKS)">Kelurga Sejahtera (KKS)</option>
                                 <option  {{old('asuransi',$user->mahasiswa->asuransi )=="Program Keluarga Harapan (PKH)"?"selected":"" }} value="Program Keluarga Harapan (PKH)">Program Keluarga Harapan (PKH)</option>
                             </select>
+                            @error('asuransi')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
 
 
@@ -156,7 +177,7 @@
                         </li>
 
                         <li class="list-group-item text-right align-items-center">
-                            <button type="submit" class="btn btn-block btn-success  btn-lg">Simpan perubahan</button>
+                            <button type="submit" class="btn btn-block btn-success btn-lg">Simpan perubahan</button>
                         </li>
 
 

@@ -1,31 +1,37 @@
 <div>
 
+    <div class="modal-header">
+        <h5 class="modal-title" >{{ $formTitle }}</h5>
+    </div>
 
 
-
-    <form wire:submit.prevent="newKegiatan">
+    <form wire:submit.prevent="{{ $metode }}">
 
         <div class="modal-body px-5">
 
 
                 <div class="form-group">
-                <label>Judul</label>
-                <input wire:model.lazy="judul" type="text" class="form-control"  placeholder="judul kegiatan">
+                    <label>Judul</label>
+                    <input wire:model.lazy="judul" type="text" class="form-control @error('judul') is-invalid @enderror"  placeholder="judul kegiatan">
+                    @error('judul')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                 </div>
 
                 <div class="form-group">
                     <label>Tanggal</label>
-                    <input wire:model.lazy="tanggal" type="date" class="form-control"  >
+                    <input wire:model.lazy="tanggal" type="date" class="form-control @error('tanggal') is-invalid @enderror">
+                    @error('tanggal')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                 </div>
 
                 <div class="form-group">
                     <label>Lokasi</label>
-                    <input wire:model.lazy="lokasi" type="text" class="form-control"  placeholder="lokasi kegiatan">
+                    <input wire:model.lazy="lokasi" type="text" class="form-control @error('lokasi') is-invalid @enderror"  placeholder="lokasi kegiatan">
+                    @error('lokasi')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                 </div>
 
                 <div class="form-group">
                     <label>Penyelenggara</label>
-                    <input wire:model.lazy="penyelenggara" type="text" class="form-control"  placeholder="penyelenggara kegiatan">
+                    <input wire:model.lazy="penyelenggara" type="text" class="form-control @error('penyelenggara') is-invalid @enderror"  placeholder="penyelenggara kegiatan">
+                    @error('penyelenggara')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                 </div>
 
                 {{--  <div class="form-group">

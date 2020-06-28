@@ -13,7 +13,6 @@ class KegiatanController extends Controller
     {
         $komponen="mykegiatan";
         return view('page.Datamahasiswa.main', compact(['komponen']));
-
     }
 
 

@@ -10,7 +10,7 @@ class SaudaraController extends Controller
 {
     public function my()
     {
-        $user=auth::user();
-        return view('page.Datamahasiswa.mysaudara', compact(['user']));
+        $komponen="mysaudara";
+        return view('page.Datamahasiswa.main', compact(['komponen']));
     }
 }

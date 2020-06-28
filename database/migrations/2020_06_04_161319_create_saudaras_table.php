@@ -18,7 +18,15 @@ class CreateSaudarasTable extends Migration
             $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
 
             $table->string('nama');
-            $table->string('pendidikan_terakhir');
+            $table->enum('pendidikan_terakhir',[
+                'tidak sekolah',
+                'SD',
+                'SMP',
+                'SMA',
+                'S1',
+                'S2',
+                'S3',
+            ]);
             $table->boolean('bekerja')->nullable()->default(false);
             $table->enum('hubungan',['kakak','adik']);//kakak, adik
 

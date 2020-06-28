@@ -39,7 +39,7 @@ class CreateOrangtuasTable extends Migration
             ]);
             $table->enum('kategori_pekerjaan',
             [
-                'Tidak bekerja',
+                'tidak bekerja',
                 '1',
                 '2',
                 '3',
@@ -53,7 +53,15 @@ class CreateOrangtuasTable extends Migration
             // Kategori 5 : Pejabat Eselon I, Pejabat Tinggi Negara, Perwira Tinggi, Kepala Daerah, Rektor, Guru Besar, Anggota Legislatif, Pengusaha Besar dan Menengah, Direksi
 
             $table->char('no_hp',40);
-            $table->string('pendidikan_terakhir');
+            $table->enum('pendidikan_terakhir',[
+                'tidak sekolah',
+                'SD',
+                'SMP',
+                'SMA',
+                'S1',
+                'S2',
+                'S3',
+            ]);
             $table->enum('kategori_penghasilan',
             [
                 '< Rp. 1 juta',

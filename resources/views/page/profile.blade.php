@@ -36,7 +36,7 @@
 
 
             <div class="col-lg-8 order-md-2 order-4">
-                <div class="card shadow mb-4 overflow-auto" style="max-height: 27em">
+                <div class="card shadow mb-2 overflow-auto" style="max-height: 28em">
                     {{--  <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                       <h6 class="m-0 font-weight-bold text-primary">Ekstrakulikuler</h6>
                       <div class="dropdown no-arrow">
@@ -67,7 +67,7 @@
                     @else
                     <!-- Card Body -->
                     <div class="card-body bg-info text-white px-0">
-                        <h6 class="px-3 text-center"> Ormawa </h6>
+                        <h6 class="px-3 text-center font-weight-bold"> Ormawa </h6>
                         <ul class="list-group list-group-flush ">
 
                             @foreach ($user->mahasiswa->organisasi as $org)
@@ -101,7 +101,7 @@
                             @endforeach
 
                             <li class="list-group-item text-right align-items-center bg-info pb-0">
-                                <a href="#" class="btn btn-block btn-info text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                                <a href="{{ route('ormawa.my') }}" class="btn btn-block btn-info text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
 
 
@@ -123,7 +123,7 @@
                     @else
 
                     <div class="card-body bg-success text-white px-0">
-                        <h6 class="px-3 text-center"> Prestasi </h6>
+                        <h6 class="px-3 text-center font-weight-bold"> Prestasi </h6>
                         <ul class="list-group list-group-flush ">
 
                             {{-- 'id_mahasiswa',
@@ -153,7 +153,7 @@
                             </li>
                             @endforeach
                             <li class="list-group-item text-right align-items-center bg-success">
-                                <a href="#" class="btn btn-block btn-success text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                                <a href="{{ route('prestasi.my') }}" class="btn btn-block btn-success text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
 
 
@@ -171,7 +171,7 @@
             </div>
 
             <div class="col-lg-4 order-2 order-md-3">
-                <div class="card shadow mb-4">
+                <div class="card shadow mb-3">
                     <div class="card-header py-3">
                       <h6 class="m-0 font-weight-bold text-primary">Akademik</h6>
                     </div>
@@ -204,7 +204,7 @@
                                 </div>
                             </div>
                             <div class="col-4 small">
-                                IPK : {{ $user->mahasiswa->ipksekarang }}<br>
+                                <span class="bg-primary text-white rounded py-1 px-2 font-weight-bold">IPK : {{ $user->mahasiswa->ipksekarang }}</span><br>
                                 <br> SKS : <br>
                                 <span class="text-success">{{ $user->mahasiswa->skslulus }}</span> <span class="small">lulus / {{ $user->mahasiswa->sksall }}</span> <br>
 
@@ -226,7 +226,7 @@
                         <div class="progress-bar bg-success" role="progressbar" style="width: {{ round(($user->mahasiswa->skslulus/144)*100,2) }}%" aria-valuenow="{{ round(($user->mahasiswa->skslulus/144)*100,2) }}" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
 
-                      <a href="#" class="btn btn-primary btn-lg btn-block"> <span class="small">Selengkapnya <i class="fas fa-arrow-right "></i> </span></a>
+                      <a href="{{ route('akademik.my') }}" class="btn btn-primary btn-lg btn-block"> <span class="small">Selengkapnya <i class="fas fa-arrow-right "></i> </span></a>
 
                     </div>
                   </div>
@@ -236,7 +236,20 @@
 
             <div class="col-lg-8 order-3 order-md-4">
                 <div class="card shadow mb-4 overflow-hidden">
-                    <div class="card-header border-bottom-0 font-weight-bold text-primary ">Non Akademik</div>
+
+                    <div class="card-header border-bottom-0 py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h6 class="m-0 font-weight-bold text-primary">Non Akademik</h6>
+                        <div class="dropdown no-arrow">
+                          <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                            <div class="dropdown-header">Opsi :</div>
+                            <a class="dropdown-item" href="{{ route('kegiatan.my') }}"><i class="fas fa-edit text-primary"></i> Edit Kegiatan</a>
+                            {{--  <div class="dropdown-divider"></div>  --}}
+                          </div>
+                        </div>
+                    </div>
 
                     <div class="card-body px-0 py-0">
                         @if ($user->mahasiswa->kegiatan->isEmpty())
@@ -253,9 +266,9 @@
                                         <th>Judul</th>
                                         <th>Tanggal</th>
                                         <th>Lokasi</th>
-                                        <th>Penyelenggara</th>
-                                        <th>Sertifikat</th>
-                                        <th>Aksi</th>
+                                        <th class="d-none d-md-table-cell">Penyelenggara</th>
+                                        <th class="d-none d-md-table-cell">Sertifikat</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -264,9 +277,9 @@
                                         <td>{{ $keg->judul }}</td>
                                         <td>{{ $keg->tanggal->formatLocalized("%d %B %Y") }}</td>
                                         <td>{{ $keg->lokasi }}</td>
-                                        <td>{{ $keg->penyelenggara }}</td>
-                                        <td>{{ $keg->sertifikat }}</td>
-                                        <td><a href="#"><i class="fas fa-plus "></i>add</a></td>
+                                        <td class="d-none d-md-table-cell">{{ $keg->penyelenggara }}</td>
+                                        <td class="d-none d-md-table-cell">{{ $keg->sertifikat }}</td>
+
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -279,7 +292,7 @@
                     </div>
 
 
-                    <a href="#" class="btn btn-block btn-light rounded-0">Kegiatan baru <i class="fas fa-plus "></i></a>
+                    {{-- <a href="#" class="btn btn-block btn-light rounded-0">Kegiatan baru <i class="fas fa-plus "></i></a> --}}
 
                 </div>
             </div>
@@ -306,7 +319,7 @@
                           </a>
                           <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Opsi :</div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-edit text-primary"></i> Edit Bio</a>
+                            <a class="dropdown-item" href="{{ route('biodata.my') }}"><i class="fas fa-edit text-primary"></i> Edit Bio</a>
                             {{--  <div class="dropdown-divider"></div>  --}}
                           </div>
                         </div>
@@ -373,7 +386,7 @@
                           </a>
                           <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Opsi :</div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-edit text-primary"></i> Edit Orangtua</a>
+                            <a class="dropdown-item" href="{{ route('orangtua.my') }}"><i class="fas fa-edit text-primary"></i> Edit Orangtua</a>
                             {{--  <div class="dropdown-divider"></div>  --}}
                           </div>
                         </div>
@@ -417,7 +430,7 @@
                           </a>
                           <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Opsi :</div>
-                            <a class="dropdown-item" href="#"><i class="fas fa-edit text-primary"></i> Edit Saudara</a>
+                            <a class="dropdown-item" href="{{ route('saudara.my') }}"><i class="fas fa-edit text-primary"></i> Edit Saudara</a>
                             {{--  <div class="dropdown-divider"></div>  --}}
                           </div>
                         </div>
@@ -432,11 +445,11 @@
                         @else
                         <ul class="list-group list-group-flush">
                             @foreach ($user->mahasiswa->saudara as $saudara)
-                            <div class="d-block p-3 text-center text-primary small">Saudara </div>
+                            <div class="d-block p-3 text-center text-primary small font-weight-bold text-capitalize">{{ $saudara->hubungan }} </div>
                             <li class="list-group-item text-right align-items-center"><span class="float-left small">Nama : </span> {{ $saudara->nama }}</li>
                             <li class="list-group-item text-right align-items-center"><span class="float-left small">Pendidikan terakhir : </span> {{ $saudara->pendidikan_terakhir }}</li>
                             <li class="list-group-item text-right align-items-center"><span class="float-left small">Bekerja/Tidak : </span> {{ $saudara->bekerjakah }}</li>
-                            <li class="list-group-item text-right align-items-center"><span class="float-left small">Hubungan (kakak/adik) : </span> {{ $saudara->hubungan }}</li>
+                            {{--  <li class="list-group-item text-right align-items-center"><span class="float-left small">Hubungan (kakak/adik) : </span> {{ $saudara->hubungan }}</li>  --}}
                             @endforeach
                             {{--  <div class="dropdown-divider"></div>  --}}
                         </ul>

@@ -10,7 +10,7 @@ class OrangtuaController extends Controller
 {
     public function my()
     {
-        $user=auth::user();
-        return view('page.Datamahasiswa.myorangtua', compact(['user']));
+        $komponen="myorangtua";
+        return view('page.Datamahasiswa.main', compact(['komponen']));
     }
 }

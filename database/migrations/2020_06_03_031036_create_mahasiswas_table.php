@@ -23,10 +23,19 @@ class CreateMahasiswasTable extends Migration
             $table->string('angkatan',15);
             $table->enum('prodi',['S1 - Sistem Informasi','S1 - Pendidikan Teknologi Informasi']);//kembangkan jadi table baru
             $table->timestamp('tgl_lahir')->nullable();
-            $table->string('tempat_lahir',35)->nullable();
+            $table->string('tempat_lahir',55)->nullable();
             $table->enum('jenis_kelamin',['Laki-Laki','Perempuan'])->nullable();
-            $table->string('golongan_darah',4)->nullable();
-            $table->enum('agama',['Islam','Kristen','Katolik','Konghuchu','Hindu','Budha','Lainnya'])->nullable();
+            $table->enum('golongan_darah',[
+                "O",
+                "A",
+                "A+",
+                "B",
+                "B+",
+                "AB",
+            ])->nullable();
+            $table->enum('agama',[
+                'Islam','Kristen','Katolik','Konghuchu','Hindu','Budha','Lainnya'
+                ])->nullable();
             $table->boolean('status_menikah')->nullable()->default(false);
             $table->enum('asuransi',
             [
@@ -41,7 +50,8 @@ class CreateMahasiswasTable extends Migration
             ])->nullable()->default('-');
             $table->char('no_ktp',40)->nullable()->unique();
             $table->char('no_hp',40)->nullable()->unique();
-            $table->double('ipk_sebelumnya', 3, 2)->nullable()->default(0.00);
+
+            //tabel ipksebelumnya
 
 
 

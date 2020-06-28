@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use App\Models\Ormawa;
+use App\Models\Ipksebelumnya;
 use Illuminate\Support\Str;
 
 class KikiSeeder extends Seeder
@@ -34,7 +35,7 @@ class KikiSeeder extends Seeder
         $mahasiswa->asuransi            ='BPJS';
         $mahasiswa->no_ktp              ='73256173561731';
         $mahasiswa->no_hp               ='082291501085';
-        $mahasiswa->ipk_sebelumnya      = 3.60;
+
         $user->save();
         $user->mahasiswa()->save($mahasiswa);
 
@@ -43,6 +44,10 @@ class KikiSeeder extends Seeder
 
 
         $this->command->info('Berhasil Menambahkan Mahasiswa Kiki');
+
+        $ipk_sebelumnya = new Ipksebelumnya;
+        $ipk_sebelumnya->ipk            = 3.60;
+        $user->mahasiswa->ipksebelumnya()->save($ipk_sebelumnya);
 
 
 

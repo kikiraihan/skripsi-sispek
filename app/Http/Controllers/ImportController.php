@@ -10,10 +10,13 @@ use Carbon\Carbon;
 use App\Models\Mahasiswa;
 use App\Models\User;
 use App\Models\Matakuliah;
+use App\Models\Ipksebelumnya;
 
 class ImportController extends Controller
 {
     // use HtmlDomParser;
+
+    private $mahasiswaUpdateIpk=[];
 
     //byk transkrip
     public function index()
@@ -96,12 +99,53 @@ class ImportController extends Controller
         $pesan=array_merge(
             $this->importmahasiswa($import),
             $this->importmatakuliah($import),
-            $this->importkontrakmk($import)
+            $this->importkontrakmk($import),
+            $this->updateIpkSebelumnyaMahasiswa()
         );
+
 
         return redirect()->back()->with('pesan', $pesan);
         // return view('page.importtranskrip',compact(['pesan']));
 
+    }
+
+    public function updateIpkSebelumnyaMahasiswa()
+    {
+        $counter=0;
+
+        //update ipk mahasiswa
+        foreach($this->mahasiswaUpdateIpk as $toUpdateId)
+        {
+            $toUpdateId;
+            $mUpdate=Mahasiswa::find($toUpdateId);
+
+
+            //cek last ipk kosong?   simpan ipk: kebawah
+            if(!$mUpdate->IpkSebelumnyaLastRow)
+            {
+                $ipkseb = new Ipksebelumnya;
+                $ipkseb->ipk          = $mUpdate->ipksekarang;
+                $ipkseb->id_mahasiswa = $mUpdate->id;
+                $ipkseb->save();
+                $counter++;
+            }
+
+            // ipk_sekarang tdk sama dgn ipk_senelumnya last? simpan ipk: lewati
+            elseif($mUpdate->IpkSebelumnyaLastRow->ipk != $mUpdate->IpkSekarang)
+            {
+                $ipkseb = new Ipksebelumnya;
+                $ipkseb->ipk          = $mUpdate->ipksekarang;
+                $ipkseb->id_mahasiswa = $mUpdate->id;
+                $ipkseb->save();
+                $counter++;
+            }
+
+
+        };
+
+        $return=[];
+        if($counter!=0) $return[]=$counter." perubahan ipk mahasiswa ditambahkan";
+        return $return;
     }
 
     private function importmahasiswa($import)
@@ -260,40 +304,60 @@ class ImportController extends Controller
                         'nilai_mutu' => $nilai,
                         'semester' => $semester,
                     ]);
+
+                    //mahasiswa yg mengalami update ipk
+                    if(array_search($mahasiswa->id, $this->mahasiswaUpdateIpk)===FALSE)//cek jika belum ada
+                        $this->mahasiswaUpdateIpk[]=$mahasiswa->id;
+
                     $counter++;
                 }
                 else
                 {
 
-                    //cek angka_mutu dan nilai_mutu apa berubah?
-                    if($bobot != $matakuliahnya->first()->pivot->angka_mutu)
+                    //cek angka_mutu dan nilai_mutu dan semester apa berubah?
+                    $bobotBerubahkah=($bobot != $matakuliahnya->first()->pivot->angka_mutu);
+                    $nilaiBerubahkah=($nilai != $matakuliahnya->first()->pivot->nilai_mutu);
+                    $semesterBerubahkah=($semester != $matakuliahnya->first()->pivot->semester);
+
+                    if($bobotBerubahkah OR $nilaiBerubahkah OR $semesterBerubahkah)
                     {
-                        $matakuliahnya->updateExistingPivot($matakuliah->id,
-                        [
-                            'angka_mutu' => $bobot,
-                        ]);
+                        //ada perubahan
+
+                        if($bobotBerubahkah)
+                        {
+                            $matakuliahnya->updateExistingPivot($matakuliah->id,
+                            [
+                                'angka_mutu' => $bobot,
+                            ]);
+
+
+                        }
+                        elseif($nilaiBerubahkah)
+                        {
+                            $matakuliahnya->updateExistingPivot($matakuliah->id,
+                            [
+                                'nilai_mutu' => $nilai,
+                            ]);
+
+
+                        }
+                        elseif($semesterBerubahkah)
+                        {
+                            $matakuliahnya->updateExistingPivot($matakuliah->id,
+                            [
+                                'semester' => $semester,
+                            ]);
+
+                        }
+
+                        //mahasiswa yg mengalami update ipk
+                        if(array_search($mahasiswa->id, $this->mahasiswaUpdateIpk)===FALSE)//cek jika belum ada
+                        $this->mahasiswaUpdateIpk[]=$mahasiswa->id;
 
                         $counterupdate++;
 
                     }
-                    elseif($nilai != $matakuliahnya->first()->pivot->nilai_mutu)
-                    {
-                        $matakuliahnya->updateExistingPivot($matakuliah->id,
-                        [
-                            'nilai_mutu' => $nilai,
-                        ]);
 
-                        $counterupdate++;
-                    }
-                    elseif($semester != $matakuliahnya->first()->pivot->semester)
-                    {
-                        $matakuliahnya->updateExistingPivot($matakuliah->id,
-                        [
-                            'semester' => $semester,
-                        ]);
-
-                        $counterupdate++;
-                    }
 
                 }
 

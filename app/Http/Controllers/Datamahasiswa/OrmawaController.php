@@ -10,7 +10,7 @@ class OrmawaController extends Controller
 {
     public function my()
     {
-        $user=auth::user();
-        return view('page.Datamahasiswa.myormawa', compact(['user']));
+        $komponen="myormawa";
+        return view('page.Datamahasiswa.main', compact(['komponen']));
     }
 }

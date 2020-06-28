@@ -22,7 +22,6 @@ class Mahasiswa extends Model
         'asuransi',
         'no_ktp',
         'no_hp',
-        'ipk_sebelumnya',
     ];
 
     //cara ambil tanggal bahasa indonesia
@@ -144,6 +143,11 @@ class Mahasiswa extends Model
         // return $bobot;
     }
 
+    public function getIpkSebelumnyaLastRowAttribute($value)
+    {
+        return $this->ipksebelumnya->last();
+    }
+
 
 
 
@@ -208,6 +212,12 @@ class Mahasiswa extends Model
     public function matakuliah()
     {
         return $this->belongsToMany('App\Models\Matakuliah', 'kontrak_matakuliah', 'id_mahasiswa', 'id_matakuliah')->withPivot('angka_mutu','nilai_mutu','semester');
+    }
+
+
+    public function ipksebelumnya()
+    {
+        return $this->hasMany('App\Models\Ipksebelumnya', 'id_mahasiswa');
     }
 
 

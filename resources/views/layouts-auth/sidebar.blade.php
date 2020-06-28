@@ -43,7 +43,7 @@
       </li>
 
       <li class="nav-item ">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{ route('akademik.my') }}">
           <i class="fas fa-fw fa-tasks"></i>
           <span>Akademik</span></a>
       </li>
