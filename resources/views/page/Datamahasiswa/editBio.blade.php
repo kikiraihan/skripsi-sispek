@@ -39,7 +39,7 @@
                         </li>
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">NIM : </span>
-                            <input type="text" placeholder="nim" name="nim" value="{{ $user->mahasiswa->nim }}" class="@error('nim') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
+                            <input disabled type="text" placeholder="nim" name="nim" value="{{ $user->mahasiswa->nim }}" class="@error('nim') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >
                             @error('nim')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                         </li>
                         <li class="list-group-item text-right align-items-center">

@@ -125,9 +125,9 @@
 
 
         <div class="card border shadow-sm m-3">
-            <h5 class="text-primary font-weight-bold p-3">Mata Kuliah</h5>
+            {{-- <h5 class="text-primary font-weight-bold p-3">Mata Kuliah</h5> --}}
 
-            <div class="table-responsive">
+            <div class="table-responsive ">
                 <table class="table table-striped mb-0">
                     <thead class="text-capitalize">
                     <tr class="text-center">
@@ -146,11 +146,13 @@
                     @foreach ($mahasiswa->matakuliah->sortBy('pivot.semester') as $mk)
                     @if ($sebelumnya!=$mk->pivot->semester)
                     <tr class="bg-gray-200">
+                        <td></td>
                         <td class="font-weight-bold">Semester {{ $mk->pivot->semester }}</td>
                         <td></td><td></td>
-                        <td></td>
-                        <td></td><td></td>
-                        <td></td><td></td>
+                        <td class="d-none d-md-table-cell"></td>
+                        <td class="d-none d-md-table-cell"></td>
+                        <td class="d-none d-md-table-cell"></td>
+                        <td class="d-none d-md-table-cell"></td>
                     </tr>
                     @endif
 

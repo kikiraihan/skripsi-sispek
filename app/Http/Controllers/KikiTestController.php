@@ -10,19 +10,393 @@ use GuzzleHttp\Client as GuzzleClient;
 
 use Illuminate\Support\Facades\Http;
 use App\Traits\Phpsimple\HtmlDomParser;
+use App\Traits\StringParser;
 use Hash;
 
 use App\Models\Mahasiswa;
+use App\Models\Masterkriteria;
 use App\Models\User;
 use App\Models\Matakuliah;
+use auth;
 
 class KikiTestController extends Controller
 {
+    use StringParser;
 
     public function index()
     {
 
+
+        // $fullstring = "orderBy";
+        // $parsed = $this->ambil_nama_fungsi($fullstring);
+
+        // dd($this->cek_apakah_fungsi($parsed));
+
+        // echo $parsed; // (result = dog)
+        echo "<br>suatu percobaan yang mantap <br>";
+
+
+        $master=Masterkriteria::find(1);//1 nilai algoritma, //2 kategori penkerjaan.
+
+        "->orangtua()->orderBy('nominal_penghasilan','asc')->first()->kategori_penghasilan";
+
+        // "orangtua02" => null
+        // "orderBy032" => array:2 [▼
+        //     0 => "nominal_penghasilan"
+        //     1 => "asc"
+        // ]
+        // "first02" => null
+        // "kategori_penghasilan01" => null
+
+        $pathString=$master->pathtorenderstring;
+
+
+
+        $path=explode('->',$pathString);
+
+        foreach($path as $key=>$p)
+        {
+            if($p!="")
+            {
+                $nama=$this->ambil_nama_fungsi($p);
+                $param=$this->ambil_parameter($p);
+
+                if($this->cek_apakah_fungsi($nama)!==false)
+                {
+                    //fungsi
+
+                    //jlh parameter
+                    $counted=count($param);
+
+                    $nama=str_replace('()','',$nama);
+
+                    //penentuan kode
+                    if($param[0]!='')
+                    {
+                        $nama=$nama."03".$counted;
+                        $return[$nama]=$param;
+                    }
+                    else
+                    {
+                        $nama=$nama."02";
+                        $return[$nama]=null;
+                    }
+
+                }
+                else
+                {
+                    //bukan fungsi
+                    $return[$nama.'01']=null;
+                }
+
+            }
+        }
+
+        dd([$return,$master->pathtorenderarray]);
+
+
+
+
+
+
+
     }
+
+    public function index2()
+    {
+        $mahasiswa=auth::user()->mahasiswa;
+
+        $ini=$mahasiswa   ->orangtua() ->orderBy('nominal_penghasilan','asc')    ->first()      ->kategori_penghasilan;
+
+        $pathTo=[
+            "orangtua02"=>null,
+
+            "orderBy032"=>[
+                "column"=>"nominal_penghasilan",
+                "arah"=>"asc",
+            ],
+
+            "first03"=>null,
+            "kategori_penghasilan01"=>null,
+        ];
+
+
+
+
+        //konversi bentuk- cuma test
+        // $i=0;
+        // foreach($pathTo as $key=>$value)
+        // {
+        //     list($path[$i]['title'],$path[$i]['kode']) = explode("0", $key);
+
+        //     if($value!=null) {
+        //         $a=0;
+        //         foreach ($value as $kolom=>$nilai)
+        //         {
+        //             $path[$i]['kondisi']['kolom'][$a]=$kolom;
+        //             $path[$i]['kondisi']['nilai'][$a]=$nilai;
+        //             $a++;
+        //         }
+        //     }
+        //     else $path[$i]['kondisi']=$value;
+        //     $i++;
+        // }
+        // $pathTo=$path;
+
+
+
+
+
+        $pathTo=json_encode($pathTo);
+
+
+        $jenis_kriteria='non angka';
+        $rasio=[
+            '< Rp. 1 juta'=>1,
+            'Rp. 1 juta - 3 juta'=>2,
+            'Rp. 3 juta - 5 juta'=>3,
+            'Rp. 5 juta - 10 juta'=>4,
+            '> Rp. 10 juta'=>5,
+        ];
+
+
+        $model=$mahasiswa;
+
+
+        //##tahap penelusuran path  : FUNGSI (MODEL, pathTo)
+        $next = $model;
+
+        // pathTo dari db
+        $pathTo=json_decode($pathTo);
+        //solusi stdCLass dari json adalah, setiap ada array asosiatif pemanggilan mengunakan objek
+
+
+        foreach($pathTo as $path=>$isi)
+        {
+
+            $jenis=explode("0",$path)[1];
+            $pth=explode("0",$path)[0];
+
+
+            if($jenis==1)
+            {
+                //kolom/tabel
+                $next=$next->$pth;
+
+            }
+            elseif($jenis==2)
+            {
+                // kolom with kondisi, kolom tpi fungsi (matakuliah())
+                $next=$next->$pth();
+            }
+            elseif($jenis==3)
+            {
+                $next=$next->$pth();
+                // fungsi 0 parameter (get(),first(),count())
+            }
+            elseif($jenis==31)
+            {
+                // fungsi 1 parameter
+                if($pth=="sum")
+                    $next=$next->$pth($isi->column);
+                                // sum(column)
+            }
+            elseif($jenis==32)
+            {
+                // fungsi 2 parameter
+                if($pth=="where")
+                    $next=$next->$pth($isi->column,$isi->value);// where(column,value),
+                elseif($pth=="orderBy")
+                    $next=$next->$pth($isi->column,$isi->arah);// orderBy('column', 'arah')
+
+                //elseif("wherein") dst...
+                // else dd('notfound'); //tdk masalah ba notfound.. kan cuma ba query bukan b simpan
+            }
+            elseif($jenis==33)
+            {
+                // fungsi 3 parameter
+                if($pth=="where")
+                    $next=$next->$pth($isi->column,$isi->operator,$isi->value);//( where(kolom,==,value),  )
+
+                //elseif("wherein") dst...
+                // else dd('notfound');
+            }
+            elseif($jenis==4)
+            {
+                // path04 ----> pivot
+                $next=$next->$pth;
+            }
+
+        }
+
+        if($jenis_kriteria=='non angka'){
+            $next=$rasio[$next];
+        }
+
+        dd($next);
+    }
+
+
+
+
+
+    public function checkpoint_masterkriteria_tidakperpath()
+    {
+
+
+
+        $mahasiswa=auth::user()->mahasiswa;
+
+
+        //contoh untuk data begini
+        //nilai matakuliah algoritma (kode 531410513) mahasiswa dijadikan dikriteria
+
+        $mahasiswa   ->matakuliah()->where('kodemk',531410513)->first()          ->pivot       ->angka_mutu;
+        //model      //path 1      :[kondisi,kolom,nilai]   :tutupkondisi       //path 2       //path 3
+
+        // model itu tabel noh..
+        // path itu bisa kolom, bisa tabel relasi, bisa fungsi (sum(), count(), dll)
+
+        //DI MASTER
+        $pathTo=[
+            //path
+            "matakuliah"=>[
+                [
+                    //kondisi
+                    "kondisi"=>"where",
+                    "kolom"=>"kodemk",//#1 kondisi hanya bleh menggunakan kolom unik seperti id,
+                    "value"=>531410513
+                ],
+                [
+                    "kondisi"=>"where",
+                    "kolom"=>"nama",//#1 kondisi hanya bleh menggunakan kolom unik seperti id,
+                    "value"=>"ALGORITMA DAN STRUKTUR DATA 1"
+                ],
+            ],
+            "pivot"=>null,
+            "angka_mutu"=>null
+        ];
+
+        $pathTo=json_encode($pathTo);
+
+        //simpan database
+
+
+
+
+
+        // EMBEDDED SKRIP
+
+        //##tahap pengambilan data  : FUNGSI ($modelDariDb, $id_mahasiswa)
+        // cara instansiasi model dari db
+        $modelDariDb="App\Models\Mahasiswa";
+        $ini= $modelDariDb::find(1);
+
+        // return $model
+
+
+
+        $model=$mahasiswa;
+
+
+
+
+        //##tahap penelusuran path  : FUNGSI (MODEL, pathTo)
+        $next = $model;
+
+        // pathTo dari db
+        $pathTo=json_decode($pathTo);
+        //solusi stdCLass dari json adalah,
+        //setiap ada array asosiatif pemanggilan mengunakan objek
+        // dd($pathTo);
+
+        foreach($pathTo as $path=>$isi)
+        {
+
+            //kalau pake kondisi $value isinya array
+
+            // kalau tidak pake kondisi $value isinya null
+
+
+
+
+            if($isi!=null)
+            {
+                // $value=[0,1,2,]
+                // 0[kondisi]
+                // 0[kolom]
+                // 0[value]
+
+                $next = $next
+                ->$path();
+
+                //kondisi
+                foreach($isi as $pecah)
+                {
+                    $kondisi=$pecah->kondisi;
+                    $kolom=$pecah->kolom;
+                    $value=$pecah->value;
+                    $next=$next->$kondisi($kolom,$value);
+                }
+
+                $next=$next->first();
+                /*
+                #2 setiap ada kondisi harus diakhiri first, karena baca #1.
+                kalau banyak where beda lagi skrip..
+                yaitu perulangkan dlu kumpulan_kondisi[]
+                baru terakhir dpe first()
+                */
+
+            }
+            else // $isi==null
+            {
+                $next=$next->$path;
+            }
+
+        }
+
+        dd($next);
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

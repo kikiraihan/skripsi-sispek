@@ -45,9 +45,14 @@ class KikiSeeder extends Seeder
 
         $this->command->info('Berhasil Menambahkan Mahasiswa Kiki');
 
-        $ipk_sebelumnya = new Ipksebelumnya;
-        $ipk_sebelumnya->ipk            = 3.60;
-        $user->mahasiswa->ipksebelumnya()->save($ipk_sebelumnya);
+
+        foreach(['3.29','3.48','3.56','3.59','3.49','3.53'] as $ip)
+        {
+            $ipk_sebelumnya = new Ipksebelumnya;
+            $ipk_sebelumnya->ipk            = $ip;
+            $user->mahasiswa->ipksebelumnya()->save($ipk_sebelumnya);
+        }
+
 
 
 

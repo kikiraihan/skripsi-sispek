@@ -5,10 +5,16 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use auth;
 use App\Models\Kegiatan;
+use Livewire\WithPagination;
 
 class Mykegiatan extends Component
 {
-    public $kegiatan;
+
+
+    use WithPagination;
+
+
+    // public $kegiatan;
 
     protected $listeners=[
         'kegiatanDitambahkan'=>'efekDitambahkan',
@@ -17,21 +23,23 @@ class Mykegiatan extends Component
 
     public function mount()
     {
-        $this->kegiatan=auth::user()->mahasiswa->kegiatan;
+        // $this->kegiatan=;
     }
 
     public function render()
     {
-        return view('livewire.mykegiatan');
+        return view('livewire.mykegiatan',[
+            'kegiatan' => auth::user()->mahasiswa->kegiatan()->paginate(10),
+        ]);
     }
 
 
     //LISTENERS
     public function efekDitambahkan($newKegiatan)
     {
-        // $this->mount();
-        $newKegiatan=Kegiatan::find($newKegiatan['id']);
-        $this->kegiatan->push($newKegiatan);
+        $this->mount();
+        // $newKegiatan=Kegiatan::find($newKegiatan['id']);
+        // $this->kegiatan->push($newKegiatan);
 
     }
 

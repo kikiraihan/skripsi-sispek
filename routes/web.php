@@ -54,11 +54,24 @@ Route::post('/import/process', 'ImportController@posthtml')->name('posthtml');
 
 
 
+//REKOMENDASI
+// Route::livewire('/rekomendasi/masterkriteria', 'rekomendasi.masterkriteria')
+// ->layout('layouts-auth.app')
+// ->name('masterkriteria');
+Route::get('/rekomendasi/masterkriteria', 'Rekomendasi\MasterKriteriaController@index')->name('masterkriteria');
+// ->middleware(['role:Mahasiswa','auth']);
+
+
+
+
+
+
+
 
 //coba
 Route::get('/contoh', function () {
     return view('contoh');
 });
+Route::get('/test', 'KikiTestController@index')->name('test');
 Route::get('/test/satu', 'KikiTestController@uploadsatu')->name('uploadsatu');
 Route::post('/test/satu/post-html', 'KikiTestController@postsatu')->name('postsatu');
-Route::get('/test', 'KikiTestController@index')->name('test');

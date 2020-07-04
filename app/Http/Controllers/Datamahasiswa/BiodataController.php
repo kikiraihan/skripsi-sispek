@@ -32,7 +32,7 @@ class BiodataController extends Controller
             'email'             =>"required|email",
 
             'nama'              =>"required|string",
-            'nim'               =>"required|string",
+            // 'nim'               =>"required|string",
             'tgl_lahir'         =>"required|date",
             'tempat_lahir'      =>"required|string",
             'jenis_kelamin'     =>"required|string|in:Laki-Laki,Perempuan",
@@ -58,7 +58,7 @@ class BiodataController extends Controller
 
         $mahasiswa=$user->mahasiswa;
         $mahasiswa->nama            = $ini["nama"] ;
-        $mahasiswa->nim             = $ini["nim"] ;
+        // $mahasiswa->nim             = $ini["nim"] ;
         $mahasiswa->tgl_lahir       = $ini["tgl_lahir"] ;
         $mahasiswa->tempat_lahir    = $ini["tempat_lahir"] ;
         $mahasiswa->jenis_kelamin   = $ini["jenis_kelamin"] ;

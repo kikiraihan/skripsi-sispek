@@ -13,9 +13,12 @@ class RolesTableSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create roles and assign created permissions
-        Role::create(['name' => 'Admin']);
+        Role::create(['name' => 'Super Admin']);
         Role::create(['name' => 'Mahasiswa']);
         Role::create(['name' => 'Dosen']);
+
+        //sama semua yg ini
+        Role::create(['name' => 'Admin']);
         Role::create(['name' => 'Kaprodi']);
         Role::create(['name' => 'Kajur']);
 

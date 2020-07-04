@@ -60,8 +60,8 @@
                             <span class="text-secondary">belum ada data ormawa yang di ikuti</span>
                             <br><br>
 
-                            <li class="list-group-item text-right align-items-center bg-info ">
-                                <a href="#" class="btn btn-block btn-info text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                            <li class="list-group-item text-center align-items-center bg-info ">
+                                <a href="#" class="btn btn-block btn-info text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
                         </div>
                     @else
@@ -100,8 +100,8 @@
                             </li>
                             @endforeach
 
-                            <li class="list-group-item text-right align-items-center bg-info pb-0">
-                                <a href="{{ route('ormawa.my') }}" class="btn btn-block btn-info text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                            <li class="list-group-item text-center align-items-center bg-info pb-0">
+                                <a href="{{ route('ormawa.my') }}" class="btn btn-block btn-info text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
 
 
@@ -116,8 +116,8 @@
                             <span class="text-secondary">belum ada data prestasi</span>
                             <br><br>
 
-                            <li class="list-group-item text-right align-items-center bg-success">
-                                <a href="#" class="btn btn-block btn-success btn-success text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                            <li class="list-group-item text-center align-items-center bg-success">
+                                <a href="#" class="btn btn-block btn-success btn-success text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
                         </div>
                     @else
@@ -152,8 +152,8 @@
                                 </div>
                             </li>
                             @endforeach
-                            <li class="list-group-item text-right align-items-center bg-success">
-                                <a href="{{ route('prestasi.my') }}" class="btn btn-block btn-success text-right">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                            <li class="list-group-item text-center align-items-center bg-success">
+                                <a href="{{ route('prestasi.my') }}" class="btn btn-block btn-success text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
 
 
@@ -235,7 +235,7 @@
 
 
             <div class="col-lg-8 order-3 order-md-4">
-                <div class="card shadow mb-4 overflow-hidden">
+                <div class="card shadow mb-4 overflow-auto" style="max-height: 33.5em">
 
                     <div class="card-header border-bottom-0 py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Non Akademik</h6>

@@ -66,6 +66,18 @@
         </div>
       </div>
     </div>
+
+    @elseif($komponen=="masterkriteria")
+    <livewire:rekomendasi.masterkriteria/>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-xl" id="modalInput" tabindex="-1" role="dialog" aria-labelledby="modalInputLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <livewire:rekomendasi.masterkriteriainput/>
+        </div>
+      </div>
+    </div>
     @endif
 
 

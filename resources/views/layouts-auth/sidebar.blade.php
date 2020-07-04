@@ -18,7 +18,8 @@
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
         <a class="nav-link" href="{{route('home')}}">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
+          {{-- <i class="fas fa-fw fa-tachometer-alt"></i> --}}
+          <i class="fas fa-fw fa-home"></i>
           <span>Beranda</span></a>
       </li>
 
@@ -44,7 +45,8 @@
 
       <li class="nav-item ">
         <a class="nav-link" href="{{ route('akademik.my') }}">
-          <i class="fas fa-fw fa-tasks"></i>
+          {{-- <i class="fas fa-fw fa-tasks"></i> --}}
+          <i class="fas fa-chart-pie"></i>
           <span>Akademik</span></a>
       </li>
 
@@ -64,9 +66,27 @@
 
       <li class="nav-item ">
         <a class="nav-link"  href="{{route('import')}}">
-          <i class="fas fa-fw fa-brain"></i>
+          <i class="fas fa-fw fa-truck-loading"></i>
+          {{-- <i class="fas fa-th"></i>
+          <i class="fas fa-th-large"></i> --}}
           <span>Import</span></a>
       </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Admin
+      </div>
+
+      <li class="nav-item ">
+        <a class="nav-link" href="{{route('masterkriteria')}}">
+          <i class="fas fa-project-diagram"></i>
+          <span>Master Kriteria</span></a>
+      </li>
+
+
 
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
