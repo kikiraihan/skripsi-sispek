@@ -3,86 +3,18 @@
 
 
 @section('content')
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                {{-- <div class="card-header">Dashboard</div> --}}
 
-                <div class="card-body overflow-auto">
+    {{-- <livewire:importprogressindikator/> --}}
+
+    <livewire:import/>
 
 
-
-
-
-                      <form action="{{ route('posthtml') }}" method="POST"  enctype="multipart/form-data">
-                          @csrf
-                        <div class="text-center row">
-                            <div class="col-md-8">
-                                <div class="file-upload">
-                                    {{--  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>  --}}
-
-                                    <div class="image-upload-wrap">
-                                      <input name="inihtml" class="file-upload-input" type='file' onchange="readURL(this);" accept="text/html" />
-                                      <div class="drag-text" >
-                                        <h3 class="p-3">Drag and drop file atau tekan untuk membuka file</h3>
-                                      </div>
-                                    </div>
-                                    <div class="file-upload-content">
-                                      <img class="file-upload-image" src="#" alt="your image" />
-                                      <h6><span class="image-title">Uploaded Image</span></h6>
-                                      <div class="image-title-wrap">
-                                        <button type="button" onclick="removeUpload()" class="remove-image">Kosongkan</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                            </div>
-                            <div class="col-md-4 mt-4 mt-md-0 no-gutters">
-                                <button type="submit" class="btn btn-block btn-primary h-100"><i class="fas fa-file-import fa-lg"></i> Import</button>
-                            </div>
-                        </div>
-                    </form>
-
-
-                </div>
-
-                @if(Session::has('pesan'))
-                <div class="card-footer alert-success small">
-                    @if (Session::get('pesan')==[])
-                    Data sudah update
-                    @else
-                    @foreach (Session::get('pesan') as $pesan)
-                    {{ $pesan }} <br>
-                    @endforeach
-                    @endif
-                </div>
-                @endif
-
-            </div>
-
-
-        </div>
-
-        {{--  <div class="col-md-12 mt-3">
-            <div class="card shadow mb-4">
-                <!-- Card Header - Accordion -->
-                <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                  <h6 class="m-0 font-weight-bold text-primary">Collapsable Card Example</h6>
-                </a>
-                <!-- Card Content - Collapse -->
-                <div class="collapse " id="collapseCardExample" style="">
-                  <div class="card-body">
-                    This is a collapsable card example using Bootstraps built in collapse functionality. <strong>Click on the card header</strong> to see the card body collapse and expand!
-                  </div>
-                </div>
-            </div>
-        </div>  --}}
-
-
-    </div>
 @endsection
 
 
 @section('style-halaman')
+    @livewireStyles
+
     <style>
         .file-upload {
             background-color: #ffffff;
@@ -200,38 +132,30 @@
 
 
 @section('script-halaman')
+    @livewireScripts
+
+
+
     <script>
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-
-              var reader = new FileReader();
-
-              reader.onload = function(e) {
-                $('.image-upload-wrap').hide();
-
-                $('.file-upload-image').attr('src', '{{ asset("ilustrasi/quality_check.svg") }}');//e.target.result
-                $('.file-upload-content').show();
-
-                $('.image-title').html(input.files[0].name);
-              };
-
-              reader.readAsDataURL(input.files[0]);
-
-            } else {
-              removeUpload();
-            }
-          }
-
-          function removeUpload() {
-            $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-            $('.file-upload-content').hide();
-            $('.image-upload-wrap').show();
-          }
-          $('.image-upload-wrap').bind('dragover', function () {
-                  $('.image-upload-wrap').addClass('image-dropping');
-              });
-              $('.image-upload-wrap').bind('dragleave', function () {
-                  $('.image-upload-wrap').removeClass('image-dropping');
-          });
+      window.livewire.on('swalTelahDiimport', pesan => {
+        Swal.fire({
+            //toast: true,
+            //position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            icon: 'success',
+            title: 'Diimport' ,
+            text: 'berhasil mengimport data!',
+        });
+        $('#modalInput').modal('hide');
+      })
     </script>
+
+
+    {{--  --}}
 @endsection

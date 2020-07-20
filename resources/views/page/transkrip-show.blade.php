@@ -28,6 +28,9 @@
                         <b class="text-primary small font-weight-bold">Prodi :</b>
                         <span class="float-right ">{{ $mahasiswa->prodi }}</span>
                         <br>
+                        <b class="text-primary small font-weight-bold">Dosen PA :</b>
+                        <span class="float-right text-capitalize font-weight-bold">{{ $mahasiswa->dosenpa==null?"-":$mahasiswa->dosenpa->nama }}</span>
+                        <br>
                     </p>
                 </div>
 
@@ -161,7 +164,27 @@
                         <td class="text-left">{{ $mk->nama }}</td>
                         <td class="d-none d-md-table-cell">{{ $mk->kodemk }}</td>
                         <td>{{ $mk->sks }}</td>
-                        <td>{{ $mk->pivot->nilai_mutu }}</td>
+                        <td>
+                            @php $nilai_mutu=$mk->pivot->nilai_mutu @endphp
+                            @if (
+                                auth::user()->hasRole('Dosen|Kajur|Kaprodi|Admin|Mahasiswa') and
+                                ($nilai_mutu=="C-"OR
+                                $nilai_mutu=="D+"OR
+                                $nilai_mutu=="D"OR
+                                $nilai_mutu=="D-"OR
+                                $nilai_mutu=="E+"OR
+                                $nilai_mutu=="E")
+                            )
+                            <span class="bg-danger rounded text-white py-1 px-2">{{ $mk->pivot->nilai_mutu }}</span>
+                            @elseif (
+                                auth::user()->hasRole('Dosen|Kajur|Kaprodi|Admin|Mahasiswa') and
+                                ($nilai_mutu=="")
+                            )
+                            <span class="bg-gray-500 rounded py-1 px-2">kosong</span>
+                            @else
+                            {{ $mk->pivot->nilai_mutu }}
+                            @endif
+                        </td>
                         <td class="d-none d-md-table-cell">{{ $mk->pivot->angka_mutu }}</td>
                         <td class="d-none d-md-table-cell">{{ $mk->pivot->angka_mutu*$mk->sks }}</td>
                         <td class="d-none d-md-table-cell">{{ $mk->pivot->semester }}</td>

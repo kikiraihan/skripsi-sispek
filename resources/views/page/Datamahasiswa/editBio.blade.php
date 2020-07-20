@@ -32,6 +32,22 @@
                 <form action="{{ route('biodata.my.update') }}" method="POST">
                     @csrf
                     <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item text-right align-items-center">
+                            <span class="float-left small">Dosen Pembimbing Akademik : </span>
+                            <select name="id_dosen_pa" class="
+                            @error('id_dosen_pa') is-invalid @enderror
+                            text-right form-control form-control-sm form-control-plaintext d-inline w-50 text-capitalize {{ $errors->has('id_dosen_pa') ? ' is-invalid' : '' }}
+                            " >
+                                <option  {{old('id_dosen_pa',$user->mahasiswa->id_dosen_pa )==null?"selected":"" }} value="0">-</option>
+                                @foreach ($dosen as $d)
+                                <option  {{old('id_dosen_pa',$user->mahasiswa->id_dosen_pa )==$d->id?"selected":"" }} value="{{ $d->id }}">{{ $d->nama }}</option>
+                                @endforeach
+                            </select>
+                            @error('id_dosen_pa')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                        </li>
+
+
                         <li class="list-group-item text-right align-items-center">
                             <span class="float-left small">Nama : </span>
                             <input type="text" placeholder="nama" name="nama" value="{{ $user->mahasiswa->nama }}" class="@error('nama') is-invalid @enderror text-right form-control form-control-sm form-control-plaintext d-inline w-50" >

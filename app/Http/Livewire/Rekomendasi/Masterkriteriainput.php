@@ -201,7 +201,6 @@ class Masterkriteriainput extends Component
         $this->reset();
         $this->inputUpdate($kriteria->id);
         $this->emit('kriteriaDiupdate');
-
     }
 
 

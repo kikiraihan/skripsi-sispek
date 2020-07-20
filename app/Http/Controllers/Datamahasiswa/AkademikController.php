@@ -16,6 +16,9 @@ class AkademikController extends Controller
 
     public function tranksripShow($id)
     {
+        $ipk=null;
+        $tgl=null;
+
         $mahasiswa=Mahasiswa::find($id);
         foreach($mahasiswa->ipksebelumnya as $ipkseb)
         {

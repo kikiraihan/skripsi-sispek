@@ -27,6 +27,7 @@ Route::post('/biodata/my/update', 'Datamahasiswa\BiodataController@update')->nam
 
 
 
+// MAHASISWA
 //.my LIVEWIRE CRUD
 // Route::livewire('/kegiatan/my', 'mykegiatan')
 // ->layout('layouts-auth.app')
@@ -44,6 +45,19 @@ Route::get('/saudara/my', 'Datamahasiswa\SaudaraController@my')->name('saudara.m
 Route::get('/akademik/my', 'Datamahasiswa\AkademikController@myTranskrip')->name('akademik.my')
 ->middleware(['role:Mahasiswa','auth']);
 
+Route::get('/mahasiswa', 'Datamahasiswa\MahasiswaController@tampilMahasiswaPA')->name('mahasiswa.pa')
+->middleware(['role:Dosen','auth']);
+Route::get('/mahasiswa/profil/{id}', 'Datamahasiswa\MahasiswaController@tampilProfil')->name('mahasiswa.profil')
+->middleware(['role:Dosen|Kajur|Kaprodi|Admin','auth']);
+Route::get('/mahasiswa/akademik/{id}', 'Datamahasiswa\AkademikController@tranksripShow')->name('akademik.lihat')
+->middleware(['role:Dosen|Kajur|Kaprodi|Admin','auth']);
+
+
+
+
+
+
+
 
 
 // IMPORT
@@ -59,7 +73,13 @@ Route::post('/import/process', 'ImportController@posthtml')->name('posthtml');
 // ->layout('layouts-auth.app')
 // ->name('masterkriteria');
 Route::get('/rekomendasi/masterkriteria', 'Rekomendasi\MasterKriteriaController@index')->name('masterkriteria');
+Route::get('/rekomendasi/masterpreferensi', 'Rekomendasi\MasterPreferensiController@index')->name('masterpreferensi');
+Route::get('/rekomendasi/masterpreferensi/input', 'Rekomendasi\MasterPreferensiController@tambah')->name('masterpreferensi.tambah');
 // ->middleware(['role:Mahasiswa','auth']);
+
+
+Route::get('/rekomendasi/otomatis', 'Rekomendasi\RekomendasiOtomatisController@index')->name('rekomendasi.otomatis');
+
 
 
 

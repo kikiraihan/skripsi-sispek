@@ -4,7 +4,13 @@
 
     <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Home Profile</h1>
+            <h1 class="h3 mb-0 text-gray-800">
+                @if($user->id==Auth::user()->id)
+                Home Profile
+                @else
+                Profile Preview
+                @endif
+            </h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
 
@@ -15,7 +21,7 @@
 
                 <div class="row no-gutters my-3 align-items-center justify-content-center">
                     <div class="col-5 col-md-7 px-1 ">
-                        <div class="card shadow-sm overflow-hidden" style="max-height:21em">
+                        <div class="card shadow-sm overflow-hidden mx-auto" style="max-height:21em;max-width:21em">
                             <img src="{{ $user->gravatar }}" alt="" class="w-100 h-100">
                         </div>
                     </div>
@@ -60,9 +66,11 @@
                             <span class="text-secondary">belum ada data ormawa yang di ikuti</span>
                             <br><br>
 
+                            @if($user->id==Auth::user()->id)
                             <li class="list-group-item text-center align-items-center bg-info ">
                                 <a href="#" class="btn btn-block btn-info text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
+                            @endif
                         </div>
                     @else
                     <!-- Card Body -->
@@ -100,9 +108,12 @@
                             </li>
                             @endforeach
 
+
+                            @if($user->id==Auth::user()->id)
                             <li class="list-group-item text-center align-items-center bg-info pb-0">
                                 <a href="{{ route('ormawa.my') }}" class="btn btn-block btn-info text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
+                            @endif
 
 
                         </ul>
@@ -113,12 +124,14 @@
                         <div class="text-center  mt-5">
                             <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/achievement_.svg')}}" alt="logout">
                             <h5>Prestasi</h5>
-                            <span class="text-secondary">belum ada data prestasi</span>
+                            <span class="text-secondary">data prestasi tidak ditemukan</span>
                             <br><br>
 
+                            @if($user->id==Auth::user()->id)
                             <li class="list-group-item text-center align-items-center bg-success">
                                 <a href="#" class="btn btn-block btn-success btn-success text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
+                            @endif
                         </div>
                     @else
 
@@ -152,9 +165,12 @@
                                 </div>
                             </li>
                             @endforeach
+
+                            @if($user->id==Auth::user()->id)
                             <li class="list-group-item text-center align-items-center bg-success">
                                 <a href="{{ route('prestasi.my') }}" class="btn btn-block btn-success text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
+                            @endif
 
 
 
@@ -179,7 +195,7 @@
 
                     <div class="card-body pt-2">
                         <div class="row align-items-center justify-content-center">
-                            <div class="col-8">
+                            <div class="col-12">
                                 <div class="chart-pie pt-2 pb-2"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
                                     <canvas id="AkademikPieChart" width="662" height="490" class="chartjs-render-monitor" style="display: block; height: 245px; width: 331px;"></canvas>
                                 </div>
@@ -203,7 +219,8 @@
                                     </span> --}}
                                 </div>
                             </div>
-                            <div class="col-4 small">
+
+                            {{-- <div class="col-4 small">
                                 <span class="bg-primary text-white rounded py-1 px-2 font-weight-bold">IPK : {{ $user->mahasiswa->ipksekarang }}</span><br>
                                 <br> SKS : <br>
                                 <span class="text-success">{{ $user->mahasiswa->skslulus }}</span> <span class="small">lulus / {{ $user->mahasiswa->sksall }}</span> <br>
@@ -214,7 +231,9 @@
                                 @if ($user->mahasiswa->MkMengulang != 0)
                                 <span class="badge badge-danger">{{ $user->mahasiswa->MkMengulang }}</span> <span class="small">tdk lulus ({{ $user->mahasiswa->skskecualiNULL-$user->mahasiswa->skslulus }} sks)</span>
                                 @endif
-                            </div>
+                            </div> --}}
+
+
                         </div>
                     </div>
 
@@ -226,7 +245,13 @@
                         <div class="progress-bar bg-success" role="progressbar" style="width: {{ round(($user->mahasiswa->skslulus/144)*100,2) }}%" aria-valuenow="{{ round(($user->mahasiswa->skslulus/144)*100,2) }}" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
 
+
+                      @if($user->id==Auth::user()->id)
                       <a href="{{ route('akademik.my') }}" class="btn btn-primary btn-lg btn-block"> <span class="small">Selengkapnya <i class="fas fa-arrow-right "></i> </span></a>
+                      @else
+                      <a href="{{ route('akademik.lihat',['id'=>$user->mahasiswa->id]) }}" class="btn btn-primary btn-lg btn-block"> <span class="small">Selengkapnya <i class="fas fa-arrow-right "></i> </span></a>
+                      @endif
+
 
                     </div>
                   </div>
@@ -239,23 +264,27 @@
 
                     <div class="card-header border-bottom-0 py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Non Akademik</h6>
+
+                        @if($user->id==Auth::user()->id)
                         <div class="dropdown no-arrow">
                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                           </a>
                           <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Opsi :</div>
-                            <a class="dropdown-item" href="{{ route('kegiatan.my') }}"><i class="fas fa-edit text-primary"></i> Edit Kegiatan</a>
-                            {{--  <div class="dropdown-divider"></div>  --}}
-                          </div>
+                                <a class="dropdown-item" href="{{ route('kegiatan.my') }}"><i class="fas fa-edit text-primary"></i> Edit Kegiatan</a>
+                                {{--  <div class="dropdown-divider"></div>  --}}
+                            </div>
                         </div>
+                        @endif
+
                     </div>
 
                     <div class="card-body px-0 py-0">
                         @if ($user->mahasiswa->kegiatan->isEmpty())
                         <div class="text-center  mt-5 mb-5">
                             <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/adventure_.svg')}}" alt="logout">
-                            <span class="text-secondary">belum ada data kegiatan non akademik</span>
+                            <span class="text-secondary">data kegiatan non akademik tidak ditemukan</span>
                             <br><br>
                         </div>
                         @else
@@ -313,6 +342,7 @@
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Biodata</h6>
+                        @if($user->id==Auth::user()->id)
                         <div class="dropdown no-arrow">
                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -323,13 +353,14 @@
                             {{--  <div class="dropdown-divider"></div>  --}}
                           </div>
                         </div>
+                        @endif
                       </div>
 
                         <div class=" overflow-auto">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item text-right align-items-center"><span class="float-left small">Nama : </span> {{ $user->mahasiswa->nama }}</li>
                                 <li class="list-group-item text-right align-items-center"><span class="float-left small">NIM : </span> {{ $user->mahasiswa->nim }}</li>
-                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Tempat, tgl lahir : </span> {{ $user->mahasiswa->tempat_lahir }}, {{ $user->mahasiswa->tgl_lahir->formatLocalized("%d %B %Y") }}</li>
+                                <li class="list-group-item text-right align-items-center"><span class="float-left small">Tempat, tgl lahir : </span> {{ $user->mahasiswa->tempat_lahir }}, {{ $user->mahasiswa->tgl_lahir==null?'-':$user->mahasiswa->tgl_lahir->formatLocalized("%d %B %Y") }}</li>
                                 <li class="list-group-item text-right align-items-center"><span class="float-left small">Jenis Kelamin : </span> {{ $user->mahasiswa->jenis_kelamin }}</li>
                                 <li class="list-group-item text-right align-items-center"><span class="float-left small">Golongan Darah : </span> {{ $user->mahasiswa->golongan_darah }}</li>
                                 <li class="list-group-item text-right align-items-center"><span class="float-left small">Agama : </span> {{ $user->mahasiswa->agama }}</li>
@@ -380,6 +411,7 @@
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Orangtua</h6>
+                        @if($user->id==Auth::user()->id)
                         <div class="dropdown no-arrow">
                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -390,13 +422,14 @@
                             {{--  <div class="dropdown-divider"></div>  --}}
                           </div>
                         </div>
+                        @endif
                     </div>
 
                     <div class=" overflow-auto" >
                         @if ($user->mahasiswa->orangtua->isEmpty() )
                         <div class="text-center  my-5">
                             <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/family_.svg')}}" alt="logout">
-                            <span class="text-secondary">data orangtua belum di isi</span>
+                            <span class="text-secondary">data orangtua tidak ditemukan</span>
                         </div>
                         @else
                         <ul class="list-group list-group-flush">
@@ -424,6 +457,7 @@
 
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">Saudara</h6>
+                        @if($user->id==Auth::user()->id)
                         <div class="dropdown no-arrow">
                           <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -434,13 +468,14 @@
                             {{--  <div class="dropdown-divider"></div>  --}}
                           </div>
                         </div>
+                        @endif
                     </div>
 
                     <div class=" overflow-auto" >
                         @if ($user->mahasiswa->saudara->isEmpty() )
                         <div class="text-center  my-5">
                             <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/gaming_.svg')}}" alt="logout">
-                            <span class="text-secondary">data saudara belum di isi</span>
+                            <span class="text-secondary">data saudara tidak ditemukan</span>
                         </div>
                         @else
                         <ul class="list-group list-group-flush">

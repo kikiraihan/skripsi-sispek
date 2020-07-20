@@ -8,9 +8,23 @@ use Illuminate\Http\Request;
 class RekomendasiOtomatisController extends Controller
 {
 
-
-
     public function index()
+    {
+        $komponen="rekomendasiotomatis.index";
+        return view('page.Rekomendasi.master',compact(['komponen']));
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public function tdatahufungsiapa()
     {
 
 
@@ -115,8 +129,6 @@ class RekomendasiOtomatisController extends Controller
         }
 
         dd($next);
-
-
 
 
 

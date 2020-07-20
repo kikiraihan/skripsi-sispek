@@ -2,18 +2,9 @@
 
 <div>
 
+    <h5 class="text-primary">Master Kriteria</h5>
+    {{-- <br> --}}
 
-
-    <div>
-        @if (session()->has('message'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                {{ session('message') }}
-            </div>
-        @endif
-    </div>
 
 
 
@@ -30,9 +21,10 @@
                 <input type="text" wire:model.debounce.750ms="search" class="form-control border-left-0" placeholder="Cari title">
             </div>
         </div>
-        <div class="col-md-6 p-1">
+        <div class="col-md-3 p-1">
             <a href="#" wire:loading.attr="disabled" wire:click="ImportNilaiMK" class="btn btn-primary">
                 <div wire:loading.remove wire:target="ImportNilaiMK">
+                    {{-- gunakan wire target untuk membatasi akan dirender pada fungsi mana--}}
                     <span class="font-weight-bold">Import dari Nilai MK</span>
                     <i class="fas fa-plus fa-md"></i>
                 </div>
@@ -41,6 +33,19 @@
                     Mengimport..
                 </div>
             </a>
+        </div>
+
+        <div class="col-md-3 p-1">
+            <span class="float-md-right">
+                {{ $jlh_kriteria }}
+                ditemukan
+                @if ($kriteria_nilai_mk!=0)
+                (
+                <span class="small font-weight-bold">{{ $kriteria_nilai_mk }}</span>
+                nilai mk
+                )
+                @endif
+            </span>
         </div>
     </div>
 
@@ -54,7 +59,7 @@
 
 
 
-    <div class="card shadow mb-4 overflow-hidden">
+    <div class="card shadow-sm mb-4 overflow-hidden">
 
 
         <div class="card-body px-0 py-0">
@@ -115,8 +120,9 @@
                                   <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                                     <a wire:click="bukaUpdate({{$p->id}})" data-toggle="modal" data-target="#modalInput"  class="dropdown-item "  href="#"><i class="fas fa-edit text-primary"></i> Edit </a>
                                     {{--  <div class="dropdown-divider"></div>  --}}
-                                    <a wire:click="delete({{$p->id}})"  class="dropdown-item "  href="#"><i class="fas fa-trash text-danger"></i> Hapus </a>
+                                    <a wire:click="$emit('swalDeleted','kriteriaFixHapus',{{ $p->id }})"  class="dropdown-item "  href="#"><i class="fas fa-trash text-danger"></i> Hapus </a>
                                   </div>
+
                                 </div>
                               </td>
                           </tr>

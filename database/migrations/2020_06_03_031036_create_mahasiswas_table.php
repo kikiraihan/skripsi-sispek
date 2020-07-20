@@ -17,6 +17,7 @@ class CreateMahasiswasTable extends Migration
             $table->id();
 
             $table->foreignId('id_user')->constrained('users');//FK
+            $table->foreignId('id_dosen_pa')->nullable()->constrained('dosens');//FK
 
             $table->string('nama',50);
             $table->char('nim',25)->unique();

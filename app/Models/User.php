@@ -46,6 +46,19 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Mahasiswa', 'id_user');
     }
 
+    public function dosen()
+    {
+        return $this->hasOne('App\Models\Dosen', 'id_user');
+    }
+
+
+    public function getKredensialUserAttribute()
+    {
+        if ($this->hasRole('Mahasiswa')) return $this->mahasiswa;
+        elseif ($this->hasRole('Dosen')) return $this->dosen;
+
+    }
+
 
     public function getGravatarAttribute(){
 

@@ -7,18 +7,24 @@ use App\Models\Masterkriteria as Kriteria;
 use App\Models\Matakuliah;
 use Illuminate\Database\QueryException;
 use Livewire\WithPagination;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class Masterkriteria extends Component
 {
 
     use WithPagination;
 
-    public $search;
+    public
+    $search,
+    $jlh_kriteria,
+    $kriteria_nilai_mk
+    ;
     // public $kriteria;
 
     protected $listeners=[
-        'kriteriaDitambahkan'=>'mount',
-        'kriteriaDiupdate'=>'mount'
+        'kriteriaDitambahkan'=>'efekDitambahkan',
+        'kriteriaDiupdate'=>'efekDiupdate',
+        'kriteriaFixHapus'=>'delete'
     ];
 
     public function updatingSearch()
@@ -33,9 +39,12 @@ class Masterkriteria extends Component
 
     public function render()
     {
+        $kriteria=Kriteria::where('title', 'like', '%'.$this->search.'%');
+        $this->jlh_kriteria=$kriteria->count();
+        $this->kriteria_nilai_mk=Kriteria::where('title', 'like', '%'.$this->search.'%')->where('title','like','%nilai :%')->count();
 
         return view('livewire.rekomendasi.masterkriteria',[
-            'kriteria' => Kriteria::where('title', 'like', '%'.$this->search.'%')->paginate(10),
+            'kriteria' => $kriteria->orderBy('created_at','desc')->paginate(10),
         ]);
     }
 
@@ -45,6 +54,14 @@ class Masterkriteria extends Component
     public function efekDitambahkan($newKriteria)
     {
         $this->mount();
+        $this->emit('swalAdded',1);
+        // $newKriteria=Kriteria::find($newKriteria['id']);
+        // $this->kriteria->push($newKriteria);
+    }
+    public function efekDiupdate($newKriteria)
+    {
+        $this->mount();
+        $this->emit('swalUpdated');
         // $newKriteria=Kriteria::find($newKriteria['id']);
         // $this->kriteria->push($newKriteria);
     }
@@ -53,6 +70,9 @@ class Masterkriteria extends Component
     //CUSTOM METHOD
     public function delete($id)
     {
+        //ada di blade
+        // $this->emit('swalDeleted','emitdisini','idhapus');
+
         $toDelete=Kriteria::find($id);
         $toDelete->delete();
         $this->mount();
@@ -98,7 +118,7 @@ class Masterkriteria extends Component
 
                 $kriteria->setPathToFromString($pathToTemplate);
 
-                $kriteria->title        ="nilai MK : ".$namamk;
+                $kriteria->title        ="nilai:".$namamk ."-".$kodemk;
                 $kriteria->jenis        ='angka';
                 $kriteria->rasio        =null;
                 $kriteria->save();
@@ -115,17 +135,13 @@ class Masterkriteria extends Component
         // catch (QueryException $e)
         // {
         //     report($e);
-
         //     return false;
         // }
 
 
-
-
         $this->mount();
-
-        // toast('berhasil ditambahkan '.$counter.' kriteria matakuliah!','success');
-        return session()->flash('message', 'berhasil ditambahkan '.$counter.' kriteria nilai matakuliah!');
+        $this->emit('swalAdded',$counter);
+        return null;
     }
 
 

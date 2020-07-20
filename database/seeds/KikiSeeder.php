@@ -36,6 +36,8 @@ class KikiSeeder extends Seeder
         $mahasiswa->no_ktp              ='73256173561731';
         $mahasiswa->no_hp               ='082291501085';
 
+        $mahasiswa->id_dosen_pa         =null;
+
         $user->save();
         $user->mahasiswa()->save($mahasiswa);
 

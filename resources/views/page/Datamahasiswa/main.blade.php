@@ -78,6 +78,18 @@
         </div>
       </div>
     </div>
+
+    @elseif($komponen=="mahasiswaPA")
+    <livewire:mahasiswa.mahasiswapa/>
+
+    <!-- Modal -->
+    {{-- <div class="modal fade bd-example-modal-xl" id="modalInput" tabindex="-1" role="dialog" aria-labelledby="modalInputLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <livewire:mahasiswa.mahasiswapainput/>
+        </div>
+      </div>
+    </div> --}}
     @endif
 
 
@@ -93,4 +105,73 @@
 @section('script-halaman')
 
     @livewireScripts
+
+
+
+    {{-- jalankan sweetalert setelah mentriger event livewire --}}
+    {{-- kenpa disini? karena harus setelah meload livewirescript --}}
+    <script>
+      window.livewire.on('swalAdded', counter => {
+        Swal.fire({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            onOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            },
+            icon: 'success',
+            title: 'Ditambahkan' ,
+            text: 'berhasil menambahkan '+counter+' data!',
+        });
+        $('#modalInput').modal('hide');
+      })
+
+      window.livewire.on('swalUpdated', () => {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          //timerProgressBar: true,
+          onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+          },
+            icon: 'success',
+            title: 'Diubah' ,
+            text: 'berhasil mengubah data!',
+            confirmButtonText: 'Oke',
+        });
+        $('#modalInput').modal('hide');
+      })
+
+      window.livewire.on('swalDeleted', (tujuan,idhapus) => {
+        Swal.fire({
+          title: 'Anda yakin?',
+          text: "Anda akan menghapus data tersebut!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, hapus!'
+        }).then((result) => {
+          if (result.value) {
+
+            window.livewire.emit(tujuan,idhapus);
+
+            Swal.fire(
+              'Terhapus!',
+              'data telah dihapus.',
+              'success'
+            )
+
+          }
+        });
+      })
+    </script>
+
+
 @endsection

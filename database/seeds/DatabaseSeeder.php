@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(SuperAdminSeeder::class);
         $this->call(KikiSeeder::class);
-        // $this->call(MasterkriteriaSeeder::class);
+        $this->call(DosenSeeder::class);
+        $this->call(MasterkriteriaSeeder::class);
         // $this->call(MahasiswaSeeder::class);
     }
 }

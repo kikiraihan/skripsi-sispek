@@ -19,10 +19,19 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('assets_template/css/sb-admin-2.css')}}" rel="stylesheet">
 
+    {{-- TAILWINDS --}}
+    {{-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> --}}
+
+
     {{--  @livewireStyles  --}}
 
     @yield('style-halaman')
 
+
+
+
+    {{-- ALPINE JS, dependency livewire --}}
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.3.5/dist/alpine.min.js" defer></script>
 
 
 
@@ -152,13 +161,31 @@
         //$("body").toggleClass("sidebar-toggled");
         $(".sidebar").toggleClass("toggled");
 
+
+        $(function() {
+            $('#accordionSidebar a[href~="' + location.href + '"]').parents('li').addClass('active');
+        });
+
     </script>
 
 
 
     @yield('script-halaman')
 
-    @include('sweetalert::alert')
+     {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+    {{-- @include('sweetalert::alert') --}}
+
+
+
+
+
+
+
+    {{-- iko dayat sweetalert --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+
 
 
 </body>

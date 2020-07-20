@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use auth;
 Use Alert;
+use App\Models\Dosen;
 
 
 class BiodataController extends Controller
@@ -13,7 +14,8 @@ class BiodataController extends Controller
     public function edit()
     {
         $user=auth::user();
-        return view('page.Datamahasiswa.editBio', compact(['user']));
+        $dosen=Dosen::all();
+        return view('page.Datamahasiswa.editBio', compact(['user','dosen']));
     }
 
     public function update(Request $request)
@@ -31,6 +33,7 @@ class BiodataController extends Controller
 
             'email'             =>"required|email",
 
+            'id_dosen_pa'       =>"required|string",
             'nama'              =>"required|string",
             // 'nim'               =>"required|string",
             'tgl_lahir'         =>"required|date",
@@ -57,6 +60,7 @@ class BiodataController extends Controller
         $user->save();
 
         $mahasiswa=$user->mahasiswa;
+        $mahasiswa->id_dosen_pa     = $ini["id_dosen_pa"]==0?null:$ini["id_dosen_pa"] ;
         $mahasiswa->nama            = $ini["nama"] ;
         // $mahasiswa->nim             = $ini["nim"] ;
         $mahasiswa->tgl_lahir       = $ini["tgl_lahir"] ;

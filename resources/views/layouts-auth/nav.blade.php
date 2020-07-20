@@ -2,10 +2,37 @@
 <!-- Topbar -->
     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow-sm">
 
+
+        @if (
+            strpos($_SERVER['REQUEST_URI'], 'mahasiswa/akademik/') OR
+            strpos($_SERVER['REQUEST_URI'], 'mahasiswa/profil/')
+        )
+        <a href="#" onclick="window.history.back()" class="btn btn-link ">
+            <i class="fas fa-arrow-left fa-lg"></i>
+        </a>
+        @endif
+
+
+
+
         <!-- Sidebar Toggle (Topbar) -->
-        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle">
         <i class="fa fa-bars"></i>
         </button>
+
+
+        <div class="text-uppercase font-weight-bold ml-2 small">
+            {{-- <i class="fas fa-user-circle fa-lg"></i> --}}
+            Sistem Pendukung Keputusan <sup>#1</sup>
+        </div>
+
+
+
+
+
+
+
+
 
         <!-- Topbar Search -->
         {{-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -23,7 +50,7 @@
         <ul class="navbar-nav ml-auto">
 
         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-        <li class="nav-item dropdown no-arrow d-sm-none">
+        {{-- <li class="nav-item dropdown no-arrow d-sm-none">
             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-search fa-fw"></i>
             </a>
@@ -40,7 +67,7 @@
                 </div>
             </form>
             </div>
-        </li>
+        </li> --}}
 
         <!-- Nav Item - Alerts -->
         <li class="nav-item dropdown no-arrow mx-1">
@@ -100,7 +127,7 @@
         <li class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-                {{ Auth::user()?Auth::user()->mahasiswa->nama:"kosong belum login" }}
+                {{ Auth::user()?Auth::user()->KredensialUser->nama:"kosong belum login" }}
             </span>
             <img class="img-profile rounded-circle" src="
             {{ Auth::user()?auth::user()->gravatar:asset('assets_landing/img/avatar_2x.png') }}
@@ -129,6 +156,8 @@
         </li>
 
         </ul>
+
+
 
     </nav>
 <!-- End of Topbar -->

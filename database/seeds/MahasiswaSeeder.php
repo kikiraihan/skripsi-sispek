@@ -24,7 +24,7 @@ class MahasiswaSeeder extends Seeder
             $user->username                 ='mahasiswa'.$i;
             $user->email                    = $user->username.'@gmail.com';
             $user->email_verified_at        = now();
-            $user->password                 =Hash::make('password');
+            $user->password                 = Hash::make('password');
             $mahasiswa                      = new Mahasiswa;
             $mahasiswa->nama                =$faker->name;
             $mahasiswa->nim                 =$faker->randomNumber;

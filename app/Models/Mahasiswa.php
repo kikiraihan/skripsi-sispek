@@ -9,6 +9,7 @@ class Mahasiswa extends Model
 {
     protected $fillable=[
         'id_user',
+        'id_dosen_pa',
         'nama',
         'nim',
         'angkatan',
@@ -138,14 +139,23 @@ class Mahasiswa extends Model
             $bobot+=$l->pivot->angka_mutu*$l->sks;
         }
 
+        if ($bobot==0) return 0;
+
         $hasil=$bobot/($this->skskecualiNULL);
         return number_format((float)$hasil, 2, '.', '');
         // return $bobot;
     }
 
-    public function getIpkSebelumnyaLastRowAttribute($value)
+    public function getIpkSebelumnyaBerubahAttribute($value)
     {
-        return $this->ipksebelumnya->last();
+
+        //ipk sebelumnya terakhir ke 2
+
+        $lokasi=$this->ipksebelumnya->count()-2;
+        if($lokasi>=0)
+        return $this->ipksebelumnya[$lokasi]->ipk;
+        else
+        return '-';
     }
 
 
@@ -161,7 +171,12 @@ class Mahasiswa extends Model
     //relation
     public function user()
     {
-        return $this->belongsTo('App\Model\User', 'id_user');
+        return $this->belongsTo('App\Models\User', 'id_user');
+    }
+
+    public function dosenpa()
+    {
+        return $this->belongsTo('App\Models\Dosen', 'id_dosen_pa');
     }
 
     public function minatbakat()
@@ -212,6 +227,11 @@ class Mahasiswa extends Model
     public function matakuliah()
     {
         return $this->belongsToMany('App\Models\Matakuliah', 'kontrak_matakuliah', 'id_mahasiswa', 'id_matakuliah')->withPivot('angka_mutu','nilai_mutu','semester');
+    }
+
+    public function matakuliahnilaie()
+    {
+        return $this->belongsToMany('App\Models\Matakuliah', 'kontrak_matakuliah', 'id_mahasiswa', 'id_matakuliah')->wherePivotIn('nilai_mutu', ['C-','D+','D','D-','E']);
     }
 
 
