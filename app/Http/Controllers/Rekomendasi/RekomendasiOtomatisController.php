@@ -140,6 +140,105 @@ class RekomendasiOtomatisController extends Controller
 
 
 
+    public function generate_inifungsidariSPK(Request $request)
+    {
+
+        // {{-- -----------------  UNTUK TIS    -------------- --}}
+        // $this->validate($request, [
+        //     'date' => new DateDecissionGenerateRule,
+        //     'table' => "required",
+        //     'preference' => "required",
+        //     ]);
+
+        // echo "valid";
+        // dd($request->all());
+        // {{-- -----------------  UNTUK TIS    -------------- --}}
+
+
+
+
+        //AMBIL BOBOT DAN TITLE
+        //find preference
+        $preference=CriteriaPreference::with('penilaianAlternatif')->find($request->preference);
+
+        //decode semua json nilai, menjadi collection
+        $this->decodeAllJsonNilai($preference);
+
+        $penilaianPerIdMahasiswa=$preference->penilaianAlternatif->groupBy('id_mahasiswa');//mahasiswa tpi cuma matriks
+        // dd($penilaianPerIdMahasiswa);
+
+
+        foreach (json_decode($preference->kriteria) as $kri) {
+            $bobot[]=$kri->bobot;
+            $title[]=$kri->title;
+            $jenis[]=$kri->jenis;
+        }
+        // array_push($title,'id');
+        // $mahasiswa=Mahasiswa::all($title);
+
+
+        //buat matriks mahasiswa +id id kolom akhir
+        $i=0;
+        foreach($penilaianPerIdMahasiswa as $id_mahasiswa=>$penilaian)
+        {
+            $z=0;
+            foreach($title as $t)
+            {
+                $matriks[$i][$z++]=$this->nilaiSebenarnyaPerTitle($penilaian,$t);
+            }
+            $matriks[$i][$z++]=$id_mahasiswa;//kolom terakhir, diisi id mahasiswa.. //nnti coba ['id_mahasiswa']
+            $i++;
+        }
+        // dd($matriks);
+
+        //normalisasi
+        $matriksPembagi=$this->sumPerColumnsBerpangkatDiakarkanTanpaKolomTerakhir($matriks);
+        $matriksNormalisedTopsis=$this->normalise($matriks,$matriksPembagi);
+
+        //normalisasi Terbobot
+        $matriksWeightedTopsis=$this->normalisedWeighted($matriksNormalisedTopsis,$bobot);
+        $maxMin=$this->kriteriaMaxMin($matriksWeightedTopsis);
+
+        //matriks solusi ideal (array kriteria['jenis','positif','negatif'])
+        $solusiIdeal=$this->matriksSolusiIdeal($maxMin,$jenis);
+
+        //jarak solusi positif dan negatig (total per alternatif)
+        $dPositif=$this->distance($matriksWeightedTopsis,$solusiIdeal,"positif");
+        $dNegatif=$this->distance($matriksWeightedTopsis,$solusiIdeal,"negatif");
+        // dd($maxMin);
+
+
+        //nilai preferensi/akhir/rank
+        $rank=$this->nilaiPreferensi($dPositif,$dNegatif,$matriksWeightedTopsis);
+        arsort($rank);
+
+        //get and ORDER by RANK
+        //make string "FIELD(id,'31','2','2')" that included by rank key
+        $first='FIELD(id';$middle="";$last=")";
+        foreach ($rank as $key => $value) $middle.=",'".$key."'";//itu berisi idtable
+
+        //kolom yang di get
+        // foreach($title as $t) $kolomGet[]=strtolower($t);
+        $kolomGet=['id','nama'];
+        // array_push($kolomGet,'nama');
+        // array_push($kolomGet,'id');
+        $hasil=Mahasiswa::select($kolomGet)->orderByRaw($first.$middle.$last)->get();
+
+        // dd($hasil);
+
+        // dd($dNegatif);
+        return view('decission.result',compact([
+            'hasil','rank','matriks',
+            'matriksWeightedTopsis',
+            'solusiIdeal','title',
+            'dNegatif',
+            'dPositif',
+            'kolomGet',
+        ]));
+
+    }
+
+
 
 
 

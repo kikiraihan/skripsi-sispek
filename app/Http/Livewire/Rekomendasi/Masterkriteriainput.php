@@ -61,7 +61,7 @@ class Masterkriteriainput extends Component
         $this->reset();
         $this->metode="newKriteria";
         $this->formTitle="Kriteria Baru Saya";
-        $this->model_type="App\Models\..";
+        $this->model_type="";
     }
 
     public function inputUpdate($id)

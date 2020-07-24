@@ -10,14 +10,14 @@
 
             <div class="row no-gutters">
                 <div class="col-md-6 p-2">
-                    <label for="" >
+                    <label >
                         Judul
                     </label>
                     <input wire:model.debounce.500ms="judul" type="text" class="form-control" placeholder="rekomendasi beasiswa, rekomendasi utusan lomba programming, dll">
                 </div>
 
                 <div class="col-md-6 p-2">
-                    <label for="" >
+                    <label >
                         Alternatif
                     </label>
                     <div class="form-group">

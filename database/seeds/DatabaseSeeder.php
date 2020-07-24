@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(KikiSeeder::class);
         $this->call(DosenSeeder::class);
         $this->call(MasterkriteriaSeeder::class);
+        $this->call(MasterpreferensiSeeder::class);
         // $this->call(MahasiswaSeeder::class);
     }
 }

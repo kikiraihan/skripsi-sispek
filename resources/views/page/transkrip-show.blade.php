@@ -67,11 +67,11 @@
 
 
                             <span class="bg-primary text-white rounded py-1 px-2 font-weight-bold">IPK : {{ $mahasiswa->ipksekarang }}</span><br>
-                            <br> SKS <br>
+                            <br> Total SKS <br>
                             <span class="text-success">{{ $mahasiswa->skslulus }}</span> <span class="small">lulus / {{ $mahasiswa->sksall }}</span> <br>
 
 
-                            <br> MK <br>
+                            <br> Matakuliah <br>
                             {{ $mahasiswa->mkkosong }} <span class="small">kosong ({{ $mahasiswa->sksall-$mahasiswa->skskecualiNULL }} sks)</span> <br>
                             @if ($mahasiswa->MkMengulang != 0)
                             <span class="badge badge-danger">{{ $mahasiswa->MkMengulang }}</span> <span class="small">tdk lulus ({{ $mahasiswa->skskecualiNULL-$mahasiswa->skslulus }} sks)</span>

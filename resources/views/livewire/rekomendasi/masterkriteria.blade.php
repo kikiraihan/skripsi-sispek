@@ -22,6 +22,7 @@
             </div>
         </div>
         <div class="col-md-3 p-1">
+
             <a href="#" wire:loading.attr="disabled" wire:click="ImportNilaiMK" class="btn btn-primary">
                 <div wire:loading.remove wire:target="ImportNilaiMK">
                     {{-- gunakan wire target untuk membatasi akan dirender pada fungsi mana--}}
@@ -33,6 +34,7 @@
                     Mengimport..
                 </div>
             </a>
+
         </div>
 
         <div class="col-md-3 p-1">

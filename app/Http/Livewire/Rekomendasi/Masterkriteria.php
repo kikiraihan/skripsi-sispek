@@ -27,6 +27,7 @@ class Masterkriteria extends Component
         'kriteriaFixHapus'=>'delete'
     ];
 
+    //reset page after filtering data
     public function updatingSearch()
     {
         $this->resetPage();

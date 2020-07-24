@@ -1,10 +1,14 @@
 <div>
 
     <h5 class="text-primary">Rekomendasi Otomatis</h5>
-    {{-- <br> --}}
+
+
 
     <div class="card">
         <div class="card-body">
+            {{-- <label class="font-weight-bold text-primary">
+                #Step 1
+            </label><br> --}}
 
             <div>
                 <div class="input-group">
@@ -33,7 +37,7 @@
                 @if ($preferensi->isEmpty())
                     <div class="text-center  mt-5 mb-5">
                         <img class="d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/fishing.svg')}}" alt="logout" width="35%">
-                        <h5>Mahasiswa</h5>
+                        <h5>Preferensi</h5>
                         <span class="text-secondary">tidak ditemukan</span>
                         <br><br>
                     </div>
@@ -52,9 +56,20 @@
                                 <br><br>
                                 <span class="card-title h5 text-capitalize">{{ $m->judul }}</span>
                             </div>
-                            <button wire:click="setPreferensiToGenerate({{ $m->id }})" class="font-weight-bold p-2 btn btn-primary btn-sm btn-block">
-                                Pilih
-                            </button>
+
+                            {{-- <div class="row no-gutters">
+                                <div class="col-md-6 p-1">
+                                    <button wire:click="lihatPreferensi({{ $m->id }})" class="font-weight-bold p-2 btn btn-secondary btn-sm btn-block">
+                                        Lihat
+                                    </button>
+                                </div>
+                                <div class="col-md-6 p-1"> --}}
+                                    <button wire:click="setPreferensiToGenerate({{ $m->id }})" class="font-weight-bold p-2 btn btn-primary btn-sm btn-block">
+                                        Pilih
+                                    </button>
+                                {{-- </div>
+                            </div> --}}
+
                         </div>
 
 
@@ -85,13 +100,126 @@
 
     @if ($preferensiToGenerate)
     <div class="card mt-3">
+
         <div class="card-body">
             <label class="font-weight-bold text-primary">
-                #Step 2
-            </label><br>
+                #Generate
+            </label>
 
-            Preferensi : <span class="text-capitalize">{{ $preferensiToGenerate['judul'] }}</span>
+            <button wire:loading.attr="disabled" class="btn btn-primary float-right" wire:click="generate">
+                <div wire:loading.remove wire:target="generate">
+                    Generate
+                </div>
+                <div wire:loading wire:target="generate">
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    Tunggu sebentar..
+                </div>
+            </button>
+            <br>
+            <br>
+
+
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="font-weight-bold">Judul Preferensi :</span> <span class="text-capitalize">{{ $preferensiToGenerate['judul'] }}</span>
+                    <br>
+                    <br>
+                    <span class="font-weight-bold">Kriteria :</span><br>
+                    @foreach (json_decode($preferensiToGenerate['kriteria']) as $id=>$kriteria)
+                        - {{ $this->getTitleOfKriteria($id) }} <span class="badge badge-info">{{$kriteria->jenis}} : {{round($kriteria->bobot,3)}}</span>  <br>
+                    @endforeach
+                    <br>
+                    <span class="font-weight-bold">Alternatif :</span><br>
+                    {{ str_replace("App\Models","",$preferensiToGenerate['model_type']) }}
+                </div>
+                <div class="col-md-6">
+                    <span class="font-weight-bold">Matriks :</span><br>
+                    @php $matriks=json_decode($preferensiToGenerate['matriks']) @endphp
+                    @for ($i = 0; $i < count($matriks); $i++)
+                        @for ($z = 0; $z < count($matriks[$i]); $z++)
+                            <h6 class="badge badge-secondary badge-pill p-2" style="width: 30px">{{$matriks[$i][$z]}}</h6>
+                        @endfor
+                        <br>
+                    @endfor
+                </div>
+            </div>
         </div>
+
+
+
+        @if ($modelRanked)
+        <hr>
+        <div class="card-body">
+
+            <label class="text-primary font-weight-bold">Ranked </label>
+            <label class="float-right"> Diperoleh : {{ count($modelRanked) }} Mahasiswa</label>
+            @php
+                $no=1;
+            @endphp
+            @if ($modelRanked!="setara")
+                <ul class="list-group">
+                    @foreach ($modelRanked as $id_model => $value)
+                    <li class="list-group-item">
+
+                        <a class="@if($no<4) text-success @else text-secondary @endif font-weight-bold" href="{{ route('mahasiswa.profil', ['id'=>$id_model]) }}">
+                            {{ $no++ }}. {{ $value['model']->nama }}
+                        </a>
+
+                        <span class="badge badge-primary float-right p-2 ">Nilai : {{ round($value['rank'],5) }}</span>
+                        {{-- <br>
+                        @foreach (json_decode($preferensiToGenerate->kriteria) as $id_kriteria=>$kriteria)
+                        {{ $matriks[$id_model][$id_kriteria] }},
+                        @endforeach --}}
+                    </li>
+                    @endforeach
+                </ul>
+            @elseif ($modelRanked=="setara")
+                setara
+            @endif
+
+
+
+        </div>
+        @endif
+
+    </div>
+    @endif
+
+
+    @if ($modelRanked)
+    <div x-data="{ open: false }" class="card mt-3">
+
+        <button @click="open=!open" class="btn btn-link font-weight-bold">Lihat matriks</button>
+
+
+        <div class="card-body" x-show="open">
+            <div class="table-responsive">
+                <table class="table table-striped mb-0 table-bordered text-center">
+                    {{-- <thead>
+                        <tr>
+                            <td>id</td>
+                            @foreach ($this->getKriteriaTitleRender() as $id_kriteria=>$kriteria)
+                            <td>{{ $id_kriteria }}</td>
+                            @endforeach
+                        </tr>
+                    </thead> --}}
+                    <tbody>
+                        @foreach ($this->getMatriksTitleRender() as $id_model=>$perModel)
+                            <tr>
+                                <td>{{ $id_model }}</td>
+                                @foreach ($perModel as $id_kriteria=>$value)
+                                <td class="text-primary">
+                                    {{ $value }}
+                                </td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
     </div>
     @endif
 

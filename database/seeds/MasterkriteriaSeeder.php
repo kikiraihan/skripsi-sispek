@@ -14,25 +14,25 @@ class MasterkriteriaSeeder extends Seeder
     {
 
 
-        $master=new Masterkriteria;
-        $master->title  = "Nilai MK Coba";
-        $master->model_type  = "App\Models\Mahasiswa";
-        $master->pathTo      =
-        json_encode(
-            [
-                "matakuliah02"=>null,
-                "where032"=>[
-                    "nama",
-                    "ALGORITMA DAN STRUKTUR DATA 1",
-                ],
-                "first02"=>null,
-                "pivot01"=>null,
-                "angka_mutu01"=>null,
-            ]
-        );
-        $master->jenis       ='angka';
-        $master->rasio       =null;
-        $master->save();
+        // $master=new Masterkriteria;
+        // $master->title  = "Nilai MK Coba";
+        // $master->model_type  = "App\Models\Mahasiswa";
+        // $master->pathTo      =
+        // json_encode(
+        //     [
+        //         "matakuliah02"=>null,
+        //         "where032"=>[
+        //             "nama",
+        //             "ALGORITMA DAN STRUKTUR DATA 1",
+        //         ],
+        //         "first02"=>null,
+        //         "pivot01"=>null,
+        //         "angka_mutu01"=>null,
+        //     ]
+        // );
+        // $master->jenis       ='angka';
+        // $master->rasio       =null;
+        // $master->save();
 
 
 
@@ -65,6 +65,47 @@ class MasterkriteriaSeeder extends Seeder
             ]
         );
         $master->save();
+
+
+
+
+        $master=new Masterkriteria;
+        $master->title       = "Indeks Prestasi Kumulatif (IPK)";
+        $master->model_type  = "App\Models\Mahasiswa";
+        $master->pathTo      ='{"IpkSekarang01":null}';
+        $master->jenis       ='angka';
+        $master->rasio       =NULL;
+        $master->save();
+
+
+        $master=new Masterkriteria;
+        $master->title       = "Jumlah kegiatan yang pernah di ikuti";
+        $master->model_type  = "App\Models\Mahasiswa";
+        $master->pathTo      ='{"kegiatan01":null,"count02":null}';
+        $master->jenis       ='angka';
+        $master->rasio       =NULL;
+        $master->save();
+
+
+        $master=new Masterkriteria;
+        $master->title       = "Jumlah ormawa yang pernah di ikuti";
+        $master->model_type  = "App\Models\Mahasiswa";
+        $master->pathTo      ='{"organisasi01":null,"count02":null}';
+        $master->jenis       ='angka';
+        $master->rasio       =NULL;
+        $master->save();
+
+        $master=new Masterkriteria;
+        $master->title       = "Jumlah ormawa yang pernah di ikuti";
+        $master->model_type  = "App\Models\Mahasiswa";
+        $master->pathTo      ='{"prestasi01":null,"count02":null}';
+        $master->jenis       ='angka';
+        $master->rasio       =NULL;
+        $master->save();
+
+
+
+
 
         $this->command->info('Berhasil Menambahkan 2 Master Kriteria');
 

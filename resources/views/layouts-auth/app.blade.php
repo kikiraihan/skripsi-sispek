@@ -159,7 +159,7 @@
             };
         });
         //$("body").toggleClass("sidebar-toggled");
-        $(".sidebar").toggleClass("toggled");
+        //$(".sidebar").toggleClass("toggled");
 
 
         $(function() {

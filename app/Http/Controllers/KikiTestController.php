@@ -14,7 +14,7 @@ use App\Traits\StringParser;
 use Hash;
 
 use App\Models\Mahasiswa;
-use App\Models\Masterkriteria;
+use App\Models\Masterkriteria as Kriteria;
 use App\Models\User;
 use App\Models\Matakuliah;
 use auth;
@@ -25,6 +25,13 @@ class KikiTestController extends Controller
 
     public function index()
     {
+        $ini="> Rp. 10 juta";
+
+        $kriteria=json_decode(Kriteria::find(2)->rasio)->$ini;
+        dd($kriteria);
+
+        // $mahasiswa=Mahasiswa::find(1)->kegiatan->count();
+        // dd($mahasiswa);
 
 
         // $fullstring = "orderBy";
@@ -58,8 +65,8 @@ class KikiTestController extends Controller
         {
             if($p!="")
             {
-                $nama=$this->ambil_nama_fungsi($p);
-                $param=$this->ambil_parameter($p);
+                $nama   =   $this->ambil_nama_fungsi($p);
+                $param  =   $this->ambil_parameter($p);
 
                 if($this->cek_apakah_fungsi($nama)!==false)
                 {
