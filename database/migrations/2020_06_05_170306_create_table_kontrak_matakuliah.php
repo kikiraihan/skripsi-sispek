@@ -14,8 +14,8 @@ class CreateTableKontrakMatakuliah extends Migration
     public function up()
     {
         Schema::create('kontrak_matakuliah', function (Blueprint $table) {
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
-            $table->foreignId('id_matakuliah')->constrained('matakuliahs');//FK
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');//FK
+            $table->foreignId('id_matakuliah')->constrained('matakuliahs')->onDelete('cascade');//FK
             $table->primary(['id_mahasiswa','id_matakuliah']);
 
             $table->enum('nilai_mutu',[

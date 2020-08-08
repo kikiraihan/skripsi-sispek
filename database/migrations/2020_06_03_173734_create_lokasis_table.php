@@ -15,7 +15,7 @@ class CreateLokasisTable extends Migration
     {
         Schema::create('lokasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');//FK
 
             $table->string('provinsi')->nullable();
             $table->string('kota');

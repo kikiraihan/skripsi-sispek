@@ -15,7 +15,7 @@ class CreateKegiatansTable extends Migration
     {
         Schema::create('kegiatans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');//FK
             $table->string('sertifikat');
             $table->string('judul');
             $table->date('tanggal');

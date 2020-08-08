@@ -94,12 +94,11 @@
                 <label>Kategori Penghasilan</label>
                 <select wire:model.lazy="kategori_penghasilan" class="form-control @error('kategori_penghasilan') is-invalid @enderror">
                     <option value="" hidden>- Kategori Penghasilan -</option>
-
-                   <option value="< Rp. 1 juta"> < Rp. 1 juta</option>
-                   <option value="Rp. 1 juta - 3 juta"> Rp. 1 juta - 3 juta</option>
-                   <option value="Rp. 3 juta - 5 juta"> Rp. 3 juta - 5 juta</option>
-                   <option value="Rp. 5 juta - 10 juta"> Rp. 5 juta - 10 juta</option>
-                   <option value="> Rp. 10 juta"> > Rp. 10 juta</option>
+                    <option value="< Rp. 1 juta"> < Rp. 1 juta</option>
+                    <option value="Rp. 1 juta - 3 juta"> Rp. 1 juta - 3 juta</option>
+                    <option value="Rp. 3 juta - 5 juta"> Rp. 3 juta - 5 juta</option>
+                    <option value="Rp. 5 juta - 10 juta"> Rp. 5 juta - 10 juta</option>
+                    <option value="> Rp. 10 juta"> > Rp. 10 juta</option>
 
                 </select>
                 @error('kategori_penghasilan')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror

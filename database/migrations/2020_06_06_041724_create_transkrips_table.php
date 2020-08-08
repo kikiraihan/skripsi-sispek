@@ -16,7 +16,7 @@ class CreateTranskripsTable extends Migration
         Schema::create('transkrips', function (Blueprint $table) {
             $table->id();
             // id_mahasiswa
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');//FK
             // file
             $table->string('file');
             $table->longtext('catatan')->nullable();

@@ -20,8 +20,17 @@ class Rekomendasiotomatis extends Component
 
     public $preferensiToGenerate;
 
-    public $ranked;
+    public $rank;
     public $matriks;
+
+    public $filter_angkatan;
+    public $filter_ipk;
+    public $filter_status;
+    public $filter_prodi;
+    public $filter_dosenpa;
+
+
+
 
     //reset the page after filtering data
     public function updatingSearchPreferensi()
@@ -56,21 +65,38 @@ class Rekomendasiotomatis extends Component
     public function getModelRanked()
     {
         $mahasiswaRangked=[];
-        if ($this->ranked and $this->ranked!="setara")
+        if ($this->rank and $this->rank!="setara")
         {
-            arsort($this->ranked);
-            foreach ($this->ranked as $id_mahasiswa => $value)
+            arsort($this->rank);
+            foreach ($this->rank as $id_mahasiswa => $value)
             {
                 $preferensi=$this->preferensiToGenerate;
                 $mahasiswaRangked[$id_mahasiswa]['model']=$preferensi->model_type::find($id_mahasiswa);
-                $mahasiswaRangked[$id_mahasiswa]['rank']=$this->ranked[$id_mahasiswa]['nilai'];
+                $mahasiswaRangked[$id_mahasiswa]['rank']=$this->rank[$id_mahasiswa]['nilai'];
             }
             return $mahasiswaRangked;
         }
         else
-        return $this->ranked; //kalau setara ['setara'] atau kosong [false]
+        return $this->rank; //kalau setara ['setara'] atau kosong [false]
     }
 
+
+
+
+    public function getMatriksSortByRank($rank,$matriks)
+    {
+        // dd($rank);
+
+        $return=[];
+        arsort($rank);
+        foreach($rank as $key=>$value)
+        {
+            // $this->matriks[$key]['rank']=$value['nilai'];
+            // $this->matriks[$key]['matriksdetail']=$matriks[$key];
+            $return[$key]=$matriks[$key];
+        }
+        return $return;
+    }
 
 
 
@@ -78,7 +104,11 @@ class Rekomendasiotomatis extends Component
 
     public function getMatriksTitleRender()
     {
-        foreach ($this->matriks as $id_model => $perModel)
+
+        foreach (
+            $this->getMatriksSortByRank($this->rank,$this->matriks)
+            as $id_model => $perModel
+            )
         {
             foreach ($perModel as $id_kriteria => $value)
             {
@@ -89,6 +119,8 @@ class Rekomendasiotomatis extends Component
         }
         return $return;
     }
+
+
 
 
 
@@ -105,6 +137,10 @@ class Rekomendasiotomatis extends Component
         return $return;
     }
 
+
+
+
+
     public function getTitleOfKriteria($id)
     {
         return Kriteria::find($id)->title;
@@ -117,26 +153,106 @@ class Rekomendasiotomatis extends Component
     public function setPreferensiToGenerate($id)
     {
         $this->preferensiToGenerate=Preferensi::find($id);
-        $this->emit(
-            'swalAlertSuccess',
-            'Preferensi Dipilih',
-            $this->preferensiToGenerate->judul
-        );
-        $this->ranked=FALSE;
+        // $this->emit(
+        //     'swalAlertSuccess',
+        //     'Preferensi Dipilih',
+        //     $this->preferensiToGenerate->judul
+        // );
+        $this->resetUntukGenerateBaru();
     }
+
+
+
+
 
     public function lihatPreferensi($id)
     {
         dd($id);
     }
 
+
+
+    public function resetUntukGenerateBaru()
+    {
+        $this->rank=FALSE;
+        $this->matriks=FALSE;
+        $this->filter_angkatan=FALSE;
+        $this->filter_ipk=FALSE;
+        $this->filter_status=FALSE;
+        $this->filter_prodi=FALSE;
+        $this->filter_dosenpa=FALSE;
+    }
+
+
+
+
+
+    public function filterBeforeGenerate($model_type)//App\Model\Mahasiswa
+    {
+
+        $model_type=$model_type::with('ipksebelumnya');
+
+
+        if ($this->filter_angkatan)
+            $model_type=$model_type->where('angkatan', $this->filter_angkatan);
+
+        // if ($this->filter_ipk)
+        // {
+        //     $filter=explode(':',$this->filter_ipk);
+
+        //     $model_type=$model_type::
+        //     whereHas('ipksebelumnya', function ($query)
+        //     {
+        //         $query->orderBy();
+        //         //last ipk sebelumnya
+        //         //last tsb apakah (> atau <)  dari $filter[1]
+        //     });
+        // }
+
+        // if ($this->filter_status)
+        //     $model_type=$model_type::where('status', $this->filter_status);
+
+        if ($this->filter_prodi)
+            $model_type=$model_type->where('prodi', $this->filter_prodi);
+
+        if ($this->filter_dosenpa)
+            $model_type=$model_type->where('id_dosen_pa', $this->filter_dosenpa);
+
+
+
+        $filteredMahasiswa=$model_type->get();
+
+
+
+        //cek kosong
+        if($filteredMahasiswa->isEmpty() or $filteredMahasiswa->count()==1)
+        {
+            $this->emit(
+                'swalAlertDanger',
+                'Error',
+                "Hasil filter hanya menemukan ".$filteredMahasiswa->count()." Alternatif"
+            );
+            return FALSE;
+        }
+
+        return $filteredMahasiswa;
+    }
+
+
+
+
+
+
+
     public function generate()
     {
         $preferensi=$this->preferensiToGenerate;
         // $preferensi->model_type::find(1);
-        $filteredMahasiswa  = $preferensi->model_type::all();//App Model Mahasiswa
+
+        $filteredMahasiswa  = $this->filterBeforeGenerate($preferensi->model_type);
         $kriteria           = json_decode($preferensi->kriteria);
-        // dd($kriteria);
+
+        if(!$filteredMahasiswa) return FALSE;
 
         foreach($filteredMahasiswa as $m)
         {
@@ -167,8 +283,6 @@ class Rekomendasiotomatis extends Component
             }
         }
 
-
-
         //normalisasi
         $matriksPembagi=$this->sumPerColumnsBerpangkatDiakarkan($matriks,$kriteria);
         $matriksNormalisedTopsis=$this->normalise($matriks,$matriksPembagi);
@@ -187,9 +301,8 @@ class Rekomendasiotomatis extends Component
         //nilai preferensi/akhir/rank
         $rank=$this->nilaiPreferensi($dPositif,$dNegatif,$matriksWeightedTopsis);
 
-        $this->ranked=$rank;
+        $this->rank=$rank;
         $this->matriks=$matriks;
-
 
         $this->emit(
             'swalAlertSuccess',
@@ -198,6 +311,9 @@ class Rekomendasiotomatis extends Component
         );
 
     }
+
+
+
 
 
 }

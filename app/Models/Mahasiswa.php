@@ -159,6 +159,18 @@ class Mahasiswa extends Model
     }
 
 
+    public function getSemesterAttribute()
+    {
+        // $this->matakuliah-/
+        return $this->matakuliah()->
+        orderBy('kontrak_matakuliah.semester','asc')
+        ->get()
+        ->last()
+        ->pivot
+        ->semester;
+    }
+
+
 
 
 

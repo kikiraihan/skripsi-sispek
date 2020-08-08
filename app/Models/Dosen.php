@@ -18,6 +18,16 @@ class Dosen extends Model
         return $this->belongsTo('App\Models\User', 'id_user');
     }
 
+    public function kaprodi()
+    {
+        return $this->hasOne('App\Models\Kaprodi', 'id_dosen');
+    }
+
+    public function kajur()
+    {
+        return $this->hasOne('App\Models\Kajur', 'id_dosen');
+    }
+
     public function mahasiswapa()
     {
         return $this->hasMany('App\Models\Mahasiswa', 'id_dosen_pa');

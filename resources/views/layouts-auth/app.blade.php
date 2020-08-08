@@ -107,16 +107,13 @@
         </div> --}}
         <div class="modal-body text-center">
         <img class="w-50 d-block p-3 mr-auto ml-auto" src="{{asset('ilustrasi/decision_.svg')}}" alt="logout">
-        <span class="small d-block">Pilih "Logout" di bawah ini jika anda siap untuk mengakhiri sesi anda saat ini.</span>
+        <span class=" d-block">Pilih "Logout" di bawah ini jika anda siap untuk mengakhiri sesi anda saat ini.</span>
         </div>
         <div class="modal-footer">
 
             <div class="row  w-100 no-gutters">
-                <span class="col-6 px-2 ">
-                    <button class="w-100 h-100 btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                </span>
                 <span class="col-6 px-2">
-                    <a class="w-100 h-100 btn btn-primary" href="{{ route('logout') }}"
+                    <a class="w-100 h-100 btn-lg btn btn-primary" href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
@@ -125,6 +122,9 @@
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                         @csrf
                     </form>
+                </span>
+                <span class="col-6 px-2 ">
+                    <button class="w-100 h-100 btn-lg btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
                 </span>
             </div>
 
@@ -170,19 +170,19 @@
 
 
 
-    @yield('script-halaman')
 
-     {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
     {{-- @include('sweetalert::alert') --}}
-
-
-
-
-
 
 
     {{-- iko dayat sweetalert --}}
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+
+    @yield('script-halaman')
+
+
+
 
 
 

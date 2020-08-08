@@ -12,7 +12,8 @@ class Myprestasi extends Component
 
     protected $listeners=[
         'prestasiDitambahkan'=>'efekDitambahkan',
-        'prestasiDiupdate'=>'mount'
+        'prestasiDiupdate'=>'mount',
+        'prestasiFixHapus'=>'delete'
     ];
 
     public function mount()

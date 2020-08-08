@@ -12,7 +12,8 @@ class Myorangtua extends Component
 
     protected $listeners=[
         'orangtuaDitambahkan'=>'efekDitambahkan',
-        'orangtuaDiupdate'=>'mount'
+        'orangtuaDiupdate'=>'mount',
+        'orangtuaFixHapus'=>'delete'
     ];
 
     public function mount()

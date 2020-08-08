@@ -25,6 +25,17 @@ class KikiTestController extends Controller
 
     public function index()
     {
+        $user = User ::
+        whereHas('roles', function ( $query) {
+            return $query->whereIn('name',['Dosen','Kaprodi','Kajur','Admin']);
+        })
+        ->get()
+        ;
+        dd($user);
+    }
+
+    public function indexaa()
+    {
         $ini="> Rp. 10 juta";
 
         $kriteria=json_decode(Kriteria::find(2)->rasio)->$ini;

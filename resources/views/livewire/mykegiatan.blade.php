@@ -56,7 +56,7 @@
                   <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                     <a wire:click="bukaUpdate({{$keg->id}})" data-toggle="modal" data-target="#modalInput"  class="dropdown-item "  href="#"><i class="fas fa-edit text-primary"></i> Edit </a>
                     {{--  <div class="dropdown-divider"></div>  --}}
-                    <a wire:click="delete({{$keg->id}})"  class="dropdown-item "  href="#"><i class="fas fa-trash text-danger"></i> Hapus </a>
+                    <a wire:click="$emit('swalAndaYakin','kegiatanFixHapus',{{ $keg->id }},'Anda akan menghapus data tersebut!')"  class="dropdown-item "  href="#"><i class="fas fa-trash text-danger"></i> Hapus </a>
                   </div>
                 </div>
               </td>

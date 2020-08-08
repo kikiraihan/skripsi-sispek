@@ -17,7 +17,7 @@ class SuperAdminSeeder extends Seeder
         $user=new User;
         $user->username     ="superadmin";
         $user->email        ="";
-        $user->password     =Hash::make('superadmin');
+        $user->password     ='superadmin';
         $user->save();
 
         //deklarasi role

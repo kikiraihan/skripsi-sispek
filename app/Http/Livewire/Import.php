@@ -12,6 +12,8 @@ use App\Models\Mahasiswa;
 use App\Models\User;
 use App\Models\Matakuliah;
 use App\Models\Ipksebelumnya;
+// use Faker\Generator as Faker;
+use Faker\Factory as Inifaker;
 
 
 
@@ -181,6 +183,8 @@ class Import extends Component
 
     private function importmahasiswa($import)
     {
+        $faker = Inifaker::create();
+
         $counter=0;
 
         foreach ($import as $m)
@@ -226,8 +230,9 @@ class Import extends Component
                 $mahasiswa->tgl_lahir       = $spasi[1]==null?null:$tgl_lahir;
                 $mahasiswa->tempat_lahir    = $tempat_lahir;
 
+
                 //nanti hapus ini,cuma bcoba akan dosen PA
-                $mahasiswa->id_dosen_pa    = 1;
+                $mahasiswa->id_dosen_pa    = $faker->randomElement([1,2,3]);
 
                 $user->save();
                 $user->mahasiswa()->save($mahasiswa);

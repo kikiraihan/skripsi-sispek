@@ -15,7 +15,7 @@ class CreateMinatbakatsTable extends Migration
     {
         Schema::create('minatbakats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');//FK
             $table->string('title');
             $table->timestamps();
         });

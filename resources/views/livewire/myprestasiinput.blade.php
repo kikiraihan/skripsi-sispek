@@ -40,11 +40,11 @@
                     <label>Tingkat</label>
                     <select wire:model.lazy="tingkat" class="form-control @error('tingkat') is-invalid @enderror">
                         <option value="" hidden>- tingkat -</option>
-                        <option value="kampus">Kampus</option>
-                        <option value="kabupaten">Kabupaten</option>
-                        <option value="provinsi">Provinsi</option>
-                        <option value="nasional">Nasional</option>
-                        <option value="internasional">Internasional</option>
+                        <option value="Kampus">Kampus</option>
+                        <option value="Kabupaten">Kabupaten</option>
+                        <option value="Provinsi">Provinsi</option>
+                        <option value="Nasional">Nasional</option>
+                        <option value="Internasional">Internasional</option>
                     </select>
                     @error('tingkat')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                 </div>

@@ -222,4 +222,40 @@
 
 @section('script-halaman')
 
+@if (session('success'))
+<script>
+    Swal.fire({
+        //toast: true,
+        //position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: false,
+        //onOpen: (toast) => {
+          //toast.addEventListener('mouseenter', Swal.stopTimer)
+          //toast.addEventListener('mouseleave', Swal.resumeTimer)
+        //},
+        icon: 'success',
+        title: "Berhasil" ,
+        text: 'biodata berhasil diupdate!',
+    });
+</script>
+@elseif (session('successGantiPassword'))
+<script>
+    Swal.fire({
+        //toast: true,
+        //position: 'top-end',
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: false,
+        //onOpen: (toast) => {
+          //toast.addEventListener('mouseenter', Swal.stopTimer)
+          //toast.addEventListener('mouseleave', Swal.resumeTimer)
+        //},
+        icon: 'success',
+        title: "Berhasil" ,
+        text: 'password berhasil diupdate!!',
+    });
+</script>
+@endif
+
 @endsection

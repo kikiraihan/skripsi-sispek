@@ -50,15 +50,23 @@
                               {{-- <th>No</th> --}}
                               <th>Judul</th>
                               <th>Matriks</th>
-                              <th>Ordo</th>
                               <th>Kriteria</th>
+                              {{-- <th>Author</th> --}}
+                              <th>Catatan</th>
                               <th>Aksi</th>
                           </tr>
                         </thead>
                         <tbody>
                         @foreach ($preferensi as $key=>$pre)
                           <tr>
-                              <td>{{ $pre->judul }}</td>
+                              <td class="@if(Auth::user()->id==$pre->user->id) text-success @endif">
+                                {{ $pre->judul }}
+                                {{-- @if(Auth::user()->id==$pre->user->id) --}}
+                                {{-- <sup>*</sup> --}}
+                                {{-- * --}}
+                                {{-- <i class="fas fa-bookmark small"> --}}
+                                {{-- @endif --}}
+                              </td>
                               <td>
                                 @php $matriks=json_decode($pre->matriks) @endphp
                                 @for ($i = 0; $i < count($matriks); $i++)
@@ -68,11 +76,14 @@
                                     <br>
                                 @endfor
                               </td>
-                              <td>{{ $pre->ordo }}</td>
                               <td>
                                 @foreach (json_decode($pre->kriteria) as $id=>$kriteria)
                                 {{ $this->getTitleOfKriteria($id) }} <span class="badge badge-info">{{$kriteria->jenis}} : {{round($kriteria->bobot,3)}}</span>  <br>
                                 @endforeach
+                              </td>
+                              {{-- <td>{{ $pre->user->kredensialUsernama }}</td> --}}
+                              <td>
+                                {{ $pre->catatan }}
                               </td>
                               <td>
                                 <div class="dropdown no-arrow position-absolute dropleft">
@@ -80,7 +91,19 @@
                                       ☰
                                   </button>
                                   <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                                    <a wire:click="$emit('swalDeleted','preferensiFixHapus',{{ $pre->id }})"  class="dropdown-item "  href="#"><i class="fas fa-trash text-danger"></i> Hapus </a>
+                                  @if(
+                                    Auth::user()->hasRole("Dosen")
+                                    AND !(Auth::user()->hasRole("Kajur") OR Auth::user()->hasRole("Kaprodi"))
+                                    )
+                                    @if (Auth::user()->id==$pre->user->id)
+                                      <span wire:click="$emit('swalDeleted','preferensiFixHapus',{{ $pre->id }})"  class="dropdown-item " style="cursor:pointer;"><i class="fas fa-trash text-danger"></i> Hapus </span>
+                                    @else
+                                      <span class="dropdown-item">-tidak dapat menghapus-</span>
+                                    @endif
+                                  @else
+                                  <span wire:click="$emit('swalDeleted','preferensiFixHapus',{{ $pre->id }})"  class="dropdown-item " style="cursor:pointer;"><i class="fas fa-trash text-danger"></i> Hapus </span>
+                                  @endif
+
                                   </div>
 
                                 </div>

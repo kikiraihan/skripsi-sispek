@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -51,12 +53,30 @@ class User extends Authenticatable
         return $this->hasOne('App\Models\Dosen', 'id_user');
     }
 
+    public function masterpreferensi()
+    {
+        return $this->hasMany('App\Models\Masterpreferensi', 'id_user');
+    }
+
+
+
+    // setter dan getter
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] =  Hash::make($password);//bcrypt($password);
+    }
 
     public function getKredensialUserAttribute()
     {
         if ($this->hasRole('Mahasiswa')) return $this->mahasiswa;
         elseif ($this->hasRole('Dosen')) return $this->dosen;
+    }
 
+    public function getKredensialUserNamaAttribute()
+    {
+        if ($this->hasRole('Mahasiswa')) return $this->mahasiswa->nama;
+        elseif ($this->hasRole('Dosen')) return $this->dosen->nama;
+        else return $this->username;
     }
 
 
@@ -70,6 +90,37 @@ class User extends Authenticatable
         $gravatar="https://www.gravatar.com/avatar/".$hash.".png?d=robohash&s=200&r=pg";//&d=404,d=mp,d=retro,d=monsterid,d=wavatar,d=robohash
 
         return $gravatar!=NULL?$gravatar:asset('assets_landing/img/avatar_2x.png');
+    }
+
+
+    public function isDosenKajur()
+    {
+        if (
+            $this->hasAllRoles(['Kajur','Dosen'])
+        ) return true;
+
+        else return false;
+    }
+
+    public function isDosenKaprodi()
+    {
+        if (
+            $this->hasAllRoles(['Kaprodi','Dosen'])
+        ) return true;
+
+        else return false;
+    }
+
+
+
+    public function isHanyaDosen()
+    {
+        if (
+            !$this->hasAnyRole(['Kajur', 'Kaprodi','Admin'])
+            and
+            $this->hasRole('Dosen')
+        ) return true;
+        else return false;
     }
 
 

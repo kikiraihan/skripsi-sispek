@@ -23,6 +23,7 @@
         </div>
         <div class="col-md-3 p-1">
 
+            @if (Auth::user()->hasRole('Admin|Super Admin'))
             <a href="#" wire:loading.attr="disabled" wire:click="ImportNilaiMK" class="btn btn-primary">
                 <div wire:loading.remove wire:target="ImportNilaiMK">
                     {{-- gunakan wire target untuk membatasi akan dirender pada fungsi mana--}}
@@ -34,6 +35,7 @@
                     Mengimport..
                 </div>
             </a>
+            @endif
 
         </div>
 
@@ -80,7 +82,9 @@
                               {{-- <th>No</th> --}}
                               <th>Title</th>
                               <th>Model Type</th>
+                              @if (Auth::user()->hasRole('Admin|Super Admin'))
                               <th class="d-none d-md-table-cell">Path To</th>
+                              @endif
                               <th class="d-none d-md-table-cell">Jenis</th>
                               <th class="d-none d-md-table-cell">Rasio</th>
                               <th>Aksi</th>
@@ -91,6 +95,7 @@
                           <tr>
                               <td>{{ $p->title }}</td>
                               <td>{{ str_replace('App\Models','',$p->model_type) }}</td>
+                              @if (Auth::user()->hasRole('Admin|Super Admin'))
                               <td class="d-none d-md-table-cell">
                                   @foreach ($p->PathToRenderArray as $path=>$isi)
                                   <div class="badge badge-info">
@@ -100,8 +105,8 @@
                                     @endif
                                   </div>
                                   @endforeach
-
-                              </td>
+                                </td>
+                                @endif
                               <td class="d-none d-md-table-cell">{{ $p->jenis }}</td>
                               <td class="d-none d-md-table-cell">
                                   @if ($p->rasio!=null)
@@ -120,9 +125,15 @@
                                       ☰
                                   </span>
                                   <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+
+                                    @if (Auth::user()->hasRole('Admin|Super Admin'))
                                     <a wire:click="bukaUpdate({{$p->id}})" data-toggle="modal" data-target="#modalInput"  class="dropdown-item "  href="#"><i class="fas fa-edit text-primary"></i> Edit </a>
                                     {{--  <div class="dropdown-divider"></div>  --}}
                                     <a wire:click="$emit('swalDeleted','kriteriaFixHapus',{{ $p->id }})"  class="dropdown-item "  href="#"><i class="fas fa-trash text-danger"></i> Hapus </a>
+                                    @else
+                                    <span class="dropdown-item">-Tidak Tersedia-</span>
+                                    @endif
+
                                   </div>
 
                                 </div>
@@ -137,8 +148,9 @@
 
         </div>
 
-
+        @if (Auth::user()->hasRole('Admin|Super Admin'))
         <button wire:click="bukaTambah()" type="button" data-toggle="modal" data-target="#modalInput" href="#" class="btn btn-block btn-light rounded-0 ">Kriteria baru <i class="fas fa-plus "></i></button>
+        @endif
     </div>
 
     {{ $kriteria->links() }}

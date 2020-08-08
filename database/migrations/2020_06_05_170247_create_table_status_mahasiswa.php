@@ -14,8 +14,8 @@ class CreateTableStatusMahasiswa extends Migration
     public function up()
     {
         Schema::create('status_mahasiswa', function (Blueprint $table) {
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
-            $table->foreignId('id_tahunakademik')->constrained('tahunakademiks');//FK
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');//FK
+            $table->foreignId('id_tahunakademik')->constrained('tahunakademiks')->onDelete('cascade');//FK
             $table->primary(['id_mahasiswa','id_tahunakademik']);
 
             $table->enum('status',[

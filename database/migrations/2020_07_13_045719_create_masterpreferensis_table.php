@@ -16,6 +16,9 @@ class CreateMasterpreferensisTable extends Migration
         Schema::create('masterpreferensis', function (Blueprint $table) {
             $table->id();
 
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade')->nullable();//FK
+            $table->string('catatan',900)->nullable();
+
             $table->string('judul');
             $table->string('model_type');
 
@@ -23,6 +26,7 @@ class CreateMasterpreferensisTable extends Migration
             $table->longText('matriks')->nullable();
             $table->longText('matriksNormalised')->nullable();
             $table->string('kriteria',900);
+
 
             /*[
                 {"master":"idAgama","jenis":"Benefit","bobot":0.4201001643982254},

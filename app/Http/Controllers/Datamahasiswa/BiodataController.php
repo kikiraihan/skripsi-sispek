@@ -74,8 +74,8 @@ class BiodataController extends Controller
         $mahasiswa->asuransi        = $ini["asuransi"] ;
         $mahasiswa->save();
 
-        Alert::success('biodata berhasil diupdate!','success');
+        // Alert::success('biodata berhasil diupdate!','success');
 
-        return redirect()->back();
+        return redirect()->back()->with('success','biodata berhasil diupdate!');
     }
 }

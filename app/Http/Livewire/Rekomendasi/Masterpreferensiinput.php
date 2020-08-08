@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Masterkriteria as Kriteria;
 use Livewire\WithPagination;
 use App\Models\Masterpreferensi;
+use Illuminate\Support\Facades\Auth;
+
 
 class Masterpreferensiinput extends Component
 {
@@ -24,6 +26,8 @@ class Masterpreferensiinput extends Component
     public $searchKriteriaCount;
     public $idToDelete;
     public $cr;
+
+    public $catatan;
 
 
     protected $listeners=[
@@ -394,6 +398,8 @@ class Masterpreferensiinput extends Component
 
 
         $newPreferensi = new Masterpreferensi;
+        $newPreferensi->id_user   = AUTH::user()->id;
+        $newPreferensi->catatan   = $this->catatan;
         $newPreferensi->judul   = $this->judul;
         $newPreferensi->model_type   = $this->model_type;
         $newPreferensi->ordo    = count($this->matriksKriteria);

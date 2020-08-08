@@ -241,6 +241,12 @@
                 </div>
 
             </div>
+            <br>
+            <div class="form-group">
+                <label>Catatan</label>
+                <textarea wire:model.lazy="catatan"  class="form-control" placeholder="Catatan tambahan.."></textarea>
+                <sub class="text-secondary">*boleh kosong</sub>
+            </div>
 
             <div class="mt-4">
                 <button wire:click="prosesSimpan()" class="btn btn-primary" @if($cr>0.1) disabled @endif >Simpan</button>

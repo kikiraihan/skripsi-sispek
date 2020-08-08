@@ -15,7 +15,7 @@ class CreateDosensTable extends Migration
     {
         Schema::create('dosens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_user')->constrained('users');//FK
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');//FK
 
             $table->string('nama',50);
             $table->char('nip',25)->unique();

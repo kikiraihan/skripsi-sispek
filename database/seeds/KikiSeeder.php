@@ -20,7 +20,7 @@ class KikiSeeder extends Seeder
         $user->username                 ='531416066';
         $user->email                    = 'mohzulkiflikatili@gmail.com';
         $user->email_verified_at        = now();
-        $user->password                 =Hash::make('531416066');
+        $user->password                 = '531416066';
         $mahasiswa                      = new Mahasiswa;
         $mahasiswa->nama                ="MOH. ZULKIFLI KATILI";
         $mahasiswa->nim                 ="531416066";

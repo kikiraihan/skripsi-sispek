@@ -24,10 +24,10 @@ class MahasiswaSeeder extends Seeder
             $user->username                 ='mahasiswa'.$i;
             $user->email                    = $user->username.'@gmail.com';
             $user->email_verified_at        = now();
-            $user->password                 = Hash::make('password');
+            $user->password                 = 'password';
             $mahasiswa                      = new Mahasiswa;
-            $mahasiswa->nama                =$faker->name;
-            $mahasiswa->nim                 =$faker->randomNumber;
+            $mahasiswa->nama                = $faker->name;
+            $mahasiswa->nim                 = $faker->randomNumber;
             $mahasiswa->angkatan            ='20'.$faker->numberBetween($min = 10, $max = 20);
             $mahasiswa->prodi               =$faker->randomElement(['S1 - Sistem Informasi','S1 - Pendidikan Teknologi Informasi']);
             $mahasiswa->tgl_lahir           ='2020-04-04 00:11:51';

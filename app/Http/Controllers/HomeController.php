@@ -54,6 +54,16 @@ class HomeController extends Controller
 
             return view('page.Dashboard.dashboard-dosen', compact(['user','mahasiswa_menurun_ipk','mahasiswa_nilai_e','mahasiswa_ipkbaik','mahasiswa_ipkkurang']));
         }
+        elseif(auth::user()->hasRole('Admin') OR auth::user()->hasRole('Super Admin') )
+        {
+            $client = new \GuzzleHttp\Client();
+            $response = $client->get('https://api.kanye.rest/');
+            $xml = $response->getBody()->getContents();
+            $quote=json_decode($xml)->quote;
+
+            $user=auth::user();
+            return view('page.Dashboard.dashboard-admin', compact(['user','quote']));
+        }
 
     }
 
@@ -84,12 +94,12 @@ class HomeController extends Controller
         ],$CustomMessages);
 
 
-        auth::user()->password = Hash::make($ini['password_baru']);
+        auth::user()->password = $ini['password_baru'];//Hash::make($ini['password_baru']);
         auth::user()->save();
 
-        Alert::success('password berhasil diupdate!','success');
 
-        return redirect()->back();
+
+        return redirect()->back()->with('successGantiPassword','password berhasil diupdate!');
 
     }
 }

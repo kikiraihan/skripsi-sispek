@@ -16,7 +16,7 @@ class CreateMahasiswasTable extends Migration
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('id_user')->constrained('users');//FK
+            $table->foreignId('id_user')->constrained('users')->onDelete('cascade');//FK
             $table->foreignId('id_dosen_pa')->nullable()->constrained('dosens');//FK
 
             $table->string('nama',50);

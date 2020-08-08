@@ -13,7 +13,8 @@ class Mysaudara extends Component
 
     protected $listeners=[
         'saudaraDitambahkan'=>'efekDitambahkan',
-        'saudaraDiupdate'=>'mount'
+        'saudaraDiupdate'=>'mount',
+        'saudaraFixHapus'=>'delete'
     ];
 
     public function mount()

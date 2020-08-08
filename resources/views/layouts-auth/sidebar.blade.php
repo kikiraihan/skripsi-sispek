@@ -80,17 +80,16 @@
 
 
       @hasanyrole('Kajur|Kaprodi|Admin')
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        Pimpinan
-      </div>
-
-
+      <li class="nav-item ">
+        <a class="nav-link" href="{{ route('mahasiswa.all') }}">
+          <i class="fas fa-users"></i>
+          <span>Semua Mahasiswa</span></a>
+      </li>
 
       @endrole
+
+
+      @hasanyrole('Kajur|Kaprodi|Admin|Super Admin|Dosen')
 
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -99,6 +98,13 @@
       <div class="sidebar-heading">
         Rekomendasi
       </div>
+
+      <li class="nav-item ">
+        <a class="nav-link" href="{{route('masterkriteria')}}">
+          {{-- <i class="fas fa-project-diagram"></i> --}}
+          <i class="fas fa-th-large"></i>
+          <span>Master Kriteria</span></a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuPreferensi" aria-expanded="true" aria-controls="menuPreferensi">
@@ -114,10 +120,14 @@
         </div>
       </li>
 
+      @endrole
+
+      @hasanyrole('Kajur|Kaprodi|Admin|Super Admin')
+
       <li class="nav-item ">
         <a class="nav-link" href="{{route('rekomendasi.otomatis')}}">
           {{-- <i class="fas fa-project-diagram"></i> --}}
-          <i class="fas fa-th-large"></i>
+          <i class="fab fa-searchengin"></i>
           <span>Rekomendasi Otomatis</span></a>
       </li>
 
@@ -125,15 +135,16 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
       <div class="sidebar-heading">
-        Admin
+        Kelola
       </div>
 
+      @if (!Auth::user()->hasRole('Kaprodi'))
       <li class="nav-item ">
-        <a class="nav-link" href="{{route('masterkriteria')}}">
-          {{-- <i class="fas fa-project-diagram"></i> --}}
-          <i class="fas fa-th-large"></i>
-          <span>Master Kriteria</span></a>
+        <a class="nav-link" href="{{ route('master.admindosen') }}">
+          <i class="fas fa-users"></i>
+          <span>User Management</span></a>
       </li>
+      @endif
 
       <li class="nav-item ">
         <a class="nav-link"  href="{{route('import')}}">
@@ -142,6 +153,8 @@
           <i class="fas fa-th-large"></i> --}}
           <span>Import</span></a>
       </li>
+      @endrole
+
 
       {{-- <li class="nav-item ">
         <a class="nav-link" href="{{url('contoh')}}">
@@ -152,8 +165,34 @@
 
 
 
+      <!-- Divider -->
+      {{-- <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        Belum selesai
+      </div>
+
+      <li class="nav-item ">
+        <a class="nav-link"  href="#">
+          <i class="fas fa-fw fa-truck-loading"></i>
+          <span>CRUD ORMAWA</span></a>
+      </li>
+
+      <li class="nav-item ">
+        <a class="nav-link"  href="#">
+          <i class="fas fa-fw fa-truck-loading"></i>
+          <span>Matakuliah lihat/ Edit Kategori</span></a>
+      </li> --}}
+
+
+
+
+
+
 
       <!-- Sidebar Toggler (Sidebar) -->
+      <br>
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>
       </div>

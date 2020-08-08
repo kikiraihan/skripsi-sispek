@@ -15,7 +15,7 @@ class CreateIpksebelumnyasTable extends Migration
     {
         Schema::create('ipksebelumnyas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');//FK
 
             $table->double('ipk', 3, 2)->nullable()->default(0.00);
 

@@ -18,7 +18,8 @@ class Mykegiatan extends Component
 
     protected $listeners=[
         'kegiatanDitambahkan'=>'efekDitambahkan',
-        'kegiatanDiupdate'=>'mount'
+        'kegiatanDiupdate'=>'mount',
+        'kegiatanFixHapus'=>'delete'
     ];
 
     public function mount()

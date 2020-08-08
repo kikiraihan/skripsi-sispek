@@ -79,17 +79,38 @@
       </div>
     </div>
 
+
+
+
+
+
+    @elseif($komponen=="masterAdminDosen")
+    <livewire:master.admindosen/>
+
+    <!-- Modal -->
+    {{-- ada pake ignore self --}}
+    <livewire:master.admindoseninput/>
+
+
+
+
+
+
     @elseif($komponen=="mahasiswaPA")
     <livewire:mahasiswa.mahasiswapa/>
 
-    <!-- Modal -->
-    {{-- <div class="modal fade bd-example-modal-xl" id="modalInput" tabindex="-1" role="dialog" aria-labelledby="modalInputLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-scrollable modal-xl modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <livewire:mahasiswa.mahasiswapainput/>
-        </div>
-      </div>
-    </div> --}}
+
+    @elseif($komponen=="mahasiswaall")
+    <livewire:mahasiswa.all/>
+
+
+
+
+
+
+
+
+
     @endif
 
 
@@ -123,7 +144,7 @@
               toast.addEventListener('mouseleave', Swal.resumeTimer)
             },
             icon: 'success',
-            title: 'Ditambahkan' ,
+            title: 'Berhasil' ,
             text: 'berhasil menambahkan '+counter+' data!',
         });
         $('#modalInput').modal('hide');
@@ -141,8 +162,8 @@
             toast.addEventListener('mouseleave', Swal.resumeTimer)
           },
             icon: 'success',
-            title: 'Diubah' ,
-            text: 'berhasil mengubah data!',
+            title: 'Berhasil' ,
+            text: 'data telah diubah!',
             confirmButtonText: 'Oke',
         });
         $('#modalInput').modal('hide');
@@ -171,6 +192,40 @@
           }
         });
       })
+
+
+
+      window.livewire.on('tutupModal', () =>
+      {
+        $('#modalInput').modal('hide');
+      })
+
+
+      window.livewire.on('swalAndaYakin', (tujuan,idModel,pesan) => {
+        Swal.fire({
+          title: 'Anda yakin?',
+          text: pesan,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya!'
+        }).then((result) => {
+          if (result.value) {
+
+            window.livewire.emit(tujuan,idModel);
+
+            Swal.fire(
+              'Berhasil!',
+              'data telah diupdate.',
+              'success'
+            )
+
+          }
+        });
+      })
+
+
     </script>
 
 

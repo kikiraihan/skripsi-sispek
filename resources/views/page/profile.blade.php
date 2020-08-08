@@ -6,13 +6,19 @@
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">
                 @if($user->id==Auth::user()->id)
-                Home Profile
+                Beranda
                 @else
-                Profile Preview
+                Profile Page
                 @endif
             </h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+            <div>
+                <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                @if (!Auth::user()->hasRole('Mahasiswa'))
+                <a href="#" onclick="tampilKonfirmasiReset()" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm"><i class="fas fa-redo-alt fa-sm text-white-50"></i> Reset Password</a>
+                @endif
+            </div>
         </div>
+
 
         <div class="row">
 
@@ -581,6 +587,54 @@
         cutoutPercentage: 80,
     },
     });
+
+</script>
+
+
+@if (session('passwordReseted'))
+<script>
+    Swal.fire({
+        //toast: true,
+        //position: 'top-end',
+        showConfirmButton: false,
+        timer: 1000,
+        timerProgressBar: false,
+        //onOpen: (toast) => {
+          //toast.addEventListener('mouseenter', Swal.stopTimer)
+          //toast.addEventListener('mouseleave', Swal.resumeTimer)
+        //},
+        icon: 'success',
+        title: "Berhasil" ,
+        text: 'password direset menjadi "password"!',
+    });
+</script>
+@endif
+
+<script>
+    {{-- href="{{ route('mahasiswa.profil.resetpassword', ['id'=>$user->id]) }}" --}}
+
+    function tampilKonfirmasiReset(){
+        Swal.fire({
+            title: 'Anda yakin?',
+            text: "Anda akan mereset password mahasiswa ini menjadi 'password'!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Reset!'
+          }).then((result) => {
+            if (result.value) {
+              //Swal.fire(
+                //'Berhasil!',
+                //'Password mahasiswa ini telah direset.',
+                //'success'
+              //);
+              window.location.href = "{{ route('mahasiswa.profil.resetpassword', ['id'=>$user->id]) }}";
+
+            }
+          })
+
+    }
 
 </script>
 @endsection

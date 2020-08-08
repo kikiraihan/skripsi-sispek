@@ -47,7 +47,7 @@ class Myormawainput extends Component
     public function render()
     {
         $ormawa=Ormawa::all();
-        $yearRange=range(Carbon::now()->year,2010);
+        $yearRange=range(Carbon::now()->year+10,Carbon::now()->year-10);//10 tahun kebawah dan keatas
         return view('livewire.myormawainput',compact(['yearRange','ormawa']));
     }
 

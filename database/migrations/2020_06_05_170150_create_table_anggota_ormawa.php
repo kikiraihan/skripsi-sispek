@@ -15,8 +15,8 @@ class CreateTableAnggotaOrmawa extends Migration
     {
         Schema::create('anggota_ormawa', function (Blueprint $table) {
 
-            $table->foreignId('id_mahasiswa')->constrained('mahasiswas');//FK
-            $table->foreignId('id_ormawa')->constrained('ormawas');//FK
+            $table->foreignId('id_mahasiswa')->constrained('mahasiswas')->onDelete('cascade');//FK
+            $table->foreignId('id_ormawa')->constrained('ormawas')->onDelete('cascade');//FK
             //set PK
             $table->primary(['id_mahasiswa','id_ormawa']);
 

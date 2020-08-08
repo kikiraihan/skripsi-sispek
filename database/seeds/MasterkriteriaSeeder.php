@@ -79,7 +79,7 @@ class MasterkriteriaSeeder extends Seeder
 
 
         $master=new Masterkriteria;
-        $master->title       = "Jumlah kegiatan yang pernah di ikuti";
+        $master->title       = "Jumlah kegiatan yang pernah diikuti";
         $master->model_type  = "App\Models\Mahasiswa";
         $master->pathTo      ='{"kegiatan01":null,"count02":null}';
         $master->jenis       ='angka';
@@ -88,7 +88,7 @@ class MasterkriteriaSeeder extends Seeder
 
 
         $master=new Masterkriteria;
-        $master->title       = "Jumlah ormawa yang pernah di ikuti";
+        $master->title       = "Jumlah ormawa yang pernah diikuti";
         $master->model_type  = "App\Models\Mahasiswa";
         $master->pathTo      ='{"organisasi01":null,"count02":null}';
         $master->jenis       ='angka';
@@ -96,7 +96,7 @@ class MasterkriteriaSeeder extends Seeder
         $master->save();
 
         $master=new Masterkriteria;
-        $master->title       = "Jumlah ormawa yang pernah di ikuti";
+        $master->title       = "Jumlah prestasi yang pernah diraih";
         $master->model_type  = "App\Models\Mahasiswa";
         $master->pathTo      ='{"prestasi01":null,"count02":null}';
         $master->jenis       ='angka';

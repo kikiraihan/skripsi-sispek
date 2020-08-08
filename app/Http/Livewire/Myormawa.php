@@ -12,7 +12,8 @@ class Myormawa extends Component
 
     protected $listeners=[
         'ormawaDitambahkan'=>'efekDitambahkan',
-        'ormawaDiupdate'=>'mount'
+        'ormawaDiupdate'=>'mount',
+        'ormawaFixHapus'=>'delete',
     ];
 
     public function mount()

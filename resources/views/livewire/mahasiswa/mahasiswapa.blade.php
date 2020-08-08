@@ -88,7 +88,7 @@
 
 
 
-                <div class="card-footer p-0 border-top-0 bg-white row no-gutters justify-content-center">
+                <div class="card-footer p-0 pb-md-3 border-top-0 bg-white row no-gutters justify-content-center">
                     <div class="col-lg-6 p-2">
                         <a href="{{ route('mahasiswa.profil', ['id'=>$m->id]) }}" class="font-weight-bold p-2 btn btn-primary btn-sm btn-block">Profil</a>
                     </div>
