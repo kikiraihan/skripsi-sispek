@@ -101,7 +101,7 @@
     // ->middleware(['role:Mahasiswa','auth']);
 
     Route::get('/rekomendasi/otomatis', 'Rekomendasi\RekomendasiOtomatisController@index')->name('rekomendasi.otomatis')
-    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin|Super Admin','auth']);
+    ->middleware(['role:Dosen|Kajur|Kaprodi','auth']);//Admin|Super Admin
 
 
 

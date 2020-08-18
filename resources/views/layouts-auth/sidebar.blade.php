@@ -124,12 +124,17 @@
 
       @hasanyrole('Kajur|Kaprodi|Admin|Super Admin')
 
+      @if (Auth::user()->hasRole('Kaprodi') OR Auth::user()->hasRole('Kajur'))
       <li class="nav-item ">
         <a class="nav-link" href="{{route('rekomendasi.otomatis')}}">
           {{-- <i class="fas fa-project-diagram"></i> --}}
           <i class="fab fa-searchengin"></i>
-          <span>Rekomendasi Otomatis</span></a>
+          <span>Rekomendasi Otomatis</span>
+        </a>
       </li>
+      @endif
+
+
 
 
       <!-- Divider -->

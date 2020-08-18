@@ -23,9 +23,7 @@ class Myprestasi extends Component
 
     public function render()
     {
-
-
-        return view('livewire.myprestasi',compact(['prestasi']));
+        return view('livewire.myprestasi');//,compact(['prestasi'])
     }
 
 
