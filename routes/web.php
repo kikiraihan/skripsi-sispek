@@ -10,6 +10,7 @@
     // setlocale(LC_TIME, 'id');
 
     Route::get('/', function () {
+        return view('auth.login');
         return view('welcome');
     });
 
@@ -60,13 +61,13 @@
     Route::get('/mahasiswa', 'Datamahasiswa\MahasiswaController@tampilMahasiswaPA')->name('mahasiswa.pa')
     ->middleware(['role:Dosen','auth']);
     Route::get('/mahasiswa/all', 'Datamahasiswa\MahasiswaController@index')->name('mahasiswa.all')
-    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin','auth']);
+    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin|Super Admin','auth']);
     Route::get('/mahasiswa/profil/{id}', 'Datamahasiswa\MahasiswaController@tampilProfil')->name('mahasiswa.profil')
-    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin','auth']);
+    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin|Super Admin','auth']);
     Route::get('/mahasiswa/profil/{id}/resetPassword', 'Datamahasiswa\MahasiswaController@resetPassword')->name('mahasiswa.profil.resetpassword')
-    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin','auth']);
+    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin|Super Admin','auth']);
     Route::get('/mahasiswa/akademik/{id}', 'Datamahasiswa\AkademikController@tranksripShow')->name('akademik.lihat')
-    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin','auth']);
+    ->middleware(['role:Dosen|Kajur|Kaprodi|Admin|Super Admin','auth']);
 
 
 

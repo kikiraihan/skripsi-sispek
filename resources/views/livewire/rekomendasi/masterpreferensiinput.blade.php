@@ -45,6 +45,10 @@
                         </div>
                         <input wire:model.debounce.500ms="searchKriteria" type="text" class="form-control" placeholder="cari kriteria">
                     </div>
+                    <div class="custom-control custom-checkbox mt-3 ">
+                        <input wire:model="tampilnilai" type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Tampilkan kriteria nilai matakuliah</label>
+                    </div>
                     @if ($kriteria!=null)
                         <ul class="list-group my-3">
                             @foreach ($kriteria as $kri)

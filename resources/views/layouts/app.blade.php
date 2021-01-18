@@ -2,21 +2,26 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="aplikasi spk mahasiswa teknik informatika FT-UNG">
+    <meta name="author" content="">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- font -->
+    <!-- Custom fonts for this template-->
+    <link href="{{ asset('assets_template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato|Source+Sans+Pro" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@700&display=swap" rel="stylesheet">
 
-    <!-- pake bootstrap 4.1.1 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    {{--  <link rel="stylesheet" href="{{ asset('assets_landing/bootstrap/css/bootstrap.min.css') }}">  --}}
+    <!-- Custom styles for this template-->
+    <link href="{{asset('assets_template/css/sb-admin-2.css')}}" rel="stylesheet">
+
 
 
     <script src="https://unpkg.com/feather-icons"></script>
@@ -27,16 +32,18 @@
 
 
 </head>
-<body>
+<body class="bg-gray-100">
 
     <div id="app">
 
 
 
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+
+                    <i class="fas fa-user-circle"></i>
+                    {{ config('app.name', 'Laravel') }} <sup>#1</sup>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -82,29 +89,50 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
+
+        <div class="text-center d-block mt-5">
+            <a class="text-decoration-none text-black-50 h3 text-uppercase" href="{{ url('/') }}">
+                {{-- <i class="fas fa-brain rotate-n-15"></i> --}}
+                {{-- <i class="fas fa-user-circle"></i> --}}
+                {{ config('app.name', 'Laravel') }} <sup>#1</sup>
+                <small class="text-capitalize d-block d-md-inline">Rekomendasi Mahasiswa</small>
+            </a>
+        </div>
 
         <main class="py-4">
             @yield('content')
         </main>
+
+        <!-- Footer -->
+        <footer class="sticky-footer ">
+            <div class="container my-auto">
+            <div class="copyright text-center my-auto d-flex justify-content-center flex-column flex-md-row">
+                <span class="py-2 px-3">&copy; Moh Zulkifli Katili {{ now()->year }}</span>
+                <span class="py-2 px-3">Coding with &#128420; by Moh Zulkifli Katili</span>
+            </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
     </div>
 
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-        <!------ Include the above in your HEAD tag ---------->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!------ Include the above in your HEAD tag ---------->
 
 
 
-        <script>
-            $(function() {
-                $('#navbarSupportedContent a[href~="' + location.href + '"]').parents('li').addClass('active');
-                $('#navbarMobile a[href~="' + location.href + '"]').parents('li').css("background-color","#DDDDDD"); //#E5E5E5
-            });
-        </script>
+    <script>
+        $(function() {
+            $('#navbarSupportedContent a[href~="' + location.href + '"]').parents('li').addClass('active');
+            $('#navbarMobile a[href~="' + location.href + '"]').parents('li').css("background-color","#DDDDDD"); //#E5E5E5
+        });
+    </script>
 
-        @include('sweetalert::alert')
+    @include('sweetalert::alert')
 
 
 </body>

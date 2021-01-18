@@ -1,3 +1,4 @@
+{{-- INI DIPAKE SETELAH LOGIN ALIAS PAKE TEMPLATE --}}
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -15,6 +16,9 @@
     <!-- Custom fonts for this template-->
     <link href="{{ asset('assets_template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato|Source+Sans+Pro" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@700&display=swap" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{asset('assets_template/css/sb-admin-2.css')}}" rel="stylesheet">

@@ -10,7 +10,8 @@
 
         <div class="dropdown no-arrow dropleft float-right mr-1 mr-md-2">
             <a href="#" class="btn btn-sm btn-light d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="dropdown">
-                ☰ Opsi
+                {{-- ☰  --}}
+                Pengaturan
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                 <a onclick="window.livewire.emit('bukaGantiPassword')" data-toggle="modal" data-target="#modalInput"  class="dropdown-item "  href="#"><i class="fas fa-redo-alt fa-sm"></i> Ganti Password</a>
@@ -78,7 +79,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Mahasiswa BA </div>
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Mahasiswa PA </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $user->dosen->mahasiswapa->count() }}</div>
                         </div>
                         <div class="col-auto">
@@ -95,7 +96,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Mahasiswa BA ipk > 3</div>
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Mahasiswa PA ipk > 3</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $mahasiswa_ipkbaik->count() }}</div>
                         </div>
                         <div class="col-auto">
@@ -112,7 +113,7 @@
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Mahasiswa BA ipk < 2.5</div>
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Mahasiswa PA ipk < 2.5</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $mahasiswa_ipkkurang->count() }}</div>
                         </div>
                         <div class="col-auto">
@@ -231,6 +232,14 @@
                         @endforeach
                     </div>
 
+                </div>
+
+                <div class="card-footer bg-white small">
+                    <span class="font-weight-bold d-block">Keterangan : </span>
+                    <span class="font-weight-bold text-success"> Hijau </span>, Mahasiswa IPK > 3. <br>
+                    <span class="text-warning"> Kuning </span>, Mahasiswa IPK < 2,5. <br>
+                    <span class="text-primary font-weight-bold">7</span>, Semester terakhir kali.<br>
+                    <sup class="badge badge-light text-secondary"> 2</sup>, Jumlah matakuliah mengulang.<br>
                 </div>
             </div>
 

@@ -51,6 +51,12 @@
                 @endif
             </span>
         </div>
+
+        <div class="custom-control custom-checkbox mt-3 ml-2">
+            <input wire:model="tampilnilai" type="checkbox" class="custom-control-input" id="customCheck1">
+            <label class="custom-control-label" for="customCheck1">Tampilkan kriteria nilai matakuliah</label>
+        </div>
+
     </div>
 
 

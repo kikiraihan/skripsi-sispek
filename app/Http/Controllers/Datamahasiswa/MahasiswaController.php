@@ -31,23 +31,21 @@ class MahasiswaController extends Controller
         $author=auth::user();
         $user=Mahasiswa::find($id)->user;
 
-        if ($author->hasRole('Mahasiswa'))
+        if ($author->hasRole('Mahasiswa') and ($user->id!=$author->id))
         {
-            if ($user->id!=$author->id)
             return abort(404);
         }
-        elseif ($author->isHanyaDosen())
+        elseif ($author->isHanyaDosen() and ($user->mahasiswa->id_dosen_pa!=$author->dosen->id))
         {
-            if ($user->mahasiswa->id_dosen_pa!=$author->dosen->id)
             return abort(404);
         }
-        elseif($author->isDosenKaprodi())
+        elseif(
+            $author->isDosenKaprodi() and
+            ($user->mahasiswa->prodi!=$author->dosen->kaprodi->prodi) and
+            $user->mahasiswa->id_dosen_pa!=$author->dosen->id
+            )
         {
-            if ($user->mahasiswa->prodi!=$author->dosen->kaprodi->prodi)
-            {
-                if ($user->mahasiswa->id_dosen_pa!=$author->dosen->id)
-                return abort(404);
-            }
+            return abort(404);
         }
         elseif($author->isDosenKajur())'kajur bebas';
 

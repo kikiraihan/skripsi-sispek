@@ -62,15 +62,29 @@
       @endrole
 
 
-      @role('Dosen')
-        {{-- <!-- Divider -->
-        <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          Dosen
-        </div> --}}
+      @hasanyrole('Kajur|Kaprodi|Admin|Super Admin|Dosen')
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+          <i class="fas fa-user"></i>
+          <span>Mahasiswa</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Mahasiswa:</h6>
+            @role('Dosen')
+            <a class="collapse-item" href="{{ route('mahasiswa.pa') }}">Mahasiswa PA</a>
+            @endrole
+            @hasanyrole('Kajur|Kaprodi|Admin|Super Admin')
+            <a class="collapse-item" href="{{ route('mahasiswa.all') }}">Semua Mahasiswa</a>
+            @endrole
+          </div>
+        </div>
+      </li>
+      @endrole
 
+
+      {{-- @role('Dosen')
         <li class="nav-item ">
           <a class="nav-link" href="{{ route('mahasiswa.pa') }}">
             <i class="fas fa-user"></i>
@@ -78,15 +92,13 @@
         </li>
       @endrole
 
-
       @hasanyrole('Kajur|Kaprodi|Admin')
       <li class="nav-item ">
         <a class="nav-link" href="{{ route('mahasiswa.all') }}">
           <i class="fas fa-users"></i>
           <span>Semua Mahasiswa</span></a>
       </li>
-
-      @endrole
+      @endrole --}}
 
 
       @hasanyrole('Kajur|Kaprodi|Admin|Super Admin|Dosen')
@@ -103,10 +115,17 @@
         <a class="nav-link" href="{{route('masterkriteria')}}">
           {{-- <i class="fas fa-project-diagram"></i> --}}
           <i class="fas fa-th-large"></i>
-          <span>Master Kriteria</span></a>
+          
+          @hasrole('Super Admin')
+          <span>Master Kriteria</span>
+          @else
+          <span>Lihat Kriteria</span>
+          @endrole
+
+        </a>
       </li>
 
-      <li class="nav-item">
+      {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#menuPreferensi" aria-expanded="true" aria-controls="menuPreferensi">
           <i class="fas fa-th-large"></i>
           <span>Master Preferensi</span>
@@ -118,6 +137,13 @@
             <a class="collapse-item" href="{{route('masterpreferensi')}}">List Preferensi</a>
           </div>
         </div>
+      </li> --}}
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('masterpreferensi')}}">
+          <i class="fas fa-th-large"></i>
+          <span>Master Preferensi</span>
+        </a>
       </li>
 
       @endrole

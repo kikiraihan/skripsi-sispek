@@ -13,6 +13,8 @@ class Masterpreferensiinput extends Component
 {
     use WithPagination;
 
+    public $tampilnilai;
+
     public $judul;
     public $model_type;
     public $addedKriteria;
@@ -42,6 +44,7 @@ class Masterpreferensiinput extends Component
         $this->matriksKriteria=[];
         $this->idToDelete='';
         $this->cr=FALSE;
+        $this->tampilnilai=FALSE;
     }
 
     public function render()
@@ -50,10 +53,21 @@ class Masterpreferensiinput extends Component
         if($this->searchKriteria!=null)
         {
             $kriteria=Kriteria::select('id','title','jenis')->where('title', 'like', '%'.$this->searchKriteria.'%');
-            $this->searchKriteriaCount=$kriteria->count();
-            $kriteria=$kriteria->orderBy('created_at','desc')
-            ->paginate(5);
-        }else $kriteria=[];
+        }
+        else
+        {
+            // $kriteria=[];
+            $kriteria=Kriteria::select('id','title','jenis');
+        }
+
+        if($this->tampilnilai==false)
+        {
+            $kriteria->where('title', 'not like', '%nilai:%');
+        }
+
+        $this->searchKriteriaCount=$kriteria->count();
+        $kriteria=$kriteria->orderBy('created_at','desc')
+        ->paginate(5);
 
         return view('livewire.rekomendasi.masterpreferensiinput',[
             'kriteria' => $kriteria,
@@ -254,25 +268,45 @@ class Masterpreferensiinput extends Component
 
     public function cekKonsistensi($matriks,$bobotKriteria)
     {
+        $ordo=count($matriks);
+
         //weighted sum value(hasil kali $matriks pairwaise dan $matriks bobotkriteria)
         $weightedPairwaise=[];
-        for($i = 0; $i < count($matriks); $i++)
+        for($i = 0; $i < $ordo; $i++)
         {
             $weightedPairwaise[$i]=0;
-            for($z = 0; $z < count($matriks); $z++){
+            for($z = 0; $z < $ordo; $z++){
                 $weightedPairwaise[$i]=$weightedPairwaise[$i]+($matriks[$i][$z]*$bobotKriteria[$z]);
             }
         }
         //lambda
         $lambda=[];
-        for($z = 0; $z < count($matriks); $z++)
+        for($z = 0; $z < $ordo; $z++)
         {
             $lambda[$z]=$weightedPairwaise[$z]/$bobotKriteria[$z];
         }
         $lambda=$this->averageOrdoSatu($lambda);
         //cr
-        $ci=($lambda-count($matriks))/(count($matriks)-1);
-        $ir=1.98*(count($matriks)-2)/count($matriks);
+        $ci=($lambda-$ordo)/($ordo-1);
+
+
+        if($ordo==1 OR $ordo==2) $ir=0;
+        elseif($ordo==3) $ir=0.58;
+        elseif($ordo==4) $ir=0.90;
+        elseif($ordo==5) $ir=1.12;
+        elseif($ordo==6) $ir=1.24;
+        elseif($ordo==7) $ir=1.32;
+        elseif($ordo==8) $ir=1.41;
+        elseif($ordo==9) $ir=1.45;
+        elseif($ordo==10) $ir=1.49;
+        elseif($ordo==11) $ir=1.51;
+        elseif($ordo==12) $ir=1.54;
+        elseif($ordo==13) $ir=1.56;
+        elseif($ordo==14) $ir=1.57;
+        elseif($ordo==15) $ir=1.59;
+        else
+        $ir=1.98*($ordo-2)/$ordo;
+
         $cr=$ci/$ir;
 
         if ($cr<0.10) return [true,$cr];

@@ -31,7 +31,7 @@ class KikiSeeder extends Seeder
         $mahasiswa->jenis_kelamin       ='Laki-Laki';
         $mahasiswa->golongan_darah      ='O';
         $mahasiswa->agama               ='Islam';
-        $mahasiswa->status_menikah      =1;
+        $mahasiswa->status_menikah      =0;
         $mahasiswa->asuransi            ='BPJS';
         $mahasiswa->no_ktp              ='73256173561731';
         $mahasiswa->no_hp               ='082291501085';

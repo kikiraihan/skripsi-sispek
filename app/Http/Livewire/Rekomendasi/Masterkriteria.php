@@ -17,9 +17,11 @@ class Masterkriteria extends Component
     public
     $search,
     $jlh_kriteria,
-    $kriteria_nilai_mk
+    $kriteria_nilai_mk,
+    $tampilnilai
     ;
     // public $kriteria;
+    
 
     protected $listeners=[
         'kriteriaDitambahkan'=>'efekDitambahkan',
@@ -36,6 +38,7 @@ class Masterkriteria extends Component
     public function mount()
     {
         // $this->kriteria=Kriteria::paginate(10);
+        $this->tampilnilai=FALSE;
     }
 
     public function render()
@@ -43,6 +46,11 @@ class Masterkriteria extends Component
         $kriteria=Kriteria::where('title', 'like', '%'.$this->search.'%');
         $this->jlh_kriteria=$kriteria->count();
         $this->kriteria_nilai_mk=Kriteria::where('title', 'like', '%'.$this->search.'%')->where('title','like','%nilai :%')->count();
+
+        if($this->tampilnilai==false)
+        {
+            $kriteria->where('title', 'not like', '%nilai:%');
+        }
 
         return view('livewire.rekomendasi.masterkriteria',[
             'kriteria' => $kriteria->orderBy('created_at','desc')->paginate(10),
