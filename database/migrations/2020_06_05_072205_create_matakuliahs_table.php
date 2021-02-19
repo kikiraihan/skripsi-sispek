@@ -23,7 +23,9 @@ class CreateMatakuliahsTable extends Migration
 
             //unik hanya pada kombinasi ketiga nama dibawah
             $table->unique(['nama','sks','kodemk']);
-
+            
+            $table->enum('prodi',['S1 - Sistem Informasi','S1 - Pendidikan Teknologi Informasi'])
+            ->nullable();//kembangkan jadi table baru
 
             $table->enum('rumpun',[
                 'web programming',

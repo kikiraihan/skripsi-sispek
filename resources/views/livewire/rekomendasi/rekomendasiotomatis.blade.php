@@ -17,7 +17,7 @@
                         <i class="fas fa-search text-primary"></i>
                       </div>
                     </div>
-                    <input wire:model.debounce.500ms="searchPreferensi" type="text" class="form-control" placeholder="cari preferensi">
+                    <input wire:model.debounce.500ms="searchPreferensi" type="text" class="form-control" placeholder="Judul">
                 </div>
 
                 {{-- @if ($preferensi!=null)
@@ -335,7 +335,7 @@
                                 <td>{{ $id_model }}</td>
                                 @foreach ($perModel as $id_kriteria=>$value)
                                 <td class="text-primary">
-                                    {{ $value }}
+                                    {{ $value }} - {{$id_kriteria}}
                                 </td>
                                 @endforeach
                             </tr>

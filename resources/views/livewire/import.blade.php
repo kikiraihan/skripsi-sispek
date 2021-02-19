@@ -1,7 +1,28 @@
 <div>
 
+    <h5 class="text-primary">Import data</h5>
 
 
+    <div class="card bg-white small my-3">
+        <div class="card-body">
+            <span class="font-weight-bold d-block">Keterangan : </span>
+            <ol>
+                <li>
+                    Import data ini untuk data mahasiswa, matakuliah dan nilai mahasiswa. <b>Import dengan cara mengupload transkrip nilai berjalan.</b>
+                </li>
+                <li>
+                    Tidak ada fitur untuk mengubah data matakuliah. Yang ada hanya menghapus kontrak matakuliah. Hal ini dimaksudkan untuk menjaga kesesuaian data aplikasi dengan data dari SIAT.
+                </li>
+                <li>
+                    Data disarankan untuk diupdate <b>setiap semester</b>. atau ketika terjadi perubahan atau penambahan nilai.
+                </li>
+                <li>
+                    Perhatikan urutan saat mengimport data. <b>Awali dari data angkatan mahasiswa yang paling awal masuk</b>.
+                    Misalnya dari angkatan 2013 dulu sampai 2019.
+                </li>
+            </ol>
+        </div>
+    </div>
 
 
 
@@ -13,23 +34,21 @@
 
 
 
-                <div class="card-body overflow-auto"
-                        x-data="{ isUploading: false, progress: 0, isUploaded:false}"
-                        x-on:livewire-upload-start="isUploading = true"
-                        x-on:livewire-upload-finish="isUploading = false;isUploaded=true"
-                        x-on:livewire-upload-error="isUploading = false"
-                        x-on:livewire-upload-progress="progress = $event.detail.progress"
-                 >
+                <div class="card-body overflow-auto" x-data="{ isUploading: false, progress: 0, isUploaded:false}"
+                    x-on:livewire-upload-start="isUploading = true"
+                    x-on:livewire-upload-finish="isUploading = false;isUploaded=true"
+                    x-on:livewire-upload-error="isUploading = false"
+                    x-on:livewire-upload-progress="progress = $event.detail.progress">
 
 
 
 
 
 
-                        <!-- Progress Bar -->
-                        <div x-show="isUploading">
-                            <progress max="100" x-bind:value="progress" class="w-100"></progress>
-                        </div>
+                    <!-- Progress Bar -->
+                    <div x-show="isUploading">
+                        <progress max="100" x-bind:value="progress" class="w-100"></progress>
+                    </div>
 
 
 
@@ -37,57 +56,63 @@
 
 
 
-                        <form wire:submit.prevent="posthtml">
-                            @csrf
+                    <form wire:submit.prevent="posthtml">
+                        @csrf
 
-                            <div class="text-center row">
-                                <div class="col-md-8">
-
-
-                                    <div class="file-upload">
-                                        {{--  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>  --}}
+                        <div class="text-center row">
+                            <div class="col-md-8">
 
 
-                                        <div wire:loading wire:target="transkrip">Uploading...</div>
-                                        {{-- {{ $transkrip!=null?$transkrip->getFileName():'' }} --}}
+                                <div class="file-upload">
+                                    {{--  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>  --}}
 
-                                        <div x-show="!isUploaded" class="image-upload-wrap">
-                                            <input wire:model="transkrip" class="file-upload-input" type='file' accept="text/html" onchange="
+
+                                    <div wire:loading wire:target="transkrip">Uploading...</div>
+                                    {{-- {{ $transkrip!=null?$transkrip->getFileName():'' }} --}}
+
+                                    <div x-show="!isUploaded" class="image-upload-wrap">
+                                        <input wire:model="transkrip" class="file-upload-input" type='file'
+                                            accept="text/html" onchange="
                                             @this.set('namafile', this.files[0].name);
-                                            "/>
-                                            <div class="drag-text" >
-                                                <h3 class="p-3">Drag and drop file html atau tekan untuk membuka file</h3>
-                                            </div>
+                                            " />
+                                        <div class="drag-text">
+                                            <h3 class="p-3">Drag and drop file html atau tekan untuk membuka file</h3>
                                         </div>
-
-                                        <div x-show="isUploaded">
-                                            <img class="file-upload-image" src="{{ asset("ilustrasi/quality_check.svg") }}" alt="your image" />
-                                            <h6><span class="image-title">{{ $namafile }} </span></h6>
-                                            <div class="image-title-wrap">
-                                                <button  x-on:click="isUploaded = false;isUploading= false; progress= 0;" wire:click="removeUpload()"  type="button" class="remove-image">Kosongkan</button>
-                                            </div>
-                                        </div>
-
                                     </div>
 
+                                    <div x-show="isUploaded">
+                                        <img class="file-upload-image" src="{{ asset("ilustrasi/quality_check.svg") }}"
+                                            alt="your image" />
+                                        <h6><span class="image-title">{{ $namafile }} </span></h6>
+                                        <div class="image-title-wrap">
+                                            <button x-on:click="isUploaded = false;isUploading= false; progress= 0;"
+                                                wire:click="removeUpload()" type="button"
+                                                class="remove-image">Kosongkan</button>
+                                        </div>
+                                    </div>
 
                                 </div>
-                                <div class="col-md-4 mt-4 mt-md-0 no-gutters">
-
-                                    <button type="submit" class="btn btn-block btn-primary h-100" wire:loading.attr="disabled" wire:target="posthtml">
-                                        <div wire:loading.remove wire:target="posthtml">
-                                            <i class="fas fa-file-import fa-lg"></i> Import
-                                        </div>
-                                        <div wire:loading wire:target="posthtml" >
-                                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                                            Mengimport.. ini membutuhkan waktu sedikit lama
-                                        </div>
-                                    </button>
 
 
-                                </div>
                             </div>
-                        </form>
+                            <div class="col-md-4 mt-4 mt-md-0 no-gutters">
+
+                                <button type="submit" class="btn btn-block btn-primary h-100"
+                                    wire:loading.attr="disabled" wire:target="posthtml">
+                                    <div wire:loading.remove wire:target="posthtml">
+                                        <i class="fas fa-file-import fa-lg"></i> Import
+                                    </div>
+                                    <div wire:loading wire:target="posthtml">
+                                        <span class="spinner-grow spinner-grow-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        Mengimport.. ini membutuhkan waktu sedikit lama
+                                    </div>
+                                </button>
+
+
+                            </div>
+                        </div>
+                    </form>
 
 
 

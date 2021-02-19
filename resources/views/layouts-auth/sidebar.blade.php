@@ -3,12 +3,15 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-         <div class="sidebar-brand-icon ">
-          {{-- <i class="fas fa-brain rotate-n-15"></i> --}}
+         {{-- <div class="sidebar-brand-icon ">
           <i class="fas fa-user-circle"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">
-        {{ config('app.name', 'Laravel') }} <sup>#1</sup>
+        </div> --}}
+        <img src="{{ asset('ilustrasi/sispekp.svg') }}" width="40pt">
+        <div class="sidebar-brand-text mx-3" 
+        {{-- style="font-family: fontUntukLogo; " --}}
+        >
+        {{ config('app.name', 'Laravel') }} 
+        <sup>#1</sup>
         </div>
       </a>
 
@@ -119,7 +122,7 @@
           @hasrole('Super Admin')
           <span>Master Kriteria</span>
           @else
-          <span>Lihat Kriteria</span>
+          <span>Kriteria</span>
           @endrole
 
         </a>
@@ -142,7 +145,7 @@
       <li class="nav-item">
         <a class="nav-link" href="{{route('masterpreferensi')}}">
           <i class="fas fa-th-large"></i>
-          <span>Master Preferensi</span>
+          <span>Preferensi</span>
         </a>
       </li>
 
@@ -175,7 +178,6 @@
           <i class="fas fa-users"></i>
           <span>User Management</span></a>
       </li>
-      @endif
 
       <li class="nav-item ">
         <a class="nav-link"  href="{{route('import')}}">
@@ -184,6 +186,13 @@
           <i class="fas fa-th-large"></i> --}}
           <span>Import</span></a>
       </li>
+      @endif
+      <li class="nav-item ">
+        <a class="nav-link"  href="{{route('master.matakuliah')}}">
+          <i class="fas fa-th-large"></i>
+          <span>Master Matakuliah</span></a>
+      </li>
+      
       @endrole
 
 

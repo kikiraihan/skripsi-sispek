@@ -2,7 +2,7 @@
 
 <div>
 
-    <h5 class="text-primary">Master Kriteria</h5>
+    <h5 class="text-primary">Kriteria</h5>
     {{-- <br> --}}
 
 

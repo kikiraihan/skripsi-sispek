@@ -1,6 +1,6 @@
 <div>
 
-    <h5 class="text-primary">Preferensi Baru +</h5><br>
+    <h5 class="text-primary">Konfigurasi Preferensi Baru</h5><br>
 
 
     <div class="card shadow-sm mb-4 ">

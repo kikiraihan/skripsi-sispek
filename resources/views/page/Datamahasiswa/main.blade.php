@@ -91,6 +91,12 @@
     {{-- ada pake ignore self --}}
     <livewire:master.admindoseninput/>
 
+    
+    
+    @elseif($komponen=="masterMatakuliah")
+    <livewire:master.mastermatakuliah/>
+    
+
 
 
 

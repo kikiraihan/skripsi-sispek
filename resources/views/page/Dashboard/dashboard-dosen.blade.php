@@ -64,6 +64,11 @@
                                 @endforeach
                                 {{-- {{ str_replace(['[','"',']'],'',)}} --}}
                             </li>
+                            @if ($user->isDosenKaprodi())
+                                <li class="list-group-item text-right align-items-center "><span class="float-left small">Prodi : </span>{{ $user->dosen->kaprodi->prodi }}</li>
+                            @elseif ($user->isDosenKajur())
+                                <li class="list-group-item text-right align-items-center "><span class="float-left small">Jurusan : </span>{{ $user->dosen->kajur->jurusan }}</li>
+                            @endif
                         </ul>
 
                     </div>
@@ -191,7 +196,7 @@
             <div class="card mb-4 mx-md-2">
                 <div class="card-header bg-white border-bottom-0 py-3">
                     <span class="m-0 font-weight-bold text-capitalize bg-light rounded p-2 text-dark">
-                        <i class="fas fa-exclamation-circle text-gray-300"></i> Mahasiswa memiliki nilai C-, D, E
+                        <i class="fas fa-exclamation-circle text-gray-300"></i> Mahasiswa memiliki nilai C-, D, E <small class="font-weight-bold">(tidak lulus matakuliah)</small>
                     </span>
 
                     <span class="float-right">
@@ -212,18 +217,20 @@
                         <div class="col-lg-4 mb-3 px-3">
                             @foreach ($item as $m_nilai_e)
 
-                            <a href="{{ route('akademik.lihat', ['id'=>$m_nilai_e->id]) }}" class="d-block text-secondary py-1">
+                            <a href="{{ route('akademik.lihat', ['id'=>$m_nilai_e->id]) }}" class="d-block text-secondary py-1 text-truncate">
                                 <span class="
+                                text-lowercase
                                 @if ($m_nilai_e->ipksekarang>3) font-weight-bold text-success
                                 @elseif ($m_nilai_e->ipksekarang<2.5)  text-warning
                                 @endif
                                 ">
                                     {{-- {{ $no++ }}).  --}}
                                     {{ $m_nilai_e->nama }}
-                                    <sup class="badge badge-light text-secondary"> {{$m_nilai_e->mkmengulang}}</sup>
+                                    <sup class="badge badge-light text-secondary"> 0{{ (int)$m_nilai_e->angkatan-2000 }}</sup>
                                 </span>
                                 <span class="text-primary font-weight-bold float-right">
-                                    {{ $m_nilai_e->semester }}
+                                    {{$m_nilai_e->mkmengulang}} 
+                                    <small><small><small>MK</small></small></small>
                                 </span>
                             </a>
 
@@ -238,8 +245,8 @@
                     <span class="font-weight-bold d-block">Keterangan : </span>
                     <span class="font-weight-bold text-success"> Hijau </span>, Mahasiswa IPK > 3. <br>
                     <span class="text-warning"> Kuning </span>, Mahasiswa IPK < 2,5. <br>
-                    <span class="text-primary font-weight-bold">7</span>, Semester terakhir kali.<br>
-                    <sup class="badge badge-light text-secondary"> 2</sup>, Jumlah matakuliah mengulang.<br>
+                    <span class="text-primary font-weight-bold">7</span>, Jumlah matakuliah mengulang.<br>
+                    <sup class="badge badge-light text-secondary"> 2</sup>, Angkatan / tahun masuk.<br>
                 </div>
             </div>
 

@@ -15,26 +15,26 @@ class MasterpreferensiSeeder extends Seeder
 
         
 
-        $preferensi                     =new Preferensi;
-        $preferensi->id_user              =1;
-        $preferensi->catatan              ='catatan najwa';
-        $preferensi->model_type         ='App\Models\Mahasiswa';
-        $preferensi->judul              ='Contoh di Draft Skripsi Rekomendasi Beasiswa';
-        $preferensi->ordo               ='3';
-        $preferensi->matriks            ='[[1,4,6],["1\/4",1,4],["1\/6","1\/4",1]]';
-        $preferensi->matriksNormalised  =
-        '[
-            [0.7058823529411764,0.7619047619047619,0.5454545454545454],
-            [0.1764705882352941,0.19047619047619047,0.36363636363636365],
-            [0.1176470588235294,0.047619047619047616,0.09090909090909091]
-        ]';
-        $preferensi->kriteria           =
-        '{
-            "1":{"jenis":"cost","bobot":0.6710805534334945},
-            "3":{"jenis":"benefit","bobot":0.2435277141159494},
-            "2":{"jenis":"benefit","bobot":0.08539173245055598}
-        }';
-        $preferensi->save();
+        // $preferensi                     =new Preferensi;
+        // $preferensi->id_user              =1;
+        // $preferensi->catatan              ='catatan najwa';
+        // $preferensi->model_type         ='App\Models\Mahasiswa';
+        // $preferensi->judul              ='Contoh di Draft Skripsi Rekomendasi Beasiswa';
+        // $preferensi->ordo               ='3';
+        // $preferensi->matriks            ='[[1,4,6],["1\/4",1,4],["1\/6","1\/4",1]]';
+        // $preferensi->matriksNormalised  =
+        // '[
+        //     [0.7058823529411764,0.7619047619047619,0.5454545454545454],
+        //     [0.1764705882352941,0.19047619047619047,0.36363636363636365],
+        //     [0.1176470588235294,0.047619047619047616,0.09090909090909091]
+        // ]';
+        // $preferensi->kriteria           =
+        // '{
+        //     "1":{"jenis":"cost","bobot":0.6710805534334945},
+        //     "3":{"jenis":"benefit","bobot":0.2435277141159494},
+        //     "2":{"jenis":"benefit","bobot":0.08539173245055598}
+        // }';
+        // $preferensi->save();
 
 
 
@@ -115,7 +115,7 @@ class MasterpreferensiSeeder extends Seeder
             "2":{"jenis":"benefit","bobot":0.4051380032359379},
             "3":{"jenis":"benefit","bobot":0.12660718251324515},
             "4":{"jenis":"benefit","bobot":0.11394895466514388},
-            "1":{"jenis":"cost","bobot":0.06077194568700232}
+            "6":{"jenis":"cost","bobot":0.06077194568700232}
         }';
         $preferensi->save();
 
@@ -123,50 +123,50 @@ class MasterpreferensiSeeder extends Seeder
 
 
 
-        $preferensi                     =new Preferensi;
-        $preferensi->id_user            =1;
-        $preferensi->catatan            ='Urutan IPK, Kegiatan, Nilai SIG';
-        $preferensi->model_type         ='App\Models\Mahasiswa';
-        $preferensi->judul              ='KKN Hilirasi Sungai';
-        $preferensi->ordo               ='3';
-        $preferensi->matriks            ='[[1,"1\/3","1\/2"],[3,1,1],[2,1,1]]';
-        $preferensi->matriksNormalised  =
-        '[
-            [0.16666666666666666,0.14285714285714288,0.2],
-            [0.5,0.4285714285714286,0.4],
-            [0.3333333333333333,0.4285714285714286,0.4]
-        ]';
-        $preferensi->kriteria           =
-        '{
-            "61":{"jenis":"benefit","bobot":0.16984126984126982},
-            "2":{"jenis":"benefit","bobot":0.4428571428571429},
-            "3":{"jenis":"benefit","bobot":0.38730158730158726}
-        }';
-        $preferensi->save();
+        // $preferensi                     =new Preferensi;
+        // $preferensi->id_user            =1;
+        // $preferensi->catatan            ='Urutan IPK, Kegiatan, Nilai SIG';
+        // $preferensi->model_type         ='App\Models\Mahasiswa';
+        // $preferensi->judul              ='KKN Hilirasi Sungai';
+        // $preferensi->ordo               ='3';
+        // $preferensi->matriks            ='[[1,"1\/3","1\/2"],[3,1,1],[2,1,1]]';
+        // $preferensi->matriksNormalised  =
+        // '[
+        //     [0.16666666666666666,0.14285714285714288,0.2],
+        //     [0.5,0.4285714285714286,0.4],
+        //     [0.3333333333333333,0.4285714285714286,0.4]
+        // ]';
+        // $preferensi->kriteria           =
+        // '{
+        //     "61":{"jenis":"benefit","bobot":0.16984126984126982},
+        //     "2":{"jenis":"benefit","bobot":0.4428571428571429},
+        //     "3":{"jenis":"benefit","bobot":0.38730158730158726}
+        // }';
+        // $preferensi->save();
 
 
-        $preferensi                     =new Preferensi;
-        $preferensi->id_user            =1;
-        $preferensi->catatan            ='urutan nilai web, ipk, Kegiatan, Prestasi';
-        $preferensi->model_type         ='App\Models\Mahasiswa';
-        $preferensi->judul              ='Rekomendasi mengutus lomba web';
-        $preferensi->ordo               ='4';
-        $preferensi->matriks            ='[[1,6,8,8],["1\/6",1,5,4],["1\/8","1\/5",1,"1\/2"],["1\/8","1\/4",2,1]]';
-        $preferensi->matriksNormalised  =
-        '[
-            [0.7058823529411764,0.8053691275167785,0.5,0.5925925925925926],
-            [0.1176470588235294,0.1342281879194631,0.3125,0.2962962962962963],
-            [0.08823529411764705,0.026845637583892617,0.0625,0.037037037037037035],
-            [0.08823529411764705,0.03355704697986577,0.125,0.07407407407407407]
-        ]';
-        $preferensi->kriteria           =
-        '{
-            "43":{"jenis":"benefit","bobot":0.6509610182626369},
-            "2":{"jenis":"benefit","bobot":0.2151678857598222},
-            "5":{"jenis":"benefit","bobot":0.05365449218464417},
-            "3":{"jenis":"benefit","bobot":0.08021660379289672}
-        }';
-        $preferensi->save();
+        // $preferensi                     =new Preferensi;
+        // $preferensi->id_user            =1;
+        // $preferensi->catatan            ='urutan nilai web, ipk, Kegiatan, Prestasi';
+        // $preferensi->model_type         ='App\Models\Mahasiswa';
+        // $preferensi->judul              ='Rekomendasi mengutus lomba web';
+        // $preferensi->ordo               ='4';
+        // $preferensi->matriks            ='[[1,6,8,8],["1\/6",1,5,4],["1\/8","1\/5",1,"1\/2"],["1\/8","1\/4",2,1]]';
+        // $preferensi->matriksNormalised  =
+        // '[
+        //     [0.7058823529411764,0.8053691275167785,0.5,0.5925925925925926],
+        //     [0.1176470588235294,0.1342281879194631,0.3125,0.2962962962962963],
+        //     [0.08823529411764705,0.026845637583892617,0.0625,0.037037037037037035],
+        //     [0.08823529411764705,0.03355704697986577,0.125,0.07407407407407407]
+        // ]';
+        // $preferensi->kriteria           =
+        // '{
+        //     "43":{"jenis":"benefit","bobot":0.6509610182626369},
+        //     "2":{"jenis":"benefit","bobot":0.2151678857598222},
+        //     "5":{"jenis":"benefit","bobot":0.05365449218464417},
+        //     "3":{"jenis":"benefit","bobot":0.08021660379289672}
+        // }';
+        // $preferensi->save();
 
 
 

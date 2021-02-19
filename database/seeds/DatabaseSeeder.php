@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DosenSeeder::class);
         $this->call(MasterkriteriaSeeder::class);
         $this->call(MasterpreferensiSeeder::class);
-        // $this->call(MahasiswaSeeder::class);
+        $this->call(MahasiswaSeeder::class);
     }
 }

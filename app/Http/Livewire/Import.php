@@ -274,6 +274,7 @@ class Import extends Component
                     $matakuliah->nama=$mk['title'];
                     $matakuliah->sks=$mk['sks'];
                     $matakuliah->kodemk=$mk['kodemk'];
+                    $matakuliah->prodi=ucwords($m["Program Studi"]);
                     // $matakuliah->semester ganjil genap;
                     // $matakuliah->rumpun;
                     $matakuliah->save();
@@ -350,7 +351,7 @@ class Import extends Component
                         'semester' => $semester,
                     ]);
 
-                    //mahasiswa yg mengalami update ipk
+                    //mahasiswa yg mengalami update ipk, (karena ketika ada kontrak matakuliah baru maka pasti ada perubahan IPK)
                     if(array_search($mahasiswa->id, $this->mahasiswaUpdateIpk)===FALSE)//cek jika belum ada
                         $this->mahasiswaUpdateIpk[]=$mahasiswa->id;
 
@@ -375,7 +376,6 @@ class Import extends Component
                                 'angka_mutu' => $bobot,
                             ]);
 
-
                         }
                         elseif($nilaiBerubahkah)
                         {
@@ -383,7 +383,6 @@ class Import extends Component
                             [
                                 'nilai_mutu' => $nilai,
                             ]);
-
 
                         }
                         elseif($semesterBerubahkah)
@@ -395,6 +394,7 @@ class Import extends Component
 
                         }
 
+                        // cek lagi 
                         //mahasiswa yg mengalami update ipk
                         if(array_search($mahasiswa->id, $this->mahasiswaUpdateIpk)===FALSE)//cek jika belum ada
                         $this->mahasiswaUpdateIpk[]=$mahasiswa->id;

@@ -47,6 +47,9 @@
     //LAINYA
     Route::get('/master/admindosen', 'Master\AdminDosenController@index')->name('master.admindosen')
     ->middleware(['role:Super Admin|Kajur|Admin','auth']);
+    
+    Route::get('/master/matakuliah', 'Master\MatakuliahController')->name('master.matakuliah')
+    ->middleware(['role:Super Admin|Kajur|Kaprodi|Admin','auth']);
 
 
 

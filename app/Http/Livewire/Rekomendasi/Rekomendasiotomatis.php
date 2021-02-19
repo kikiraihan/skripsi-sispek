@@ -114,7 +114,8 @@ class Rekomendasiotomatis extends Component
             {
                 $nama=$this->preferensiToGenerate->model_type::find($id_model)->nama;
                 $title=Kriteria::find($id_kriteria)->title;
-                $return[$nama][$id_kriteria]=$value;
+                // $return[$nama][$id_kriteria]=$value;
+                $return[$nama][$title]=$value;
             }
         }
         return $return;
@@ -265,7 +266,7 @@ class Rekomendasiotomatis extends Component
                     //jenis angka
                     $matriks[$m->id][$id_mkriteria]=
                     Kriteria::find($id_mkriteria)->PathToRenderModel($m->id)?
-                    Kriteria::find($id_mkriteria)->PathToRenderModel($m->id):1;
+                    Kriteria::find($id_mkriteria)->PathToRenderModel($m->id):0;
                     //tida bisa pake $kri, mjdi null mungkin gara2 livewire
                 }
                 elseif ($kri->rasio OR $kri->jenis="non angka")

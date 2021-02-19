@@ -123,5 +123,15 @@ class User extends Authenticatable
         else return false;
     }
 
+    public function getNamaLengkapAttribute()
+    {
+        if(
+            $this->hasRole('Dosen')
+            )
+        return $this->dosen->nama;
+        else
+        return $this->username;
+    }
+
 
 }

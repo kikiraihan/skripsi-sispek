@@ -106,6 +106,18 @@ class MasterkriteriaSeeder extends Seeder
 
 
 
+        $master=new Masterkriteria;
+        $master->title       = "Nominal penghasilan orangtua";
+        $master->model_type  = "App\Models\Mahasiswa";
+        $master->pathTo      ='{"orangtua02":null,"orderBy032":["nominal_penghasilan","asc"],"first02":null,"nominal_penghasilan01":null}';
+        $master->jenis       ='angka';
+        $master->rasio       =NULL;
+        $master->save();
+
+        
+
+
+
 
         $this->command->info('Berhasil Menambahkan 2 Master Kriteria');
 

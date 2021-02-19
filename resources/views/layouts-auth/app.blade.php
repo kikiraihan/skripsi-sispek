@@ -23,6 +23,15 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('assets_template/css/sb-admin-2.css')}}" rel="stylesheet">
 
+    <link rel="icon" href="{{asset('ilustrasi/sispekb.svg')}}">
+
+    {{-- <style>
+        @font-face {
+            font-family: fontUntukLogo;
+            src: url({{ asset('font/bahnschrift.ttf') }});
+        }
+    </style> --}}
+
     {{-- TAILWINDS --}}
     {{-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> --}}
 

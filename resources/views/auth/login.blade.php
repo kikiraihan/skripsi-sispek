@@ -17,7 +17,7 @@
               <div class="col-lg-6">
                 <div class="py-4 px-3 p-xl-5">
                   <div class="text-center">
-                    <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Selamat Datang Kembali!</h1>
                     {{-- {{ __('Login') }} --}}
                   </div>
                   <form class="user" method="POST" action="{{ route('login') }}">
@@ -40,12 +40,12 @@
 
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label class="custom-control-label" for="remember">{{ __('Remember Me') }}</label>
+                        <label class="custom-control-label" for="remember">{{ __('Ingat Saya') }}</label>
                       </div>
-                    </div>
+                    </div> --}}
 
 
 
@@ -67,7 +67,7 @@
                     @if (Route::has('password.request'))
                     <div class="text-center">
                         <a class="small" href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
+                            {{ __('Lupa Password?') }}
                         </a>
                     </div>
                     @endif

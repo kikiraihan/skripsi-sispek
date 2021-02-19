@@ -139,7 +139,13 @@ class Mahasiswa extends Model
             $bobot+=$l->pivot->angka_mutu*$l->sks;
         }
 
-        if ($bobot==0) return 0;
+        if ($bobot==0) 
+        {
+            if($this->IpkSebelumnya->isNotEmpty())
+            return number_format((float)$this->IpkSebelumnya->last()->ipk, 2, '.', '');
+            else
+            return 0.00;
+        }
 
         $hasil=$bobot/($this->skskecualiNULL);
         return number_format((float)$hasil, 2, '.', '');

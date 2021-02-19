@@ -23,7 +23,8 @@
 
         <div class="text-uppercase font-weight-bold ml-2 small">
             {{-- <i class="fas fa-user-circle fa-lg"></i> --}}
-            SPK - Rekomendasi Mahasiswa <sup>#1</sup>
+            {{-- SPK - Rekomendasi Mahasiswa <sup>#1</sup> --}}
+            Sistem Informasi dan Rekomendasi Mahasiswa
         </div>
 
 

@@ -22,6 +22,8 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('assets_template/css/sb-admin-2.css')}}" rel="stylesheet">
 
+    <link rel="icon" href="{{asset('ilustrasi/sispekb.svg')}}">
+
 
 
     <script src="https://unpkg.com/feather-icons"></script>
@@ -92,14 +94,20 @@
         </nav> --}}
 
         <div class="text-center d-block mt-5">
-            <a class="text-decoration-none text-black-50 h3 text-uppercase" href="{{ url('/') }}">
+            <a class="text-decoration-none text-black-50 h3 text-uppercase d-block" href="{{ url('/') }}">
+                <img src="{{ asset('ilustrasi/sispekb.svg') }}" width="40pt">
+
                 {{-- <i class="fas fa-brain rotate-n-15"></i> --}}
                 {{-- <i class="fas fa-user-circle"></i> --}}
-                {{ config('app.name', 'Laravel') }} <sup>#1</sup>
-                <small class="text-capitalize d-block d-md-inline">Rekomendasi Mahasiswa</small>
+                {{ config('app.name', 'Laravel') }} 
+                <sup>#1</sup>
+                
+                {{-- <small class="text-capitalize d-block d-md-inline">Rekomendasi Mahasiswa <sup>#1</sup></small> --}}
             </a>
+            <span class="text-capitalize d-block d-md-inline">Informasi dan Rekomendasi Mahasiswa</span>
         </div>
-
+        
+        
         <main class="py-4">
             @yield('content')
         </main>
@@ -109,7 +117,11 @@
             <div class="container my-auto">
             <div class="copyright text-center my-auto d-flex justify-content-center flex-column flex-md-row">
                 <span class="py-2 px-3">&copy; Moh Zulkifli Katili {{ now()->year }}</span>
-                <span class="py-2 px-3">Coding with &#128420; by Moh Zulkifli Katili</span>
+                <span class="py-2 px-3">Coding with &#128420; by 
+                    <a class="text-decoration-none" href="https://linktr.ee/kikiraihann">
+                        Moh Zulkifli Katili
+                    </a>
+                </span>
             </div>
             </div>
         </footer>
