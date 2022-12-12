@@ -10,7 +10,9 @@
 
         <div class="dropdown no-arrow dropleft float-right mr-1 mr-md-2">
             <a href="#" class="btn btn-sm btn-light d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="dropdown">
-                ☰ Opsi
+                {{-- ☰ Opsi --}}
+                <i class="fas fa-cogs fa-sm"></i>
+                Pengaturan
             </a>
             <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                 <a onclick="window.livewire.emit('bukaGantiPassword')" data-toggle="modal" data-target="#modalInput"  class="dropdown-item "  href="#"><i class="fas fa-redo-alt fa-sm"></i> Ganti Password</a>

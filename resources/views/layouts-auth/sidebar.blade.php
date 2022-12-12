@@ -48,10 +48,11 @@
               <a class="collapse-item" href="{{route('ormawa.my')}}">Organisasi</a>
               <a class="collapse-item" href="{{route('prestasi.my')}}">Prestasi</a>
               <div class="collapse-divider"></div>
-              <h6 class="collapse-header">Tentang saya:</h6>
-              <a class="collapse-item" href="{{route('biodata.my')}}">Biodata</a>
+              <h6 class="collapse-header">Keluarga :</h6>
               <a class="collapse-item" href="{{route('orangtua.my')}}">Orang Tua</a>
               <a class="collapse-item" href="{{route('saudara.my')}}">Saudara</a>
+              <h6 class="collapse-header">Tentang saya:</h6>
+              <a class="collapse-item" href="{{route('biodata.my')}}">Biodata</a>
             </div>
           </div>
         </li>
@@ -85,6 +86,16 @@
         </div>
       </li>
       @endrole
+
+      @hasanyrole('Kajur|Kaprodi|Admin')
+      <li class="nav-item ">
+        <a class="nav-link"  href="{{route('master.matakuliah')}}">
+          <i class="fas fa-eye"></i>
+          <span>Monitoring Matakuliah</span></a>
+      </li>
+      @endrole 
+
+      
 
 
       {{-- @role('Dosen')
@@ -187,11 +198,7 @@
           <span>Import</span></a>
       </li>
       @endif
-      <li class="nav-item ">
-        <a class="nav-link"  href="{{route('master.matakuliah')}}">
-          <i class="fas fa-th-large"></i>
-          <span>Master Matakuliah</span></a>
-      </li>
+      
       
       @endrole
 

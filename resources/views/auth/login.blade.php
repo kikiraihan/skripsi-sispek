@@ -13,7 +13,14 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+              <div class="col-lg-6 d-none d-lg-block bg-login-image">
+                <span class="d-block text-center">
+                  {{-- @php
+                      echo json_decode("https://api.kanye.rest/")->quote;
+                  @endphp --}}
+                </span>
+              </div>
+
               <div class="col-lg-6">
                 <div class="py-4 px-3 p-xl-5">
                   <div class="text-center">

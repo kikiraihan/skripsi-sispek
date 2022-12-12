@@ -44,6 +44,12 @@ trait manipulasiMatriksTopsis
         {
             foreach ($perMahasiswa as $id_kriteria => $value)
             {
+                if($pembagi[$id_kriteria]==0) $pembagi[$id_kriteria]=1;
+                /*
+                kalau pembagi = 0, 
+                (itu karena semua alternatif bersamaan memiliki nilai nol terhadap salah satu kriteria)
+                */ 
+
                 $return[$id_mahasiswa][$id_kriteria] = $value/$pembagi[$id_kriteria];
             }
         }

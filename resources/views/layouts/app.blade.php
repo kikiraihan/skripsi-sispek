@@ -116,6 +116,13 @@
         <footer class="sticky-footer ">
             <div class="container my-auto">
             <div class="copyright text-center my-auto d-flex justify-content-center flex-column flex-md-row">
+                
+                <span class="py-2 px-3">
+                    <a class="text-decoration-none text-black-50" href="https://drive.google.com/drive/folders/12_3GBQMU_mE_H1mgH8nQNKd-L5X8hXcV?usp=sharing">
+                        <i class="fa fa-info-circle"></i>
+                        Panduan Aplikasi
+                    </a>
+                </span>
                 <span class="py-2 px-3">&copy; Moh Zulkifli Katili {{ now()->year }}</span>
                 <span class="py-2 px-3">Coding with &#128420; by 
                     <a class="text-decoration-none" href="https://linktr.ee/kikiraihann">

@@ -11,14 +11,14 @@
                     Import data ini untuk data mahasiswa, matakuliah dan nilai mahasiswa. <b>Import dengan cara mengupload transkrip nilai berjalan.</b>
                 </li>
                 <li>
-                    Tidak ada fitur untuk mengubah data matakuliah. Yang ada hanya menghapus kontrak matakuliah. Hal ini dimaksudkan untuk menjaga kesesuaian data aplikasi dengan data dari SIAT.
-                </li>
-                <li>
                     Data disarankan untuk diupdate <b>setiap semester</b>. atau ketika terjadi perubahan atau penambahan nilai.
                 </li>
                 <li>
                     Perhatikan urutan saat mengimport data. <b>Awali dari data angkatan mahasiswa yang paling awal masuk</b>.
                     Misalnya dari angkatan 2013 dulu sampai 2019.
+                </li>
+                <li>
+                    Setelah selesai import, tidak ada fitur untuk mengubah data matakuliah. Yang ada hanya menghapus kontrak matakuliah. Hal ini dimaksudkan untuk menjaga kesesuaian data aplikasi dengan data dari SIAT.
                 </li>
             </ol>
         </div>
