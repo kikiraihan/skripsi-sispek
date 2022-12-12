@@ -195,7 +195,7 @@ class Import extends Component
 
                 $user           =new User;
                 $user->username =$m["Nomor Induk Mahasiswa"];
-                $user->password =Hash::make($m["Nomor Induk Mahasiswa"]);
+                $user->password =$m["Nomor Induk Mahasiswa"];
                 // $user->email;
 
                 $mahasiswa  =new Mahasiswa;
