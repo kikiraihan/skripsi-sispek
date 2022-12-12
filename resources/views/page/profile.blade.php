@@ -74,7 +74,7 @@
 
                             @if($user->id==Auth::user()->id)
                             <li class="list-group-item text-center align-items-center bg-info ">
-                                <a href="#" class="btn btn-block btn-info text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                                <a href="{{ route('ormawa.my') }}" class="btn btn-block btn-info text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
                             @endif
                         </div>
@@ -135,7 +135,7 @@
 
                             @if($user->id==Auth::user()->id)
                             <li class="list-group-item text-center align-items-center bg-success">
-                                <a href="#" class="btn btn-block btn-success btn-success text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
+                                <a href="{{ route('prestasi.my') }}" class="btn btn-block btn-success btn-success text-center">Tambahkan data baru <i class="fas fa-plus "></i></a>
                             </li>
                             @endif
                         </div>
